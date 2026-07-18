@@ -15,6 +15,7 @@
         --brand-dark: #234f39;
         --gold: #b98a2a;
         --teal: #1f6f78;
+        --plum: #6d4c8f;
         --credit: #2f6f4f;
         --debit: #a6402a;
         --danger: #a6402a;
@@ -45,7 +46,7 @@
     .backup-actions { display: flex; gap: 8px; }
     .backup-actions button { width: auto; }
 
-    /* ================= NAVEGAÇÃO ================= */
+    /* ================= NAVEGAÇÃO POR ABAS ================= */
     .tab-nav {
         max-width: 1100px; margin: 16px auto 0 auto; padding: 0 16px;
         display: flex; gap: 8px; flex-wrap: wrap;
@@ -63,13 +64,14 @@
     .tab-panel { display: none; flex-direction: column; gap: 18px; }
     .tab-panel.active { display: flex; }
 
+    /* ================= CARTÕES / PAINÉIS ================= */
     .panel {
         background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
         padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     h2 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 
-    /* ================= REGISTRADORA E STATS ================= */
+    /* ================= VISOR ESTILO CAIXA REGISTRADORA ================= */
     .register-display {
         background: #0f1e17; border-radius: 16px; padding: 26px 22px; text-align: center;
         box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
@@ -81,6 +83,7 @@
     }
     .register-value.negative { color: #ff6b52; text-shadow: 0 0 12px rgba(255,107,82,0.45); }
 
+    /* ================= GRADE DE ESTATÍSTICAS ================= */
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .stat-card { background: #f8faf8; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
     .stat-card .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
@@ -88,20 +91,23 @@
     .stat-card .stat-value.positive { color: var(--credit); }
     .stat-card .stat-value.negative { color: var(--debit); }
 
-    /* ================= FORMS ================= */
+    /* ================= FORMULÁRIOS ================= */
     label { font-weight: 600; font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; display: block; margin-bottom: 4px; }
     .field { display: flex; flex-direction: column; gap: 4px; }
     input, select, textarea {
         width: 100%; padding: 11px 12px; border: 1px solid var(--border); border-radius: 8px;
         font-size: 0.95rem; background: #f8faf8; color: var(--ink); font-family: var(--font-ui);
     }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand); background: #fff; box-shadow: 0 0 0 3px rgba(47,111,79,0.12); }
+    input:focus, select:focus, textarea:focus {
+        outline: none; border-color: var(--brand); background: #fff;
+        box-shadow: 0 0 0 3px rgba(47,111,79,0.12);
+    }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
     .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     @media (max-width: 640px) { .form-row-3 { grid-template-columns: 1fr; } }
 
-    .live-total { font-family: var(--font-mono); font-size: 1rem; font-weight: 700; color: var(--brand); background: #f0f6f2; border: 1px dashed var(--brand); border-radius: 8px; padding: 10px 12px; }
+    .live-total { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--brand); background: #f0f6f2; border: 1px dashed var(--brand); border-radius: 8px; padding: 10px 12px; line-height: 1.6; }
 
     button {
         background: var(--brand); color: #fff; border: none; padding: 12px; border-radius: 9px;
@@ -111,31 +117,44 @@
     }
     button:hover { filter: brightness(0.93); }
     button:active { transform: scale(0.99); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
     .btn-secondary { background: #94a3b8; }
     .btn-danger { background: var(--danger); }
-    .btn-sell { background: var(--credit); }
     .btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
-    .btn-outline.dark { border-color: var(--brand); color: var(--brand); }
     .btn-outline:hover { background: rgba(255,255,255,0.1); filter: none; }
-    .btn-outline.dark:hover { background: rgba(47,111,79,0.05); }
     .btn-row { display: flex; gap: 10px; }
-    @media (max-width: 520px) { .btn-row.wrap-mobile { flex-direction: column; } }
 
     details.form-accordion { background: #f8faf8; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    details.form-accordion > summary { background: var(--brand); color: #fff; padding: 13px 16px; font-weight: 700; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; min-height: 44px; }
+    details.form-accordion > summary {
+        background: var(--brand); color: #fff; padding: 13px 16px; font-weight: 700; cursor: pointer;
+        list-style: none; display: flex; align-items: center; gap: 8px; min-height: 44px;
+    }
     details.form-accordion > summary::-webkit-details-marker { display: none; }
     .form-content { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
     .panel.horas details.form-accordion > summary { background: var(--gold); }
     .panel.servicos details.form-accordion > summary { background: var(--teal); }
+    .panel.producao details.form-accordion > summary { background: var(--plum); }
 
+    /* ================= BUSCA ================= */
     .search-wrapper { position: relative; }
     .search-wrapper input { padding-right: 38px; }
-    .clear-search-btn { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; min-height: unset; padding: 0; border-radius: 50%; background: #e2e8f0; color: var(--ink); font-size: 0.7rem; display: none; }
+    .clear-search-btn {
+        position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; min-height: unset;
+        padding: 0; border-radius: 50%; background: #e2e8f0; color: var(--ink); font-size: 0.7rem; display: none;
+    }
     .clear-search-btn:hover { background: #cbd5e1; filter: none; }
 
-    /* ================= LISTAS E LAZY LOADING ================= */
-    .list { display: flex; flex-direction: column; gap: 10px; }
-    .lazy-wrapper { width: 100%; display: flex; flex-direction: column; }
+    /* ================= LISTA VIRTUALIZADA (lazy loading real) =================
+       Só os itens dentro da janela visível existem no DOM. Dois espaçadores (acima
+       e abaixo) representam a altura acumulada dos itens ocultos, então o scroll
+       fica correto mesmo com dezenas de milhares de itens sem eles existirem no DOM. */
+    .virtual-scroll {
+        max-height: 560px; overflow-y: auto; overflow-anchor: none; overscroll-behavior: contain;
+        border: 1px solid var(--border); border-radius: 12px; background: #fafbf9; position: relative;
+        padding: 10px;
+    }
+    .virtual-spacer { width: 100%; flex-shrink: 0; }
+    .virtual-viewport { display: flex; flex-direction: column; gap: 10px; }
 
     .list-row {
         background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px;
@@ -154,15 +173,13 @@
     .row-actions { display: flex; gap: 6px; }
     .icon-btn { background: #f1f5f0; color: var(--ink); border: none; padding: 7px 9px; border-radius: 7px; cursor: pointer; width: auto; min-height: unset; font-size: 0.85rem; }
     .icon-btn:hover { background: #e2e8de; filter: none; }
-    
     .type-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 999px; font-family: var(--font-mono); }
     .type-badge.hora { background: #fbf0da; color: var(--gold); }
     .type-badge.compra { background: #f7e3dd; color: var(--debit); }
     .type-badge.venda { background: #dfeee4; color: var(--credit); }
     .type-badge.servico { background: #dcecee; color: var(--teal); }
     .type-badge.ajuste { background: #e7e7ea; color: #4b4b57; }
-    .type-badge.producao { background: #e2e8f0; color: #334155; }
-    .type-badge.consumo { background: #fef3c7; color: #b45309; }
+    .type-badge.producao { background: #ece3f3; color: var(--plum); }
 
     .empty-state { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 40px 16px; color: var(--muted); text-align: center; font-size: 0.9rem; }
     .empty-state.show { display: flex; }
@@ -181,6 +198,8 @@
     .product-actions { display: flex; gap: 8px; flex-wrap: wrap; }
     .product-actions button { width: auto; flex: 1 1 auto; min-width: 110px; }
     .btn-buy { background: var(--debit); }
+    .btn-sell { background: var(--credit); }
+
     .field-note { font-size: 0.75rem; color: var(--muted); margin-top: -2px; }
     input:disabled { background: #eef1ed; color: var(--muted); cursor: not-allowed; }
 
@@ -190,13 +209,24 @@
     .pill:hover { filter: none; background: #e5ebe3; }
     .pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
-    /* ================= MODAIS & UTIL ================= */
+    /* ================= FICHAS TÉCNICAS / RECEITAS ================= */
+    .recipe-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .ingredient-row { display: grid; grid-template-columns: 2fr 1fr auto auto; gap: 8px; align-items: center; }
+    @media (max-width: 560px) { .ingredient-row { grid-template-columns: 1fr; } }
+    .ingredient-hint { font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); white-space: nowrap; }
+    .ingredient-preview-row { display: grid; grid-template-columns: 2fr 1.3fr 1fr; gap: 8px; padding: 8px 10px; border-radius: 8px; background: #f8faf8; font-size: 0.85rem; align-items: center; }
+    .ingredient-preview-row.insufficient { background: #fbeee9; color: var(--debit); font-weight: 600; }
+    .ingredient-preview-header { display: grid; grid-template-columns: 2fr 1.3fr 1fr; gap: 8px; padding: 0 10px; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.4px; color: var(--muted); font-weight: 700; }
+
+    /* ================= MODAIS ================= */
     .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); display: none; justify-content: center; align-items: center; z-index: 100; padding: 16px; backdrop-filter: blur(2px); }
-    .modal-content { background: #fff; padding: 22px; border-radius: 16px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 12px; }
+    .modal-content { background: #fff; padding: 22px; border-radius: 16px; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 12px; }
     .modal-header { font-size: 1.1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
     .close-btn { cursor: pointer; background: #f1f5f0; border: none; border-radius: 50%; width: 30px; height: 30px; min-height: unset; display: flex; justify-content: center; align-items: center; font-weight: 700; }
     .modal-hint { font-size: 0.8rem; color: var(--muted); background: #f8faf8; border-radius: 8px; padding: 8px 10px; }
+    .modal-hint.warn { color: var(--debit); background: #fbeee9; font-weight: 600; }
 
+    /* ================= TOASTS ================= */
     #toast-container { position: fixed; bottom: 16px; right: 16px; left: 16px; z-index: 300; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; pointer-events: none; }
     .toast { background: var(--ink); color: #fff; padding: 11px 15px; border-radius: 10px; font-size: 0.85rem; opacity: 0; transform: translateY(10px); transition: all 0.25s; box-shadow: 0 4px 12px rgba(0,0,0,0.18); max-width: 320px; }
     .toast.show { opacity: 1; transform: translateY(0); }
@@ -205,6 +235,8 @@
     .loading-overlay { position: fixed; inset: 0; background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 500; color: var(--muted); font-size: 0.9rem; }
     .spinner { width: 34px; height: 34px; border: 3px solid var(--border); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    .recent-list { display: flex; flex-direction: column; gap: 8px; }
 </style>
 </head>
 <body>
@@ -219,7 +251,7 @@
         <span class="brand-icon">💼</span>
         <div>
             <h1>Gestão do Negócio</h1>
-            <p class="brand-sub">Horas, produtos, receitas e serviços</p>
+            <p class="brand-sub">Horas, produtos, receitas e serviços — tudo em um só lugar</p>
         </div>
     </div>
     <div class="header-balance-pill">
@@ -235,9 +267,9 @@
 
 <div class="tab-nav">
     <button class="nav-btn active" data-tab="resumo" onclick="switchTab('resumo')">📊 Resumo</button>
-    <button class="nav-btn" data-tab="producao" onclick="switchTab('producao')">🍳 Produção</button>
-    <button class="nav-btn" data-tab="produtos" onclick="switchTab('produtos')">📦 Produtos</button>
     <button class="nav-btn" data-tab="horas" onclick="switchTab('horas')">⏱️ Horas</button>
+    <button class="nav-btn" data-tab="produtos" onclick="switchTab('produtos')">📦 Produtos</button>
+    <button class="nav-btn" data-tab="producao" onclick="switchTab('producao')">🍰 Produção</button>
     <button class="nav-btn" data-tab="servicos" onclick="switchTab('servicos')">🧰 Serviços</button>
     <button class="nav-btn" data-tab="historico" onclick="switchTab('historico')">📜 Histórico</button>
 </div>
@@ -252,10 +284,12 @@
                 <div class="register-value" id="lcd-balance-value">R$ 0,00</div>
             </div>
         </div>
+
         <div class="panel">
             <h2>📈 Visão geral</h2>
             <div class="stats-grid" id="stats-grid"></div>
         </div>
+
         <div class="panel">
             <h2>🕓 Últimas movimentações</h2>
             <div class="recent-list" id="recent-list"></div>
@@ -266,102 +300,11 @@
         </div>
     </div>
 
-    <!-- ===================== PRODUÇÃO / RECEITAS ===================== -->
-    <div class="tab-panel" id="tab-producao">
-        <div class="panel">
-            <h2>🍳 Produção e Receitas</h2>
-            <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 16px;">
-                Crie receitas e calcule custos. Linhas de ingredientes não preenchidas serão ignoradas automaticamente.
-            </p>
-            <div class="form-row">
-                <div class="field">
-                    <label>Produto Final</label>
-                    <input type="text" id="recipe-product-name" list="recipe-product-list" placeholder="Ex: Salgado de Carne" autocomplete="off">
-                    <datalist id="recipe-product-list"></datalist>
-                </div>
-                <div class="field">
-                    <label>Rendimento (Unidades)</label>
-                    <input type="number" id="recipe-yield" min="1" step="1" value="1" oninput="calcRecipe()">
-                </div>
-            </div>
-            <div class="form-row" style="margin-top: 10px;">
-                <div class="field">
-                    <label>Margem de Lucro Desejada (%)</label>
-                    <input type="number" id="recipe-margin" min="0" step="1" value="80" oninput="calcRecipe()">
-                </div>
-            </div>
-            
-            <h3 style="margin-top: 24px; font-size: 0.95rem; margin-bottom: 12px; color: var(--brand);">Ingredientes Utilizados</h3>
-            <div id="recipe-ingredients-list" style="display:flex; flex-direction: column; gap: 10px; margin-bottom: 14px;"></div>
-            <button class="btn-outline dark" style="margin-bottom: 24px;" onclick="addIngredientRow()">➕ Adicionar Ingrediente</button>
-
-            <div class="register-display" style="text-align: left; padding: 18px 22px; margin-bottom: 20px;">
-                <div class="form-row-3">
-                    <div>
-                        <div class="register-label">Custo Total</div>
-                        <div class="register-value" style="font-size: 1.4rem;" id="recipe-total-cost">R$ 0,00</div>
-                    </div>
-                    <div>
-                        <div class="register-label">Custo Unitário</div>
-                        <div class="register-value" style="font-size: 1.4rem; color: #7ee2a8;" id="recipe-unit-cost">R$ 0,00</div>
-                    </div>
-                    <div>
-                        <div class="register-label">Venda Sugerida</div>
-                        <div class="register-value" style="font-size: 1.4rem; color: #fff;" id="recipe-suggested-price">R$ 0,00</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="btn-row wrap-mobile">
-                <button onclick="executeProduction(false)" style="flex: 1; font-size: 0.9rem;">🏭 Produzir (Só Guardar)</button>
-                <button onclick="executeProduction(true)" class="btn-sell" style="flex: 1; font-size: 0.9rem;">🏭 + 📤 Produzir e Vender</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===================== PRODUTOS ===================== -->
-    <div class="tab-panel" id="tab-produtos">
-        <div class="panel produtos">
-            <h2>📦 Produtos e Estoque</h2>
-            <details id="product-form-accordion" class="form-accordion">
-                <summary id="product-form-title">➕ Novo Produto</summary>
-                <div class="form-content">
-                    <div class="form-row">
-                        <div class="field"><label>Nome do produto</label><input type="text" id="product-name" placeholder="Ex: Farinha de Trigo"></div>
-                        <div class="field"><label>Categoria</label><input type="text" id="product-category" list="product-category-list" placeholder="Ex: Ingredientes"><datalist id="product-category-list"></datalist></div>
-                    </div>
-                    <div class="form-row-3">
-                        <div class="field"><label>Quantidade inicial</label><input type="number" id="product-qty" min="0" step="0.001" placeholder="0"></div>
-                        <div class="field"><label>Custo unitário (R$)</label><input type="number" id="product-cost" min="0" step="0.01" placeholder="0.00" oninput="onProductCostOrMarginChange()"></div>
-                        <div class="field"><label>Margem de lucro (%)</label><input type="number" id="product-margin" min="0" step="1" placeholder="40" oninput="onProductCostOrMarginChange()"></div>
-                    </div>
-                    <p class="field-note" id="product-qty-note" style="display:none;">Este produto já tem movimentações — a quantidade e o custo são controlados pelas compras e vendas registradas.</p>
-                    <div class="field"><label>Preço de venda sugerido (R$)</label><input type="number" id="product-price" min="0" step="0.01" placeholder="0.00" oninput="onProductPriceChange()"></div>
-                    <div class="btn-row">
-                        <button onclick="saveProduct()" id="btn-save-product">Salvar Produto</button>
-                        <button onclick="cancelProductEdit()" id="btn-cancel-product" class="btn-secondary" style="display:none;">Cancelar</button>
-                    </div>
-                </div>
-            </details>
-
-            <div class="search-wrapper" style="margin-top:14px;">
-                <input type="text" id="search-products" placeholder="🔍 Buscar produto..." oninput="onSearchProductsInput()">
-                <button class="clear-search-btn" id="clear-products-search" onclick="clearSearchProducts()">✕</button>
-            </div>
-
-            <div class="list" id="products-list" style="margin-top:12px;"></div>
-            
-            <div class="empty-state" id="products-empty-state">
-                <span class="empty-icon">📦</span>
-                <p>Nenhum produto cadastrado ainda.<br>Cadastre o primeiro produto acima.</p>
-            </div>
-        </div>
-    </div>
-
     <!-- ===================== HORAS ===================== -->
     <div class="tab-panel" id="tab-horas">
         <div class="panel horas">
             <h2>⏱️ Horas Trabalhadas</h2>
+
             <details id="hour-form-accordion" class="form-accordion">
                 <summary id="hour-form-title">➕ Registrar Horas</summary>
                 <div class="form-content">
@@ -384,11 +327,115 @@
                 <button class="clear-search-btn" id="clear-hours-search" onclick="clearSearchHours()">✕</button>
             </div>
 
-            <div class="list" id="hours-list" style="margin-top:12px;"></div>
-            
-            <div class="empty-state" id="hours-empty-state">
-                <span class="empty-icon">⏱️</span>
-                <p>Nenhuma hora registrada ainda.<br>Registre seu primeiro turno acima.</p>
+            <div class="virtual-scroll" id="hours-scroll" style="margin-top:12px;">
+                <div class="empty-state" id="hours-empty-state">
+                    <span class="empty-icon">⏱️</span>
+                    <p>Nenhuma hora registrada ainda.<br>Registre seu primeiro turno acima.</p>
+                </div>
+                <div class="virtual-spacer" id="hours-top-spacer"></div>
+                <div class="virtual-viewport" id="hours-viewport"></div>
+                <div class="virtual-spacer" id="hours-bottom-spacer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PRODUTOS ===================== -->
+    <div class="tab-panel" id="tab-produtos">
+        <div class="panel produtos">
+            <h2>📦 Produtos e Estoque</h2>
+
+            <details id="product-form-accordion" class="form-accordion">
+                <summary id="product-form-title">➕ Novo Produto</summary>
+                <div class="form-content">
+                    <div class="form-row">
+                        <div class="field"><label>Nome do produto</label><input type="text" id="product-name" placeholder="Ex: Cera automotiva"></div>
+                        <div class="field"><label>Categoria</label><input type="text" id="product-category" list="product-category-list" placeholder="Ex: Limpeza"><datalist id="product-category-list"></datalist></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field"><label>Quantidade inicial</label><input type="number" id="product-qty" min="0" step="0.01" placeholder="0"></div>
+                        <div class="field"><label>Unidade de medida</label><input type="text" id="product-unit" list="unit-list" placeholder="Ex: un, g, kg, ml, l"><datalist id="unit-list"><option value="un"><option value="g"><option value="kg"><option value="ml"><option value="l"><option value="cx"><option value="pct"></datalist></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field"><label>Custo unitário (R$)</label><input type="number" id="product-cost" min="0" step="0.01" placeholder="0.00" oninput="onProductCostOrMarginChange()"></div>
+                        <div class="field"><label>Margem de lucro (%)</label><input type="number" id="product-margin" min="0" step="1" placeholder="40" oninput="onProductCostOrMarginChange()"></div>
+                    </div>
+                    <p class="field-note" id="product-qty-note" style="display:none;">Este produto já tem movimentações — a quantidade e o custo são controlados pelas compras, vendas e produções registradas.</p>
+                    <div class="field"><label>Preço de venda sugerido (R$)</label><input type="number" id="product-price" min="0" step="0.01" placeholder="0.00" oninput="onProductPriceChange()"></div>
+                    <div class="btn-row">
+                        <button onclick="saveProduct()" id="btn-save-product">Salvar Produto</button>
+                        <button onclick="cancelProductEdit()" id="btn-cancel-product" class="btn-secondary" style="display:none;">Cancelar</button>
+                    </div>
+                </div>
+            </details>
+
+            <div class="search-wrapper" style="margin-top:14px;">
+                <input type="text" id="search-products" placeholder="🔍 Buscar produto..." oninput="onSearchProductsInput()">
+                <button class="clear-search-btn" id="clear-products-search" onclick="clearSearchProducts()">✕</button>
+            </div>
+
+            <div class="virtual-scroll" id="products-scroll" style="margin-top:12px;">
+                <div class="empty-state" id="products-empty-state">
+                    <span class="empty-icon">📦</span>
+                    <p>Nenhum produto cadastrado ainda.<br>Cadastre o primeiro produto acima.</p>
+                </div>
+                <div class="virtual-spacer" id="products-top-spacer"></div>
+                <div class="virtual-viewport" id="products-viewport"></div>
+                <div class="virtual-spacer" id="products-bottom-spacer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PRODUÇÃO (FICHAS TÉCNICAS) ===================== -->
+    <div class="tab-panel" id="tab-producao">
+        <div class="panel producao">
+            <h2>🍰 Fichas Técnicas (Receitas)</h2>
+            <p class="field-note" style="margin-bottom:10px;">Monte a receita com os ingredientes (produtos já cadastrados) e as quantidades gastas. Ao salvar uma nova ficha, a primeira produção é feita automaticamente: o estoque dos ingredientes é debitado e o custo por unidade/fatia é calculado.</p>
+
+            <details id="recipe-form-accordion" class="form-accordion">
+                <summary id="recipe-form-title">➕ Nova Ficha Técnica</summary>
+                <div class="form-content">
+                    <div class="form-row">
+                        <div class="field"><label>Nome (ex: Bolo de Chocolate)</label><input type="text" id="recipe-name" placeholder="Ex: Bolo de Chocolate"></div>
+                        <div class="field"><label>Categoria</label><input type="text" id="recipe-category" list="recipe-category-list" placeholder="Ex: Doces"><datalist id="recipe-category-list"></datalist></div>
+                    </div>
+
+                    <label style="margin-top:4px;">Ingredientes</label>
+                    <div id="recipe-ingredients-container" style="display:flex; flex-direction:column; gap:8px;"></div>
+                    <datalist id="ingredient-datalist"></datalist>
+                    <button type="button" class="btn-secondary" onclick="addIngredientRow()" style="width:auto;">➕ Adicionar Ingrediente</button>
+
+                    <div class="form-row">
+                        <div class="field"><label>Rende quantas unidades/fatias</label><input type="number" id="recipe-yield-qty" min="0" step="0.01" placeholder="Ex: 8" oninput="updateRecipeLivePreview()"></div>
+                        <div class="field"><label>Unidade do resultado</label><input type="text" id="recipe-yield-unit" placeholder="Ex: fatias, unidades" oninput="updateRecipeLivePreview()"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field"><label>Custo extra (embalagem, gás...)</label><input type="number" id="recipe-extra-cost" min="0" step="0.01" placeholder="0.00" oninput="updateRecipeLivePreview()"></div>
+                        <div class="field"><label>Margem de lucro (%)</label><input type="number" id="recipe-margin" min="0" step="1" placeholder="Ex: 150" oninput="updateRecipeLivePreview()"></div>
+                    </div>
+                    <div class="live-total" id="recipe-live-preview">Preencha os ingredientes para ver o custo.</div>
+                    <div class="field"><label>Observações (opcional)</label><textarea id="recipe-notes" rows="2" placeholder="Modo de preparo, dicas..."></textarea></div>
+
+                    <p class="field-note" id="recipe-edit-note" style="display:none;">Editar aqui só altera a ficha para as próximas produções — não muda produções já feitas.</p>
+                    <div class="btn-row">
+                        <button onclick="saveRecipe()" id="btn-save-recipe">Salvar e Produzir</button>
+                        <button onclick="cancelRecipeEdit()" id="btn-cancel-recipe" class="btn-secondary" style="display:none;">Cancelar</button>
+                    </div>
+                </div>
+            </details>
+
+            <div class="search-wrapper" style="margin-top:14px;">
+                <input type="text" id="search-recipes" placeholder="🔍 Buscar ficha técnica..." oninput="onSearchRecipesInput()">
+                <button class="clear-search-btn" id="clear-recipes-search" onclick="clearSearchRecipes()">✕</button>
+            </div>
+
+            <div class="virtual-scroll" id="recipes-scroll" style="margin-top:12px;">
+                <div class="empty-state" id="recipes-empty-state">
+                    <span class="empty-icon">🍰</span>
+                    <p>Nenhuma ficha técnica ainda.<br>Crie a primeira receita acima.</p>
+                </div>
+                <div class="virtual-spacer" id="recipes-top-spacer"></div>
+                <div class="virtual-viewport" id="recipes-viewport"></div>
+                <div class="virtual-spacer" id="recipes-bottom-spacer"></div>
             </div>
         </div>
     </div>
@@ -397,11 +444,12 @@
     <div class="tab-panel" id="tab-servicos">
         <div class="panel servicos">
             <h2>🧰 Serviços Prestados</h2>
+
             <details id="service-form-accordion" class="form-accordion">
                 <summary id="service-form-title">➕ Registrar Serviço</summary>
                 <div class="form-content">
                     <div class="form-row">
-                        <div class="field"><label>Tipo de serviço</label><input type="text" id="service-name" list="service-name-list" placeholder="Ex: Encomenda Festa..."><datalist id="service-name-list"></datalist></div>
+                        <div class="field"><label>Tipo de serviço</label><input type="text" id="service-name" list="service-name-list" placeholder="Ex: Polimento, Lavagem..."><datalist id="service-name-list"></datalist></div>
                         <div class="field"><label>Valor cobrado (R$)</label><input type="number" id="service-price" min="0" step="0.01" placeholder="0.00"></div>
                     </div>
                     <div class="form-row">
@@ -421,11 +469,14 @@
                 <button class="clear-search-btn" id="clear-services-search" onclick="clearSearchServices()">✕</button>
             </div>
 
-            <div class="list" id="services-list" style="margin-top:12px;"></div>
-            
-            <div class="empty-state" id="services-empty-state">
-                <span class="empty-icon">🧰</span>
-                <p>Nenhum serviço registrado ainda.<br>Registre o primeiro serviço acima.</p>
+            <div class="virtual-scroll" id="services-scroll" style="margin-top:12px;">
+                <div class="empty-state" id="services-empty-state">
+                    <span class="empty-icon">🧰</span>
+                    <p>Nenhum serviço registrado ainda.<br>Registre o primeiro serviço acima.</p>
+                </div>
+                <div class="virtual-spacer" id="services-top-spacer"></div>
+                <div class="virtual-viewport" id="services-viewport"></div>
+                <div class="virtual-spacer" id="services-bottom-spacer"></div>
             </div>
         </div>
     </div>
@@ -434,6 +485,7 @@
     <div class="tab-panel" id="tab-historico">
         <div class="panel">
             <h2>📜 Histórico de Movimentações</h2>
+
             <details id="adjustment-form-accordion" class="form-accordion">
                 <summary>➕ Ajuste Manual (aporte / retirada)</summary>
                 <div class="form-content">
@@ -459,29 +511,31 @@
                 <button class="pill" data-filter="hora" onclick="setHistoryFilter('hora')">Horas</button>
                 <button class="pill" data-filter="compra" onclick="setHistoryFilter('compra')">Compras</button>
                 <button class="pill" data-filter="venda" onclick="setHistoryFilter('venda')">Vendas</button>
-                <button class="pill" data-filter="producao" onclick="setHistoryFilter('producao')">Produções</button>
-                <button class="pill" data-filter="consumo" onclick="setHistoryFilter('consumo')">Consumos</button>
+                <button class="pill" data-filter="producao" onclick="setHistoryFilter('producao')">Produção</button>
                 <button class="pill" data-filter="servico" onclick="setHistoryFilter('servico')">Serviços</button>
                 <button class="pill" data-filter="ajuste" onclick="setHistoryFilter('ajuste')">Ajustes</button>
             </div>
 
-            <div class="list" id="history-list" style="margin-top:12px;"></div>
-            
-            <div class="empty-state" id="history-empty-state">
-                <span class="empty-icon">📜</span>
-                <p>Nenhuma movimentação encontrada.</p>
+            <div class="virtual-scroll" id="history-scroll" style="margin-top:12px;">
+                <div class="empty-state" id="history-empty-state">
+                    <span class="empty-icon">📜</span>
+                    <p>Nenhuma movimentação encontrada.</p>
+                </div>
+                <div class="virtual-spacer" id="history-top-spacer"></div>
+                <div class="virtual-viewport" id="history-viewport"></div>
+                <div class="virtual-spacer" id="history-bottom-spacer"></div>
             </div>
         </div>
     </div>
 
 </div>
 
-<!-- MODAIS -->
+<!-- ===================== MODAL: COMPRAR ESTOQUE ===================== -->
 <div class="modal-overlay" id="buy-modal" onclick="if(event.target===this) closeBuyModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header"><span id="buy-modal-title">Comprar Estoque</span><button class="close-btn" onclick="closeBuyModal()">✕</button></div>
         <div class="form-row">
-            <div class="field"><label>Quantidade</label><input type="number" id="buy-qty" min="0" step="0.001" oninput="updateBuyLiveTotal()"></div>
+            <div class="field"><label id="buy-qty-label">Quantidade</label><input type="number" id="buy-qty" min="0" step="0.01" oninput="updateBuyLiveTotal()"></div>
             <div class="field"><label>Custo unitário (R$)</label><input type="number" id="buy-cost" min="0" step="0.01" oninput="updateBuyLiveTotal()"></div>
         </div>
         <div class="field"><label>Data</label><input type="date" id="buy-date"></div>
@@ -494,12 +548,13 @@
     </div>
 </div>
 
+<!-- ===================== MODAL: VENDER ===================== -->
 <div class="modal-overlay" id="sell-modal" onclick="if(event.target===this) closeSellModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header"><span id="sell-modal-title">Vender</span><button class="close-btn" onclick="closeSellModal()">✕</button></div>
         <div class="modal-hint" id="sell-stock-hint">Estoque disponível: 0</div>
         <div class="form-row">
-            <div class="field"><label>Quantidade</label><input type="number" id="sell-qty" min="0" step="0.001" oninput="updateSellLiveTotal()"></div>
+            <div class="field"><label id="sell-qty-label">Quantidade</label><input type="number" id="sell-qty" min="0" step="0.01" oninput="updateSellLiveTotal()"></div>
             <div class="field"><label>Preço unitário (R$)</label><input type="number" id="sell-price" min="0" step="0.01" oninput="updateSellLiveTotal()"></div>
         </div>
         <div class="field"><label>Data</label><input type="date" id="sell-date"></div>
@@ -512,6 +567,29 @@
     </div>
 </div>
 
+<!-- ===================== MODAL: PRODUZIR NOVAMENTE ===================== -->
+<div class="modal-overlay" id="produce-modal" onclick="if(event.target===this) closeProduceModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header"><span id="produce-modal-title">Produzir</span><button class="close-btn" onclick="closeProduceModal()">✕</button></div>
+        <div class="form-row">
+            <div class="field"><label>Multiplicador do lote</label><input type="number" id="produce-multiplier" min="0.1" step="0.1" value="1" oninput="renderProduceIngredientsPreview()"></div>
+            <div class="field"><label>Data</label><input type="date" id="produce-date"></div>
+        </div>
+        <div class="field"><label>Custo extra (R$)</label><input type="number" id="produce-extra-cost" min="0" step="0.01" oninput="renderProduceIngredientsPreview()"></div>
+
+        <div class="ingredient-preview-header"><span>Ingrediente</span><span>Necessário</span><span>Subtotal</span></div>
+        <div id="produce-ingredients-preview" style="display:flex; flex-direction:column; gap:6px;"></div>
+        <div class="modal-hint warn" id="produce-stock-warning" style="display:none;">⚠️ Estoque insuficiente para algum ingrediente. Ajuste o multiplicador ou reponha o estoque.</div>
+        <div class="live-total" id="produce-summary"></div>
+        <div class="field"><label>Observações (opcional)</label><input type="text" id="produce-notes" placeholder="Ex: Encomenda do cliente Z"></div>
+        <div class="btn-row">
+            <button onclick="confirmProduceModal()" id="btn-confirm-produce">🍰 Confirmar Produção</button>
+            <button class="btn-secondary" onclick="closeProduceModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== MODAL: IMPORTAR ===================== -->
 <div class="modal-overlay" id="import-modal" onclick="if(event.target===this) closeImportModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header"><span>Importar backup</span><button class="close-btn" onclick="closeImportModal()">✕</button></div>
@@ -527,69 +605,22 @@
 <div id="toast-container"></div>
 
 <script>
-    // ==========================================
-    // SISTEMA DE LAZY LOADING COM OBSERVER
-    // ==========================================
-    const listObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const el = entry.target;
-            if (entry.isIntersecting) {
-                if (!el.dataset.rendered) {
-                    el.innerHTML = el._lazyHtml;
-                    el.dataset.rendered = "true";
-                    el.style.height = ''; 
-                }
-            } else {
-                if (el.dataset.rendered) {
-                    el.style.height = el.offsetHeight + 'px';
-                    el.innerHTML = '';
-                    el.dataset.rendered = "";
-                }
-            }
-        });
-    }, { rootMargin: '400px 0px' });
-
-    function renderLazyList(containerId, items, emptyStateId, htmlGenerator, defaultHeight) {
-        const container = document.getElementById(containerId);
-        const empty = document.getElementById(emptyStateId);
-        
-        Array.from(container.children).forEach(child => listObserver.unobserve(child));
-        container.innerHTML = '';
-
-        if (items.length === 0) {
-            empty.classList.add('show');
-            return;
-        }
-        empty.classList.remove('show');
-
-        const fragment = document.createDocumentFragment();
-        items.forEach(item => {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'lazy-wrapper';
-            wrapper.style.minHeight = defaultHeight + 'px';
-            wrapper._lazyHtml = htmlGenerator(item);
-            
-            fragment.appendChild(wrapper);
-            listObserver.observe(wrapper);
-        });
-        container.appendChild(fragment);
-    }
-
-    // ==========================================
-    // VARIAVEIS E BD
-    // ==========================================
     let db;
-    let allWorkHours = [], allProducts = [], allPurchases = [], allSales = [], allServices = [], allAdjustments = [];
-    let editingHourId = null, editingProductId = null, editingServiceId = null, editingAdjustmentId = null;
+    let allWorkHours = [], allProducts = [], allPurchases = [], allSales = [], allServices = [], allAdjustments = [], allRecipes = [], allProductions = [];
+    let sortedHours = [], sortedProducts = [], sortedServices = [], sortedRecipes = [], cachedHistoryEntries = [];
+    let editingHourId = null, editingProductId = null, editingServiceId = null, editingAdjustmentId = null, editingRecipeId = null;
     let buyModalProductId = null, buyModalEditId = null;
     let sellModalProductId = null, sellModalEditId = null;
+    let produceModalRecipeId = null;
+    let currentRecipeIngredients = [];
     let historyFilter = 'todos';
-    let productMarginLinked = true; 
+    let hoursSearchQuery = '', productsSearchQuery = '', servicesSearchQuery = '', recipesSearchQuery = '', historySearchQuery = '';
     let pendingImportPayload = null;
 
-    // Ajuste 1: Aumentado de versão 1 para a versão 2, para forçar a criação de tabelas novas!
+    // ==========================================
+    // BANCO DE DADOS (versão 2: adiciona receitas e produções)
+    // ==========================================
     const dbRequest = indexedDB.open("GestaoNegocioDB", 2);
-    
     dbRequest.onupgradeneeded = (e) => {
         const d = e.target.result;
         if (!d.objectStoreNames.contains("workHours")) d.createObjectStore("workHours", { keyPath: "id", autoIncrement: true });
@@ -598,21 +629,19 @@
         if (!d.objectStoreNames.contains("productSales")) d.createObjectStore("productSales", { keyPath: "id", autoIncrement: true });
         if (!d.objectStoreNames.contains("services")) d.createObjectStore("services", { keyPath: "id", autoIncrement: true });
         if (!d.objectStoreNames.contains("adjustments")) d.createObjectStore("adjustments", { keyPath: "id", autoIncrement: true });
+        if (!d.objectStoreNames.contains("recipes")) d.createObjectStore("recipes", { keyPath: "id", autoIncrement: true });
+        if (!d.objectStoreNames.contains("productions")) d.createObjectStore("productions", { keyPath: "id", autoIncrement: true });
     };
     dbRequest.onsuccess = (e) => {
         db = e.target.result;
         setDefaultDates();
-        loadAllData().then(refreshUI).catch(err => { console.error(err); showToast('Erro ao carregar dados.', 'error'); });
+        loadAllData().then(() => { rebuildCaches(); refreshUI(); }).catch(err => { console.error(err); showToast('Erro ao carregar dados.', 'error'); });
     };
-    dbRequest.onerror = (e) => { 
-        console.error(e); 
-        hideLoadingOverlay(); 
-        showToast('Erro ao abrir o banco de dados local.', 'error'); 
-    };
+    dbRequest.onerror = () => { hideLoadingOverlay(); showToast('Erro ao abrir o banco de dados local.', 'error'); };
 
     function setDefaultDates() {
         const today = todayISO();
-        ['hour-date', 'service-date', 'adjustment-date', 'buy-date', 'sell-date'].forEach(id => {
+        ['hour-date', 'service-date', 'adjustment-date', 'buy-date', 'sell-date', 'produce-date'].forEach(id => {
             const el = document.getElementById(id);
             if (el && !el.value) el.value = today;
         });
@@ -630,20 +659,14 @@
         });
     }
 
-    // Ajuste 2: O try...finally previne o carregamento infinito de travar a aplicação!
     async function loadAllData() {
         showLoadingOverlay();
-        try {
-            [allWorkHours, allProducts, allPurchases, allSales, allServices, allAdjustments] = await Promise.all([
-                readAllFromStore('workHours'), readAllFromStore('products'), readAllFromStore('productPurchases'),
-                readAllFromStore('productSales'), readAllFromStore('services'), readAllFromStore('adjustments')
-            ]);
-        } catch (err) {
-            console.error("Erro ao ler dados das tabelas:", err);
-            throw err;
-        } finally {
-            hideLoadingOverlay();
-        }
+        [allWorkHours, allProducts, allPurchases, allSales, allServices, allAdjustments, allRecipes, allProductions] = await Promise.all([
+            readAllFromStore('workHours'), readAllFromStore('products'), readAllFromStore('productPurchases'),
+            readAllFromStore('productSales'), readAllFromStore('services'), readAllFromStore('adjustments'),
+            readAllFromStore('recipes'), readAllFromStore('productions')
+        ]);
+        hideLoadingOverlay();
     }
 
     function showLoadingOverlay() { document.getElementById('loading-overlay').style.display = 'flex'; }
@@ -658,7 +681,9 @@
         const [y, m, d] = iso.split('-');
         return `${d}/${m}/${y}`;
     }
-    function formatCurrency(n) { return (Number(n) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
+    function formatCurrency(n) {
+        return (Number(n) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
     function round2(n) { return Math.round((Number(n) || 0) * 100) / 100; }
     function escapeHTML(str) {
         if (str === null || str === undefined) return '';
@@ -686,12 +711,127 @@
         });
     }
 
+    // ==========================================
+    // NAVEGAÇÃO ENTRE ABAS
+    // ==========================================
     function switchTab(tab) {
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         const target = document.getElementById('tab-' + tab);
         if (target) target.classList.add('active');
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     }
+
+    // ==========================================
+    // LISTA VIRTUAL — renderiza só a janela visível, escondendo o topo e o fim da
+    // lista com espaçadores. O DOM nunca tem mais do que ~20-30 linhas, não importa
+    // se há 100 ou 100.000 itens na lista.
+    // ==========================================
+    function makeVirtualList({ scrollEl, topSpacer, viewport, bottomSpacer, emptyStateEl, estimatedHeight, renderItemHTML }) {
+        let items = [];
+        let heights = [];
+        let offsets = [0];
+        let currentStart = -1, currentEnd = -1;
+        let rafPending = false;
+
+        const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(entries => {
+            let changed = false;
+            for (const entry of entries) {
+                const idx = parseInt(entry.target.dataset.vidx, 10);
+                if (isNaN(idx) || idx >= heights.length) continue;
+                const h = (entry.borderBoxSize && entry.borderBoxSize[0]) ? entry.borderBoxSize[0].blockSize : entry.contentRect.height;
+                const withGap = h + 10;
+                if (Math.abs((heights[idx] || 0) - withGap) > 1) { heights[idx] = withGap; changed = true; }
+            }
+            if (changed) scheduleRecalc();
+        }) : { observe() {}, disconnect() {}, unobserve() {} };
+
+        function scheduleRecalc() {
+            if (rafPending) return;
+            rafPending = true;
+            requestAnimationFrame(() => { rafPending = false; recomputeOffsets(); render(true); });
+        }
+        function recomputeOffsets() {
+            const n = items.length;
+            offsets = new Array(n + 1);
+            offsets[0] = 0;
+            for (let i = 0; i < n; i++) offsets[i + 1] = offsets[i] + heights[i];
+        }
+        function findFirstAtOrAfter(pos) {
+            let lo = 0, hi = items.length;
+            while (lo < hi) { const mid = (lo + hi) >> 1; if (offsets[mid] <= pos) lo = mid + 1; else hi = mid; }
+            return Math.max(0, lo - 1);
+        }
+        function render(force) {
+            const total = items.length;
+            if (emptyStateEl) emptyStateEl.classList.toggle('show', total === 0);
+            if (total === 0) {
+                topSpacer.style.height = '0px'; bottomSpacer.style.height = '0px';
+                viewport.innerHTML = ''; currentStart = -1; currentEnd = -1;
+                return;
+            }
+            const scrollTop = scrollEl.scrollTop;
+            const viewH = scrollEl.clientHeight || 560;
+            let start = findFirstAtOrAfter(scrollTop) - 4;
+            let end = findFirstAtOrAfter(scrollTop + viewH) + 4;
+            start = Math.max(0, start); end = Math.min(total - 1, end);
+            if (!force && start === currentStart && end === currentEnd) return;
+            currentStart = start; currentEnd = end;
+
+            topSpacer.style.height = offsets[start] + 'px';
+            bottomSpacer.style.height = Math.max(0, offsets[total] - offsets[end + 1]) + 'px';
+
+            ro.disconnect();
+            let html = '';
+            for (let i = start; i <= end; i++) html += renderItemHTML(items[i]);
+            viewport.innerHTML = html;
+            Array.from(viewport.children).forEach((el, k) => { el.dataset.vidx = start + k; ro.observe(el); });
+        }
+
+        let scrollPending = false;
+        scrollEl.addEventListener('scroll', () => {
+            if (scrollPending) return;
+            scrollPending = true;
+            requestAnimationFrame(() => { scrollPending = false; render(false); });
+        }, { passive: true });
+        window.addEventListener('resize', () => render(true));
+
+        return {
+            setItems(newItems, opts = {}) {
+                items = newItems;
+                heights = items.map(() => estimatedHeight);
+                recomputeOffsets();
+                currentStart = -1; currentEnd = -1;
+                if (opts.resetScroll !== false) scrollEl.scrollTop = 0;
+                render(true);
+            }
+        };
+    }
+
+    const hoursVirtualList = makeVirtualList({
+        scrollEl: document.getElementById('hours-scroll'), topSpacer: document.getElementById('hours-top-spacer'),
+        viewport: document.getElementById('hours-viewport'), bottomSpacer: document.getElementById('hours-bottom-spacer'),
+        emptyStateEl: document.getElementById('hours-empty-state'), estimatedHeight: 78, renderItemHTML: renderHourRowHTML
+    });
+    const productsVirtualList = makeVirtualList({
+        scrollEl: document.getElementById('products-scroll'), topSpacer: document.getElementById('products-top-spacer'),
+        viewport: document.getElementById('products-viewport'), bottomSpacer: document.getElementById('products-bottom-spacer'),
+        emptyStateEl: document.getElementById('products-empty-state'), estimatedHeight: 200, renderItemHTML: renderProductCardHTML
+    });
+    const recipesVirtualList = makeVirtualList({
+        scrollEl: document.getElementById('recipes-scroll'), topSpacer: document.getElementById('recipes-top-spacer'),
+        viewport: document.getElementById('recipes-viewport'), bottomSpacer: document.getElementById('recipes-bottom-spacer'),
+        emptyStateEl: document.getElementById('recipes-empty-state'), estimatedHeight: 150, renderItemHTML: renderRecipeCardHTML
+    });
+    const servicesVirtualList = makeVirtualList({
+        scrollEl: document.getElementById('services-scroll'), topSpacer: document.getElementById('services-top-spacer'),
+        viewport: document.getElementById('services-viewport'), bottomSpacer: document.getElementById('services-bottom-spacer'),
+        emptyStateEl: document.getElementById('services-empty-state'), estimatedHeight: 82, renderItemHTML: renderServiceRowHTML
+    });
+    const historyVirtualList = makeVirtualList({
+        scrollEl: document.getElementById('history-scroll'), topSpacer: document.getElementById('history-top-spacer'),
+        viewport: document.getElementById('history-viewport'), bottomSpacer: document.getElementById('history-bottom-spacer'),
+        emptyStateEl: document.getElementById('history-empty-state'), estimatedHeight: 86, renderItemHTML: (e) => renderHistoryRowHTML(e, false)
+    });
 
     // ==========================================
     // SALDO E RESUMO
@@ -711,112 +851,79 @@
         const headerEl = document.getElementById('header-balance-value');
         headerEl.textContent = formatCurrency(bal);
         headerEl.className = 'value ' + (bal >= 0 ? 'positive' : 'negative');
+
         const lcdEl = document.getElementById('lcd-balance-value');
         lcdEl.textContent = formatCurrency(bal);
         lcdEl.className = 'register-value' + (bal < 0 ? ' negative' : '');
     }
 
-function renderResumo() {
-    updateHeaderBalance();
+    function renderResumo() {
+        updateHeaderBalance();
 
-    const totalHoras = allWorkHours.reduce((s, h) => s + (h.total || 0), 0);
-    const totalVendasProdutos = allSales.filter(s => !s.isConsumption).reduce((s, x) => s + (x.total || 0), 0);
-    const lucroProdutos = allSales.filter(s => !s.isConsumption).reduce((s, x) => s + (x.profit || 0), 0);
-    const totalServicos = allServices.reduce((s, x) => s + (x.price || 0), 0);
-    const totalCompras = allPurchases.filter(p => !p.isProduction).reduce((s, x) => s + (x.total || 0), 0);
-    const valorEstoque = allProducts.reduce((s, p) => s + (p.quantity || 0) * (p.costPrice || 0), 0);
+        const totalHoras = allWorkHours.reduce((s, h) => s + (h.total || 0), 0);
+        const totalVendasProdutos = allSales.reduce((s, x) => s + (x.total || 0), 0);
+        const lucroProdutos = allSales.reduce((s, x) => s + (x.profit || 0), 0);
+        const totalServicos = allServices.reduce((s, x) => s + (x.price || 0), 0);
+        const totalCompras = allPurchases.reduce((s, x) => s + (x.total || 0), 0);
+        const valorEstoque = allProducts.reduce((s, p) => s + (p.quantity || 0) * (p.costPrice || 0), 0);
 
-    const stats = [
-        { label: 'Total em Horas', value: totalHoras, sign: 'positive' },
-        { label: 'Vendas de Produtos', value: totalVendasProdutos, sign: 'positive' },
-        { label: 'Lucro em Produtos', value: lucroProdutos, sign: 'positive' },
-        { label: 'Total em Serviços', value: totalServicos, sign: 'positive' },
-        { label: 'Gasto com Estoque', value: totalCompras, sign: 'negative' },
-        { label: 'Capital em Estoque', value: valorEstoque, sign: null },
-    ];
-    document.getElementById('stats-grid').innerHTML = stats.map(s => `
-        <div class="stat-card">
-            <div class="stat-label">${s.label}</div>
-            <div class="stat-value ${s.sign || ''}">${formatCurrency(s.value)}</div>
-        </div>
-    `).join('');
+        const stats = [
+            { label: 'Total em Horas', value: totalHoras, sign: 'positive' },
+            { label: 'Vendas de Produtos', value: totalVendasProdutos, sign: 'positive' },
+            { label: 'Lucro em Produtos', value: lucroProdutos, sign: 'positive' },
+            { label: 'Total em Serviços', value: totalServicos, sign: 'positive' },
+            { label: 'Gasto com Estoque', value: totalCompras, sign: 'negative' },
+            { label: 'Capital em Estoque', value: valorEstoque, sign: null },
+            { label: 'Produções Registradas', value: allProductions.length, sign: null, isCount: true },
+        ];
+        document.getElementById('stats-grid').innerHTML = stats.map(s => `
+            <div class="stat-card">
+                <div class="stat-label">${s.label}</div>
+                <div class="stat-value ${s.sign || ''}">${s.isCount ? s.value : formatCurrency(s.value)}</div>
+            </div>
+        `).join('');
 
-    // --- 1. FILTRANDO APENAS ADIÇÕES E DÉBITOS ---
-    const entriesFiltradas = buildHistoryEntries().filter(e => {
-        const ehConsumo = e.isConsumption || e.type === 'consumo';
-        const ehProducao = e.isProduction || e.type === 'producao';
-        return !ehConsumo && !ehProducao;
-    });
-
-    // --- 2. LAZY LOADING (SCROLL INFINITO DE 4 EM 4) ---
-    const container = document.getElementById('recent-list');
-    const emptyState = document.getElementById('recent-empty-state');
-    
-    container.innerHTML = ''; 
-    
-    if (entriesFiltradas.length === 0) {
-        emptyState.style.display = 'flex'; 
-    } else {
-        emptyState.style.display = 'none'; 
-        
-        let currentIndex = 0;
-        const itensPorVez = 4; 
-        
-        const sentinela = document.createElement('div');
-        sentinela.id = 'sentinela-scroll';
-        sentinela.style.height = '10px';
-        
-        const carregarMaisItens = () => {
-            const proximosItens = entriesFiltradas.slice(currentIndex, currentIndex + itensPorVez);
-            
-            proximosItens.forEach(e => {
-                const htmlDaLinha = renderHistoryRowHTML(e, true);
-                sentinela.insertAdjacentHTML('beforebegin', htmlDaLinha);
-            });
-            
-            currentIndex += itensPorVez;
-            
-            if (currentIndex >= entriesFiltradas.length) {
-                observer.disconnect();
-                sentinela.remove();
-            }
-        };
-
-        const observer = new IntersectionObserver((entradas) => {
-            if (entradas[0].isIntersecting) {
-                carregarMaisItens();
-            }
-        }, { rootMargin: '50px' });
-
-        container.appendChild(sentinela);
-        observer.observe(sentinela);
+        const entries = cachedHistoryEntries.slice(0, 6);
+        const recentList = document.getElementById('recent-list');
+        const recentEmpty = document.getElementById('recent-empty-state');
+        if (entries.length === 0) {
+            recentEmpty.classList.add('show'); recentList.innerHTML = '';
+        } else {
+            recentEmpty.classList.remove('show');
+            recentList.innerHTML = entries.map(e => renderHistoryRowHTML(e, true)).join('');
+        }
     }
-}
+
+    // ==========================================
+    // ORQUESTRAÇÃO GERAL
+    // ==========================================
+    function rebuildCaches() {
+        sortedHours = [...allWorkHours].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id);
+        sortedProducts = [...allProducts].sort((a, b) => a.name.localeCompare(b.name));
+        sortedServices = [...allServices].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id);
+        sortedRecipes = [...allRecipes].sort((a, b) => a.name.localeCompare(b.name));
+        cachedHistoryEntries = buildHistoryEntries();
+    }
 
     function refreshUI() {
         renderResumo();
-        renderHoursList();
-        renderProductsList();
-        renderServicesList();
-        triggerHistorySearch();
+        renderHoursList(false);
+        renderProductsList(false);
+        renderRecipesList(false);
+        renderServicesList(false);
+        renderHistoryList(false);
         refreshDatalists();
-        
-        document.querySelectorAll('.ing-select').forEach(select => {
-            const currentVal = select.value;
-            select.innerHTML = getIngredientOptionsHTML();
-            select.value = currentVal;
-        });
     }
 
     function refreshDatalists() {
         const categories = [...new Set(allProducts.map(p => p.category).filter(Boolean))].sort();
         document.getElementById('product-category-list').innerHTML = categories.map(c => `<option value="${escapeAttr(c)}">`).join('');
-        
-        const productNames = [...new Set(allProducts.map(p => p.name).filter(Boolean))].sort();
-        document.getElementById('recipe-product-list').innerHTML = productNames.map(n => `<option value="${escapeAttr(n)}">`).join('');
-
         const serviceNames = [...new Set(allServices.map(s => s.name).filter(Boolean))].sort();
         document.getElementById('service-name-list').innerHTML = serviceNames.map(n => `<option value="${escapeAttr(n)}">`).join('');
+        const recipeCategories = [...new Set(allRecipes.map(r => r.category).filter(Boolean))].sort();
+        document.getElementById('recipe-category-list').innerHTML = recipeCategories.map(c => `<option value="${escapeAttr(c)}">`).join('');
+        const productNames = [...new Set(allProducts.map(p => p.name).filter(Boolean))].sort();
+        document.getElementById('ingredient-datalist').innerHTML = productNames.map(n => `<option value="${escapeAttr(n)}">`).join('');
     }
 
     // ==========================================
@@ -843,7 +950,7 @@ function renderResumo() {
                 if (editingHourId) { data.id = editingHourId; store.put(data); } else { store.add(data); }
             });
             cancelHourEdit();
-            await loadAllData(); refreshUI();
+            await loadAllData(); rebuildCaches(); refreshUI();
             showToast('Horas registradas com sucesso.');
         } catch (err) { console.error(err); showToast('Erro ao salvar horas.', 'error'); }
     }
@@ -881,237 +988,48 @@ function renderResumo() {
         if (!confirm('Deseja excluir este registro de horas?')) return;
         await runTx(['workHours'], 'readwrite', (tx) => tx.objectStore('workHours').delete(id));
         if (editingHourId === id) cancelHourEdit();
-        await loadAllData(); refreshUI();
+        await loadAllData(); rebuildCaches(); refreshUI();
         showToast('Registro excluído.');
     }
 
-    let hoursSearchQuery = '';
     function onSearchHoursInput() {
         hoursSearchQuery = document.getElementById('search-hours').value.toLowerCase();
         document.getElementById('clear-hours-search').style.display = hoursSearchQuery ? 'flex' : 'none';
-        renderHoursList();
+        renderHoursList(true);
     }
     function clearSearchHours() {
         document.getElementById('search-hours').value = ''; hoursSearchQuery = '';
         document.getElementById('clear-hours-search').style.display = 'none';
-        renderHoursList();
+        renderHoursList(true);
     }
 
-    function renderHoursList() {
-        let items = [...allWorkHours].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id);
+    function renderHourRowHTML(h) {
+        return `<div class="list-row">
+            <div class="row-main">
+                <span class="row-date">📅 ${formatDateBR(h.date)}</span>
+                <span class="row-title">${h.hours}h × ${formatCurrency(h.hourlyRate)}/h</span>
+                ${h.notes ? `<span class="row-subtitle">${escapeHTML(h.notes)}</span>` : ''}
+            </div>
+            <div class="row-side">
+                <span class="row-amount positive">+${formatCurrency(h.total)}</span>
+                <div class="row-actions">
+                    <button class="icon-btn" onclick="editWorkHour(${h.id})" title="Editar">✏️</button>
+                    <button class="icon-btn" onclick="deleteWorkHour(${h.id})" title="Excluir">🗑️</button>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    function renderHoursList(resetScroll) {
+        let items = sortedHours;
         if (hoursSearchQuery) items = items.filter(h => (h.notes || '').toLowerCase().includes(hoursSearchQuery));
-        
-        renderLazyList('hours-list', items, 'hours-empty-state', h => `
-            <div class="list-row">
-                <div class="row-main">
-                    <span class="row-date">📅 ${formatDateBR(h.date)}</span>
-                    <span class="row-title">${h.hours}h × ${formatCurrency(h.hourlyRate)}/h</span>
-                    ${h.notes ? `<span class="row-subtitle">${escapeHTML(h.notes)}</span>` : ''}
-                </div>
-                <div class="row-side">
-                    <span class="row-amount positive">+${formatCurrency(h.total)}</span>
-                    <div class="row-actions">
-                        <button class="icon-btn" onclick="editWorkHour(${h.id})" title="Editar">✏️</button>
-                        <button class="icon-btn" onclick="deleteWorkHour(${h.id})" title="Excluir">🗑️</button>
-                    </div>
-                </div>
-            </div>
-        `, 78);
+        hoursVirtualList.setItems(items, { resetScroll });
     }
 
     // ==========================================
-    // PRODUÇÃO E RECEITAS
-    // ==========================================
-    function getIngredientOptionsHTML() {
-        let html = '<option value="">Selecione...</option>';
-        const sortedProducts = [...allProducts].sort((a,b) => a.name.localeCompare(b.name));
-        sortedProducts.forEach(p => {
-            html += `<option value="${p.id}" data-cost="${p.costPrice}" data-stock="${p.quantity}">${escapeHTML(p.name)} (Estoque: ${p.quantity})</option>`;
-        });
-        return html;
-    }
-
-    function addIngredientRow() {
-        const container = document.getElementById('recipe-ingredients-list');
-        const row = document.createElement('div');
-        row.className = 'form-row ingredient-row';
-        row.style.alignItems = 'flex-end';
-        row.innerHTML = `
-            <div class="field" style="flex: 2;">
-                <label>Ingrediente</label>
-                <select class="ing-select" onchange="calcRecipe()">${getIngredientOptionsHTML()}</select>
-            </div>
-            <div class="field" style="flex: 1;">
-                <label>Qtd</label>
-                <input type="number" class="ing-qty" min="0" step="0.001" placeholder="Ex: 0.3" oninput="calcRecipe()">
-            </div>
-            <button class="icon-btn btn-danger" style="margin-bottom: 2px; color: white;" onclick="this.parentElement.remove(); calcRecipe();" title="Remover">🗑️</button>
-        `;
-        container.appendChild(row);
-    }
-
-    function calcRecipe() {
-        const rows = document.querySelectorAll('.ingredient-row');
-        let totalCost = 0;
-
-        rows.forEach(row => {
-            const select = row.querySelector('.ing-select');
-            const qtyInput = row.querySelector('.ing-qty');
-            if (select.value && qtyInput.value) {
-                const option = select.options[select.selectedIndex];
-                const cost = parseFloat(option.getAttribute('data-cost')) || 0;
-                const qty = parseFloat(qtyInput.value) || 0;
-                totalCost += (cost * qty);
-            }
-        });
-
-        const yieldQty = parseFloat(document.getElementById('recipe-yield').value) || 1;
-        const margin = parseFloat(document.getElementById('recipe-margin').value) || 0;
-
-        const unitCost = totalCost / yieldQty;
-        const suggestedPrice = unitCost * (1 + (margin / 100));
-
-        document.getElementById('recipe-total-cost').textContent = formatCurrency(totalCost);
-        document.getElementById('recipe-unit-cost').textContent = formatCurrency(unitCost);
-        document.getElementById('recipe-suggested-price').textContent = formatCurrency(suggestedPrice);
-
-        return { totalCost, unitCost, suggestedPrice, yieldQty, margin };
-    }
-
-    async function executeProduction(sellImmediately) {
-        const finalName = document.getElementById('recipe-product-name').value.trim();
-        const yieldQty = parseFloat(document.getElementById('recipe-yield').value) || 0;
-        
-        if (!finalName) return showToast('Informe o nome do Produto Final.', 'error');
-        if (yieldQty <= 0) return showToast('O rendimento deve ser maior que zero.', 'error');
-
-        const rows = document.querySelectorAll('.ingredient-row');
-        const ingredients = [];
-        let hasError = false;
-
-        rows.forEach(row => {
-            const select = row.querySelector('.ing-select');
-            const qtyInput = row.querySelector('.ing-qty');
-            
-            if (!select.value || !qtyInput.value) {
-                return; 
-            }
-
-            const qty = parseFloat(qtyInput.value) || 0;
-            if (qty <= 0) return;
-
-            const product = allProducts.find(p => p.id === parseInt(select.value));
-            if (product) {
-                if (product.quantity < qty) {
-                    showToast(`Estoque insuficiente de ${product.name}. Disponível: ${product.quantity}`, 'error');
-                    hasError = true;
-                }
-                ingredients.push({ product, qty });
-            }
-        });
-
-        if (hasError) return;
-        if (ingredients.length === 0) return showToast('Preencha pelo menos um ingrediente válido.', 'error');
-
-        const calc = calcRecipe();
-
-        try {
-            let finalProductId;
-            let existingProduct = allProducts.find(p => p.name.toLowerCase() === finalName.toLowerCase());
-            
-            await runTx(['products', 'productSales', 'productPurchases'], 'readwrite', (tx) => {
-                const productStore = tx.objectStore('products');
-                const salesStore = tx.objectStore('productSales');
-                const purchasesStore = tx.objectStore('productPurchases');
-                const today = todayISO();
-
-                if (!existingProduct) {
-                    const req = productStore.add({ 
-                        name: finalName, category: 'Produzidos', quantity: 0,
-                        costPrice: calc.unitCost, salePrice: calc.suggestedPrice, marginPercent: calc.margin, createdAt: today 
-                    });
-                    req.onsuccess = () => {
-                        finalProductId = req.result;
-                        
-                        purchasesStore.add({
-                            productId: finalProductId, productName: finalName, quantity: yieldQty, 
-                            unitCost: calc.unitCost, total: 0, date: today, notes: 'Produção de receita', isProduction: true
-                        });
-
-                        if (sellImmediately) {
-                            salesStore.add({
-                                productId: finalProductId, productName: finalName, quantity: yieldQty,
-                                unitPrice: calc.suggestedPrice, unitCostAtSale: calc.unitCost,
-                                total: round2(yieldQty * calc.suggestedPrice),
-                                profit: round2((calc.suggestedPrice - calc.unitCost) * yieldQty),
-                                date: today, notes: 'Venda direta da produção', isConsumption: false
-                            });
-                        }
-                    };
-                } else {
-                    finalProductId = existingProduct.id;
-                    
-                    purchasesStore.add({
-                        productId: finalProductId, productName: existingProduct.name, quantity: yieldQty, 
-                        unitCost: calc.unitCost, total: 0, date: today, notes: 'Produção de receita', isProduction: true
-                    });
-
-                    if (sellImmediately) {
-                        salesStore.add({
-                            productId: finalProductId, productName: existingProduct.name, quantity: yieldQty,
-                            unitPrice: calc.suggestedPrice, unitCostAtSale: calc.unitCost,
-                            total: round2(yieldQty * calc.suggestedPrice),
-                            profit: round2((calc.suggestedPrice - calc.unitCost) * yieldQty),
-                            date: today, notes: 'Venda direta da produção', isConsumption: false
-                        });
-                    }
-                }
-
-                ingredients.forEach(ing => {
-                    salesStore.add({
-                        productId: ing.product.id, productName: ing.product.name, quantity: ing.qty, 
-                        unitPrice: ing.product.costPrice, unitCostAtSale: ing.product.costPrice, 
-                        total: 0, profit: 0, date: today, notes: `Consumo para: ${finalName}`, isConsumption: true
-                    });
-                });
-            });
-
-            await loadAllData();
-            
-            if (!existingProduct) {
-                const newP = allProducts.find(p => p.name.toLowerCase() === finalName.toLowerCase());
-                if(newP) await recalcAndPersistProductStock(newP.id);
-            } else {
-                await recalcAndPersistProductStock(existingProduct.id);
-            }
-
-            for (let ing of ingredients) { await recalcAndPersistProductStock(ing.product.id); }
-
-            document.getElementById('recipe-product-name').value = '';
-            document.getElementById('recipe-yield').value = '1';
-            document.getElementById('recipe-ingredients-list').innerHTML = '';
-            calcRecipe();
-
-            await loadAllData(); refreshUI();
-            
-            if (sellImmediately) {
-                showToast('🚀 Produção e venda registradas com sucesso!');
-            } else {
-                showToast('🏭 Produção registrada no estoque!');
-            }
-
-        } catch (err) {
-            console.error(err);
-            showToast('Erro ao processar produção.', 'error');
-        }
-    }
-
-
-    // ==========================================
-    // PRODUTOS
+    // PRODUTOS — CADASTRO E MÉTRICAS
     // ==========================================
     function onProductCostOrMarginChange() {
-        if (!productMarginLinked) return;
         const cost = parseFloat(document.getElementById('product-cost').value) || 0;
         const margin = parseFloat(document.getElementById('product-margin').value);
         if (!isNaN(margin)) document.getElementById('product-price').value = round2(cost * (1 + margin / 100)) || '';
@@ -1119,11 +1037,7 @@ function renderResumo() {
     function onProductPriceChange() {
         const cost = parseFloat(document.getElementById('product-cost').value) || 0;
         const price = parseFloat(document.getElementById('product-price').value);
-        if (cost > 0 && !isNaN(price)) {
-            productMarginLinked = false;
-            document.getElementById('product-margin').value = round2(((price / cost) - 1) * 100);
-            productMarginLinked = true;
-        }
+        if (cost > 0 && !isNaN(price)) document.getElementById('product-margin').value = round2(((price / cost) - 1) * 100);
     }
 
     function productHasMovements(productId) {
@@ -1133,6 +1047,7 @@ function renderResumo() {
     async function saveProduct() {
         const name = document.getElementById('product-name').value.trim();
         const category = document.getElementById('product-category').value.trim() || 'Geral';
+        const unit = document.getElementById('product-unit').value.trim() || 'un';
         const qty = parseFloat(document.getElementById('product-qty').value) || 0;
         const cost = parseFloat(document.getElementById('product-cost').value) || 0;
         const margin = parseFloat(document.getElementById('product-margin').value) || 0;
@@ -1145,18 +1060,18 @@ function renderResumo() {
                 const existing = allProducts.find(p => p.id === editingProductId);
                 const hasMovements = productHasMovements(editingProductId);
                 const updated = {
-                    ...existing, name, category, marginPercent: margin, salePrice,
+                    ...existing, name, category, unit, marginPercent: margin, salePrice,
                     quantity: hasMovements ? existing.quantity : qty,
                     costPrice: hasMovements ? existing.costPrice : cost
                 };
                 await runTx(['products'], 'readwrite', (tx) => tx.objectStore('products').put(updated));
                 cancelProductEdit();
-                await loadAllData(); refreshUI();
+                await loadAllData(); rebuildCaches(); refreshUI();
                 showToast('Produto atualizado.');
             } else {
-                const newId = await runTx(['products', 'productPurchases'], 'readwrite', (tx) => {
+                await runTx(['products', 'productPurchases'], 'readwrite', (tx) => {
                     const productStore = tx.objectStore('products');
-                    const req = productStore.add({ name, category, quantity: qty, costPrice: cost, salePrice, marginPercent: margin, createdAt: todayISO() });
+                    const req = productStore.add({ name, category, unit, quantity: qty, costPrice: cost, salePrice, marginPercent: margin, createdAt: todayISO() });
                     req.onsuccess = () => {
                         if (qty > 0) {
                             tx.objectStore('productPurchases').add({
@@ -1165,10 +1080,9 @@ function renderResumo() {
                             });
                         }
                     };
-                    return null;
                 });
                 cancelProductEdit();
-                await loadAllData(); refreshUI();
+                await loadAllData(); rebuildCaches(); refreshUI();
                 showToast('Produto cadastrado.');
             }
         } catch (err) { console.error(err); showToast('Erro ao salvar produto.', 'error'); }
@@ -1181,6 +1095,7 @@ function renderResumo() {
         document.getElementById('product-form-accordion').open = true;
         document.getElementById('product-name').value = p.name;
         document.getElementById('product-category').value = p.category;
+        document.getElementById('product-unit').value = p.unit || 'un';
         document.getElementById('product-qty').value = p.quantity;
         document.getElementById('product-cost').value = p.costPrice;
         document.getElementById('product-margin').value = p.marginPercent || 0;
@@ -1201,6 +1116,7 @@ function renderResumo() {
         editingProductId = null;
         document.getElementById('product-name').value = '';
         document.getElementById('product-category').value = '';
+        document.getElementById('product-unit').value = '';
         document.getElementById('product-qty').value = '';
         document.getElementById('product-cost').value = '';
         document.getElementById('product-margin').value = '';
@@ -1220,7 +1136,7 @@ function renderResumo() {
         const relatedPurchases = allPurchases.filter(x => x.productId === id);
         const relatedSales = allSales.filter(x => x.productId === id);
         const extra = (relatedPurchases.length + relatedSales.length) > 0
-            ? ` Isso também apagará ${relatedPurchases.length} compra(s)/produção(ões) e ${relatedSales.length} venda(s)/consumo(s) associadas.`
+            ? ` Isso também apagará ${relatedPurchases.length} compra(s) e ${relatedSales.length} venda(s) associadas.`
             : '';
         if (!confirm(`Deseja excluir "${p.name}"?${extra}`)) return;
 
@@ -1230,14 +1146,17 @@ function renderResumo() {
             relatedSales.forEach(x => tx.objectStore('productSales').delete(x.id));
         });
         if (editingProductId === id) cancelProductEdit();
-        await loadAllData(); refreshUI();
+        await loadAllData(); rebuildCaches(); refreshUI();
         showToast('Produto excluído.');
     }
 
+    // Recalcula quantidade/custo médio de um produto a partir das compras e vendas (fonte da verdade).
+    // Sempre recomputa (mesmo para zero) — a função só é chamada quando algo realmente mudou para
+    // aquele produto, então "zerar" é o resultado correto quando a última movimentação é removida.
+    // Retorna o produto atualizado (ou null se ele não existe mais), para evitar recargas extras.
     async function recalcAndPersistProductStock(productId) {
         const purchases = allPurchases.filter(p => p.productId === productId);
         const sales = allSales.filter(s => s.productId === productId);
-        if (purchases.length === 0 && sales.length === 0) return;
 
         const sorted = [...purchases].sort((a, b) => (a.date || '').localeCompare(b.date || '') || a.id - b.id);
         let qty = 0, avgCost = 0;
@@ -1247,71 +1166,75 @@ function renderResumo() {
             qty += p.quantity;
             avgCost = qty > 0 ? (totalCostBefore + totalCostNew) / qty : 0;
         }
-        const totalSold = sales.reduce((s, x) => s + x.quantity, 0); 
+        const totalSold = sales.reduce((s, x) => s + x.quantity, 0);
         qty -= totalSold;
 
         const product = allProducts.find(p => p.id === productId);
-        if (!product) return;
+        if (!product) return null;
         const updated = { ...product, quantity: round2(qty), costPrice: round2(avgCost) };
         await runTx(['products'], 'readwrite', (tx) => tx.objectStore('products').put(updated));
+        return updated;
     }
 
-    let productsSearchQuery = '';
     function onSearchProductsInput() {
         productsSearchQuery = document.getElementById('search-products').value.toLowerCase();
         document.getElementById('clear-products-search').style.display = productsSearchQuery ? 'flex' : 'none';
-        renderProductsList();
+        renderProductsList(true);
     }
     function clearSearchProducts() {
         document.getElementById('search-products').value = ''; productsSearchQuery = '';
         document.getElementById('clear-products-search').style.display = 'none';
-        renderProductsList();
+        renderProductsList(true);
     }
 
-    function renderProductsList() {
-        let items = [...allProducts].sort((a, b) => a.name.localeCompare(b.name));
-        if (productsSearchQuery) items = items.filter(p => p.name.toLowerCase().includes(productsSearchQuery) || (p.category || '').toLowerCase().includes(productsSearchQuery));
-        
-        renderLazyList('products-list', items, 'products-empty-state', p => `
-            <div class="product-card">
-                <div class="product-head">
-                    <div>
-                        <div class="product-name">${escapeHTML(p.name)}</div>
-                        <span class="chip">${escapeHTML(p.category)}</span>
-                    </div>
-                    <div class="row-actions">
-                        <button class="icon-btn" onclick="editProduct(${p.id})" title="Editar">✏️</button>
-                        <button class="icon-btn" onclick="deleteProduct(${p.id})" title="Excluir">🗑️</button>
-                    </div>
+    function renderProductCardHTML(p) {
+        return `<div class="product-card">
+            <div class="product-head">
+                <div>
+                    <div class="product-name">${escapeHTML(p.name)}</div>
+                    <span class="chip">${escapeHTML(p.category)}</span>
                 </div>
-                <div class="product-metrics">
-                    <div class="metric ${p.quantity <= 3 ? 'low-stock' : ''}"><div class="m-label">Estoque</div><div class="m-value">${p.quantity}</div></div>
-                    <div class="metric"><div class="m-label">Custo</div><div class="m-value">${formatCurrency(p.costPrice)}</div></div>
-                    <div class="metric"><div class="m-label">Venda</div><div class="m-value">${formatCurrency(p.salePrice)}</div></div>
-                    <div class="metric"><div class="m-label">Margem</div><div class="m-value">${(p.marginPercent || 0).toFixed(0)}%</div></div>
-                </div>
-                <div class="product-actions">
-                    <button class="btn-buy" onclick="openBuyModal(${p.id})">📥 Comprar</button>
-                    <button class="btn-sell" onclick="openSellModal(${p.id})" ${p.quantity <= 0 ? 'disabled title="Sem estoque"' : ''}>📤 Vender</button>
+                <div class="row-actions">
+                    <button class="icon-btn" onclick="editProduct(${p.id})" title="Editar">✏️</button>
+                    <button class="icon-btn" onclick="deleteProduct(${p.id})" title="Excluir">🗑️</button>
                 </div>
             </div>
-        `, 190);
+            <div class="product-metrics">
+                <div class="metric ${p.quantity <= 3 ? 'low-stock' : ''}"><div class="m-label">Estoque</div><div class="m-value">${p.quantity} ${escapeHTML(p.unit || 'un')}</div></div>
+                <div class="metric"><div class="m-label">Custo</div><div class="m-value">${formatCurrency(p.costPrice)}</div></div>
+                <div class="metric"><div class="m-label">Venda</div><div class="m-value">${formatCurrency(p.salePrice)}</div></div>
+                <div class="metric"><div class="m-label">Margem</div><div class="m-value">${(p.marginPercent || 0).toFixed(0)}%</div></div>
+            </div>
+            <div class="product-actions">
+                <button class="btn-buy" onclick="openBuyModal(${p.id})">📥 Comprar Estoque</button>
+                <button class="btn-sell" onclick="openSellModal(${p.id})" ${p.quantity <= 0 ? 'disabled title="Sem estoque"' : ''}>📤 Vender</button>
+            </div>
+        </div>`;
+    }
+
+    function renderProductsList(resetScroll) {
+        let items = sortedProducts;
+        if (productsSearchQuery) items = items.filter(p => p.name.toLowerCase().includes(productsSearchQuery) || (p.category || '').toLowerCase().includes(productsSearchQuery));
+        productsVirtualList.setItems(items, { resetScroll });
     }
 
     // ==========================================
-    // MODAIS (COMPRAS, VENDAS, EXCLUSÕES)
+    // MODAL: COMPRAR ESTOQUE
     // ==========================================
     function updateBuyLiveTotal() {
         const qty = parseFloat(document.getElementById('buy-qty').value) || 0;
         const cost = parseFloat(document.getElementById('buy-cost').value) || 0;
         document.getElementById('buy-live-total').textContent = 'Total: ' + formatCurrency(qty * cost);
     }
+
     function openBuyModal(productId, editId = null) {
         const product = allProducts.find(p => p.id === productId);
         if (!product) return;
         buyModalProductId = productId; buyModalEditId = editId;
+        document.getElementById('buy-qty-label').textContent = `Quantidade (${product.unit || 'un'})`;
         if (editId) {
             const purchase = allPurchases.find(p => p.id === editId);
+            if (!purchase) return;
             document.getElementById('buy-modal-title').textContent = 'Editar Compra: ' + product.name;
             document.getElementById('buy-qty').value = purchase.quantity;
             document.getElementById('buy-cost').value = purchase.unitCost;
@@ -1338,7 +1261,7 @@ function renderResumo() {
         if (isNaN(cost) || cost < 0) return showToast('Informe o custo unitário.', 'error');
 
         const product = allProducts.find(p => p.id === buyModalProductId);
-        const record = { productId: buyModalProductId, productName: product.name, quantity: qty, unitCost: cost, total: round2(qty * cost), date, notes, isProduction: false };
+        const record = { productId: buyModalProductId, productName: product.name, quantity: qty, unitCost: cost, total: round2(qty * cost), date, notes };
         try {
             await runTx(['productPurchases'], 'readwrite', (tx) => {
                 const store = tx.objectStore('productPurchases');
@@ -1346,22 +1269,32 @@ function renderResumo() {
             });
             const productId = buyModalProductId;
             closeBuyModal();
-            await loadAllData(); await recalcAndPersistProductStock(productId); await loadAllData(); refreshUI();
+            await loadAllData();
+            await recalcAndPersistProductStock(productId);
+            await loadAllData(); rebuildCaches(); refreshUI();
             showToast('Compra registrada.');
         } catch (err) { console.error(err); showToast('Erro ao registrar compra.', 'error'); }
     }
 
+    // ==========================================
+    // MODAL: VENDER
+    // ==========================================
     function updateSellLiveTotal() {
         const qty = parseFloat(document.getElementById('sell-qty').value) || 0;
         const price = parseFloat(document.getElementById('sell-price').value) || 0;
         const product = allProducts.find(p => p.id === sellModalProductId);
         const cost = product ? product.costPrice : 0;
-        document.getElementById('sell-live-total').textContent = `Total: ${formatCurrency(qty * price)} · Lucro: ${formatCurrency((price - cost) * qty)}`;
+        const total = qty * price;
+        const profit = (price - cost) * qty;
+        document.getElementById('sell-live-total').textContent = `Total: ${formatCurrency(total)} · Lucro: ${formatCurrency(profit)}`;
     }
+
     function openSellModal(productId, editId = null) {
         const product = allProducts.find(p => p.id === productId);
         if (!product) return;
         sellModalProductId = productId; sellModalEditId = editId;
+        document.getElementById('sell-qty-label').textContent = `Quantidade (${product.unit || 'un'})`;
+
         let availableStock = product.quantity;
         if (editId) {
             const sale = allSales.find(s => s.id === editId);
@@ -1378,7 +1311,7 @@ function renderResumo() {
             document.getElementById('sell-date').value = todayISO();
             document.getElementById('sell-notes').value = '';
         }
-        document.getElementById('sell-stock-hint').textContent = `Estoque disponível: ${availableStock}`;
+        document.getElementById('sell-stock-hint').textContent = `Estoque disponível: ${availableStock} ${product.unit || 'un'}`;
         updateSellLiveTotal();
         document.getElementById('sell-modal').style.display = 'flex';
     }
@@ -1404,7 +1337,7 @@ function renderResumo() {
         const record = {
             productId: sellModalProductId, productName: product.name, quantity: qty, unitPrice: price,
             unitCostAtSale: product.costPrice, total: round2(qty * price), profit: round2((price - product.costPrice) * qty),
-            date, notes, isConsumption: false
+            date, notes
         };
         try {
             await runTx(['productSales'], 'readwrite', (tx) => {
@@ -1413,7 +1346,9 @@ function renderResumo() {
             });
             const productId = sellModalProductId;
             closeSellModal();
-            await loadAllData(); await recalcAndPersistProductStock(productId); await loadAllData(); refreshUI();
+            await loadAllData();
+            await recalcAndPersistProductStock(productId);
+            await loadAllData(); rebuildCaches(); refreshUI();
             showToast('Venda registrada.');
         } catch (err) { console.error(err); showToast('Erro ao registrar venda.', 'error'); }
     }
@@ -1421,24 +1356,420 @@ function renderResumo() {
     async function deletePurchase(id) {
         const purchase = allPurchases.find(p => p.id === id);
         if (!purchase) return;
+        if (purchase.isProduction) return showToast('Esta compra pertence a uma produção. Exclua a produção no Histórico.', 'error');
         const remainingPurchases = allPurchases.filter(p => p.productId === purchase.productId && p.id !== id);
         const sales = allSales.filter(s => s.productId === purchase.productId);
         const totalPurchasedAfter = remainingPurchases.reduce((s, p) => s + p.quantity, 0);
         const totalSold = sales.reduce((s, x) => s + x.quantity, 0);
-        if (totalPurchasedAfter - totalSold < 0) return showToast('Não é possível excluir: geraria estoque negativo. Exclua vendas relacionadas primeiro.', 'error');
-        if (!confirm(purchase.isProduction ? 'Deseja excluir esta produção? Isso vai diminuir seu estoque.' : 'Deseja excluir esta compra?')) return;
+        if (totalPurchasedAfter - totalSold < 0) {
+            return showToast('Não é possível excluir: geraria estoque negativo. Exclua vendas relacionadas primeiro.', 'error');
+        }
+        if (!confirm('Deseja excluir esta compra?')) return;
         await runTx(['productPurchases'], 'readwrite', (tx) => tx.objectStore('productPurchases').delete(id));
-        await loadAllData(); await recalcAndPersistProductStock(purchase.productId); await loadAllData(); refreshUI();
-        showToast(purchase.isProduction ? 'Produção excluída.' : 'Compra excluída.');
+        await loadAllData();
+        await recalcAndPersistProductStock(purchase.productId);
+        await loadAllData(); rebuildCaches(); refreshUI();
+        showToast('Compra excluída.');
     }
 
     async function deleteSale(id) {
         const sale = allSales.find(s => s.id === id);
         if (!sale) return;
-        if (!confirm(sale.isConsumption ? 'Deseja excluir este consumo de ingredientes? Isso vai devolver os itens ao estoque.' : 'Deseja excluir esta venda?')) return;
+        if (sale.isProduction) return showToast('Este consumo pertence a uma produção. Exclua a produção no Histórico.', 'error');
+        if (!confirm('Deseja excluir esta venda?')) return;
         await runTx(['productSales'], 'readwrite', (tx) => tx.objectStore('productSales').delete(id));
-        await loadAllData(); await recalcAndPersistProductStock(sale.productId); await loadAllData(); refreshUI();
-        showToast(sale.isConsumption ? 'Consumo excluído.' : 'Venda excluída.');
+        await loadAllData();
+        await recalcAndPersistProductStock(sale.productId);
+        await loadAllData(); rebuildCaches(); refreshUI();
+        showToast('Venda excluída.');
+    }
+
+    // ==========================================
+    // FICHAS TÉCNICAS (RECEITAS) E PRODUÇÃO
+    // ==========================================
+    function ingredientHintText(ing) {
+        const product = allProducts.find(p => p.id === ing.productId);
+        if (!product) return ing.productName ? '⚠️ ingrediente não encontrado' : '';
+        return `${formatCurrency(product.costPrice)}/${product.unit || 'un'} · estoque: ${product.quantity} ${product.unit || 'un'}`;
+    }
+
+    function renderIngredientRows() {
+        const container = document.getElementById('recipe-ingredients-container');
+        container.innerHTML = currentRecipeIngredients.map((ing, idx) => `
+            <div class="ingredient-row">
+                <input type="text" list="ingredient-datalist" placeholder="Nome do ingrediente..." value="${escapeAttr(ing.productName || '')}" oninput="onIngredientNameInput(${idx}, this.value)">
+                <input type="number" min="0" step="0.01" placeholder="Quantidade" value="${ing.quantity || ''}" oninput="onIngredientQtyChange(${idx}, this.value)">
+                <span class="ingredient-hint" id="ingredient-hint-${idx}">${ingredientHintText(ing)}</span>
+                <button type="button" class="icon-btn" onclick="removeIngredientRow(${idx})" title="Remover">🗑️</button>
+            </div>
+        `).join('');
+        updateRecipeLivePreview();
+    }
+    function onIngredientNameInput(idx, value) {
+        const match = allProducts.find(p => p.name.toLowerCase() === value.trim().toLowerCase());
+        currentRecipeIngredients[idx].productName = value;
+        currentRecipeIngredients[idx].productId = match ? match.id : null;
+        const hintEl = document.getElementById('ingredient-hint-' + idx);
+        if (hintEl) hintEl.textContent = ingredientHintText(currentRecipeIngredients[idx]);
+        updateRecipeLivePreview();
+    }
+    function onIngredientQtyChange(idx, value) {
+        currentRecipeIngredients[idx].quantity = parseFloat(value) || 0;
+        updateRecipeLivePreview();
+    }
+    function addIngredientRow() {
+        currentRecipeIngredients.push({ productId: null, productName: '', quantity: '' });
+        renderIngredientRows();
+    }
+    function removeIngredientRow(idx) {
+        currentRecipeIngredients.splice(idx, 1);
+        renderIngredientRows();
+    }
+
+    function updateRecipeLivePreview() {
+        const yieldQty = parseFloat(document.getElementById('recipe-yield-qty').value) || 0;
+        const yieldUnit = document.getElementById('recipe-yield-unit').value.trim() || 'unidade';
+        const extraCost = parseFloat(document.getElementById('recipe-extra-cost').value) || 0;
+        const margin = parseFloat(document.getElementById('recipe-margin').value) || 0;
+        let ingredientsCost = 0;
+        currentRecipeIngredients.forEach(ing => {
+            const product = allProducts.find(p => p.id === ing.productId);
+            if (product) ingredientsCost += (ing.quantity || 0) * product.costPrice;
+        });
+        const totalCost = round2(ingredientsCost + extraCost);
+        const costPerUnit = yieldQty > 0 ? round2(totalCost / yieldQty) : 0;
+        const salePrice = round2(costPerUnit * (1 + margin / 100));
+        document.getElementById('recipe-live-preview').innerHTML =
+            `Custo dos ingredientes: ${formatCurrency(ingredientsCost)}<br>` +
+            `Custo total do lote: ${formatCurrency(totalCost)}<br>` +
+            `Custo por ${escapeHTML(yieldUnit)}: <strong>${formatCurrency(costPerUnit)}</strong><br>` +
+            `Preço de venda sugerido: <strong>${formatCurrency(salePrice)}</strong>`;
+    }
+
+    async function saveRecipe() {
+        const name = document.getElementById('recipe-name').value.trim();
+        const category = document.getElementById('recipe-category').value.trim() || 'Geral';
+        const yieldQty = parseFloat(document.getElementById('recipe-yield-qty').value);
+        const yieldUnit = document.getElementById('recipe-yield-unit').value.trim() || 'un';
+        const extraCost = parseFloat(document.getElementById('recipe-extra-cost').value) || 0;
+        const margin = parseFloat(document.getElementById('recipe-margin').value) || 0;
+        const notes = document.getElementById('recipe-notes').value.trim();
+        const validIngredients = currentRecipeIngredients.filter(i => i.productId && i.quantity > 0);
+
+        if (!name) return showToast('Informe o nome da receita.', 'error');
+        if (!yieldQty || yieldQty <= 0) return showToast('Informe quantas unidades a receita rende.', 'error');
+        if (validIngredients.length === 0) return showToast('Adicione pelo menos um ingrediente válido.', 'error');
+
+        const recipeData = {
+            name, category, ingredients: validIngredients.map(i => ({ productId: i.productId, quantity: i.quantity })),
+            yieldQuantity: yieldQty, yieldUnit, extraCost, marginPercent: margin, notes
+        };
+
+        try {
+            if (editingRecipeId) {
+                recipeData.id = editingRecipeId;
+                await runTx(['recipes'], 'readwrite', (tx) => tx.objectStore('recipes').put(recipeData));
+                cancelRecipeEdit();
+                await loadAllData(); rebuildCaches(); refreshUI();
+                showToast('Ficha técnica atualizada.');
+            } else {
+                let newRecipeId;
+                await runTx(['recipes'], 'readwrite', (tx) => {
+                    const req = tx.objectStore('recipes').add(recipeData);
+                    req.onsuccess = () => { newRecipeId = req.result; };
+                });
+                await loadAllData(); rebuildCaches();
+                try {
+                    await produceFromRecipe(newRecipeId, { multiplier: 1, extraCost, date: todayISO(), notes: '' });
+                    cancelRecipeEdit();
+                    rebuildCaches(); refreshUI();
+                    showToast('Ficha técnica criada e primeira produção registrada.');
+                } catch (prodErr) {
+                    cancelRecipeEdit();
+                    await loadAllData(); rebuildCaches(); refreshUI();
+                    showToast('Ficha técnica salva, mas a produção falhou: ' + prodErr.message, 'error');
+                }
+            }
+        } catch (err) { console.error(err); showToast('Erro ao salvar a ficha técnica.', 'error'); }
+    }
+
+    function editRecipe(id) {
+        const r = allRecipes.find(x => x.id === id);
+        if (!r) return;
+        switchTab('producao');
+        document.getElementById('recipe-form-accordion').open = true;
+        document.getElementById('recipe-name').value = r.name;
+        document.getElementById('recipe-category').value = r.category;
+        document.getElementById('recipe-yield-qty').value = r.yieldQuantity;
+        document.getElementById('recipe-yield-unit').value = r.yieldUnit;
+        document.getElementById('recipe-extra-cost').value = r.extraCost;
+        document.getElementById('recipe-margin').value = r.marginPercent;
+        document.getElementById('recipe-notes').value = r.notes || '';
+        currentRecipeIngredients = r.ingredients.map(i => {
+            const product = allProducts.find(p => p.id === i.productId);
+            return { productId: i.productId, productName: product ? product.name : '', quantity: i.quantity };
+        });
+        renderIngredientRows();
+        editingRecipeId = id;
+        document.getElementById('recipe-form-title').textContent = '✏️ Editando Ficha Técnica';
+        document.getElementById('btn-save-recipe').textContent = 'Atualizar Ficha Técnica';
+        document.getElementById('btn-cancel-recipe').style.display = 'flex';
+        document.getElementById('recipe-edit-note').style.display = 'block';
+    }
+
+    function cancelRecipeEdit() {
+        editingRecipeId = null;
+        document.getElementById('recipe-name').value = '';
+        document.getElementById('recipe-category').value = '';
+        document.getElementById('recipe-yield-qty').value = '';
+        document.getElementById('recipe-yield-unit').value = '';
+        document.getElementById('recipe-extra-cost').value = '';
+        document.getElementById('recipe-margin').value = '';
+        document.getElementById('recipe-notes').value = '';
+        currentRecipeIngredients = [];
+        renderIngredientRows();
+        document.getElementById('recipe-form-title').textContent = '➕ Nova Ficha Técnica';
+        document.getElementById('btn-save-recipe').textContent = 'Salvar e Produzir';
+        document.getElementById('btn-cancel-recipe').style.display = 'none';
+        document.getElementById('recipe-edit-note').style.display = 'none';
+        document.getElementById('recipe-form-accordion').open = false;
+    }
+
+    async function deleteRecipe(id) {
+        const r = allRecipes.find(x => x.id === id);
+        if (!r) return;
+        if (!confirm(`Deseja excluir a ficha técnica "${r.name}"? O histórico de produções já realizadas será mantido.`)) return;
+        await runTx(['recipes'], 'readwrite', (tx) => tx.objectStore('recipes').delete(id));
+        if (editingRecipeId === id) cancelRecipeEdit();
+        await loadAllData(); rebuildCaches(); refreshUI();
+        showToast('Ficha técnica excluída.');
+    }
+
+    function onSearchRecipesInput() {
+        recipesSearchQuery = document.getElementById('search-recipes').value.toLowerCase();
+        document.getElementById('clear-recipes-search').style.display = recipesSearchQuery ? 'flex' : 'none';
+        renderRecipesList(true);
+    }
+    function clearSearchRecipes() {
+        document.getElementById('search-recipes').value = ''; recipesSearchQuery = '';
+        document.getElementById('clear-recipes-search').style.display = 'none';
+        renderRecipesList(true);
+    }
+
+    function renderRecipeCardHTML(r) {
+        return `<div class="recipe-card">
+            <div class="product-head">
+                <div>
+                    <div class="product-name">🍰 ${escapeHTML(r.name)}</div>
+                    <span class="chip">${escapeHTML(r.category)}</span>
+                </div>
+                <div class="row-actions">
+                    <button class="icon-btn" onclick="editRecipe(${r.id})" title="Editar">✏️</button>
+                    <button class="icon-btn" onclick="deleteRecipe(${r.id})" title="Excluir">🗑️</button>
+                </div>
+            </div>
+            <div class="product-metrics">
+                <div class="metric"><div class="m-label">Ingredientes</div><div class="m-value">${r.ingredients.length}</div></div>
+                <div class="metric"><div class="m-label">Rende</div><div class="m-value">${r.yieldQuantity} ${escapeHTML(r.yieldUnit)}</div></div>
+                <div class="metric"><div class="m-label">Margem</div><div class="m-value">${(r.marginPercent || 0).toFixed(0)}%</div></div>
+            </div>
+            <div class="product-actions">
+                <button onclick="openProduceModal(${r.id})" style="background: var(--plum);">🍰 Produzir</button>
+            </div>
+        </div>`;
+    }
+
+    function renderRecipesList(resetScroll) {
+        let items = sortedRecipes;
+        if (recipesSearchQuery) items = items.filter(r => r.name.toLowerCase().includes(recipesSearchQuery) || (r.category || '').toLowerCase().includes(recipesSearchQuery));
+        recipesVirtualList.setItems(items, { resetScroll });
+    }
+
+    // ---- Núcleo: transforma ingredientes em produto final, debitando estoque ----
+    async function produceFromRecipe(recipeId, opts = {}) {
+        const recipe = allRecipes.find(r => r.id === recipeId);
+        if (!recipe) throw new Error('Receita não encontrada.');
+        const multiplier = opts.multiplier || 1;
+        const date = opts.date || todayISO();
+        const extraCost = opts.extraCost != null ? opts.extraCost : round2((recipe.extraCost || 0) * multiplier);
+        const notes = opts.notes || '';
+
+        const ingredientsUsed = recipe.ingredients.map(ing => {
+            const product = allProducts.find(p => p.id === ing.productId);
+            const qty = round2(ing.quantity * multiplier);
+            const unitCost = product ? product.costPrice : 0;
+            return { productId: ing.productId, productName: product ? product.name : 'Produto removido', quantity: qty, unitCost, subtotal: round2(qty * unitCost) };
+        });
+
+        for (const iu of ingredientsUsed) {
+            const product = allProducts.find(p => p.id === iu.productId);
+            if (!product) throw new Error(`Ingrediente "${iu.productName}" não existe mais.`);
+            if (iu.quantity > product.quantity) throw new Error(`Estoque insuficiente de "${product.name}". Disponível: ${product.quantity} ${product.unit || 'un'}.`);
+        }
+
+        const yieldQuantity = round2(recipe.yieldQuantity * multiplier);
+        const ingredientsCost = round2(ingredientsUsed.reduce((s, i) => s + i.subtotal, 0));
+        const totalCost = round2(ingredientsCost + extraCost);
+        const costPerUnit = yieldQuantity > 0 ? round2(totalCost / yieldQuantity) : 0;
+
+        let resultProduct = allProducts.find(p => p.name.toLowerCase() === recipe.name.toLowerCase());
+        let resultProductId = resultProduct ? resultProduct.id : null;
+        if (!resultProductId) {
+            await runTx(['products'], 'readwrite', (tx) => {
+                const req = tx.objectStore('products').add({
+                    name: recipe.name, category: recipe.category, quantity: 0, costPrice: 0,
+                    salePrice: 0, marginPercent: recipe.marginPercent, unit: recipe.yieldUnit, createdAt: todayISO()
+                });
+                req.onsuccess = () => { resultProductId = req.result; };
+            });
+        }
+
+        let productionId;
+        await runTx(['productions'], 'readwrite', (tx) => {
+            const req = tx.objectStore('productions').add({
+                recipeId, recipeName: recipe.name, date, ingredientsUsed, extraCost, ingredientsCost, totalCost,
+                yieldQuantity, yieldUnit: recipe.yieldUnit, costPerUnit, resultProductId, notes
+            });
+            req.onsuccess = () => { productionId = req.result; };
+        });
+
+        await runTx(['productSales'], 'readwrite', (tx) => {
+            const store = tx.objectStore('productSales');
+            ingredientsUsed.forEach(iu => {
+                store.add({
+                    productId: iu.productId, productName: iu.productName, quantity: iu.quantity, unitPrice: 0,
+                    unitCostAtSale: iu.unitCost, total: 0, profit: 0, date, notes: 'Uso em produção: ' + recipe.name,
+                    isProduction: true, productionId
+                });
+            });
+        });
+
+        await runTx(['productPurchases'], 'readwrite', (tx) => {
+            tx.objectStore('productPurchases').add({
+                productId: resultProductId, productName: recipe.name, quantity: yieldQuantity, unitCost: costPerUnit,
+                total: 0, date, notes: 'Produção: ' + recipe.name, isProduction: true, productionId
+            });
+        });
+
+        // única recarga necessária: buscar compras/vendas atualizadas para recalcular estoque/custo
+        await loadAllData();
+        for (const iu of ingredientsUsed) await recalcAndPersistProductStock(iu.productId);
+        const updatedResultProduct = await recalcAndPersistProductStock(resultProductId);
+        if (updatedResultProduct) {
+            const newSalePrice = round2(updatedResultProduct.costPrice * (1 + (recipe.marginPercent || 0) / 100));
+            await runTx(['products'], 'readwrite', (tx) => tx.objectStore('products').put({ ...updatedResultProduct, salePrice: newSalePrice, marginPercent: recipe.marginPercent }));
+        }
+        await loadAllData();
+
+        return productionId;
+    }
+
+    function openProduceModal(recipeId) {
+        const recipe = allRecipes.find(r => r.id === recipeId);
+        if (!recipe) return;
+        produceModalRecipeId = recipeId;
+        document.getElementById('produce-modal-title').textContent = '🍰 Produzir: ' + recipe.name;
+        document.getElementById('produce-multiplier').value = '1';
+        document.getElementById('produce-date').value = todayISO();
+        document.getElementById('produce-extra-cost').value = recipe.extraCost || 0;
+        document.getElementById('produce-notes').value = '';
+        renderProduceIngredientsPreview();
+        document.getElementById('produce-modal').style.display = 'flex';
+    }
+    function closeProduceModal() { document.getElementById('produce-modal').style.display = 'none'; produceModalRecipeId = null; }
+
+    function renderProduceIngredientsPreview() {
+        const recipe = allRecipes.find(r => r.id === produceModalRecipeId);
+        if (!recipe) return;
+        const multiplier = parseFloat(document.getElementById('produce-multiplier').value) || 1;
+        const extraCost = parseFloat(document.getElementById('produce-extra-cost').value) || 0;
+        let ingredientsCost = 0;
+        let anyInsufficient = false;
+        const rows = recipe.ingredients.map(ing => {
+            const product = allProducts.find(p => p.id === ing.productId);
+            const neededQty = round2(ing.quantity * multiplier);
+            const unit = product ? (product.unit || 'un') : '';
+            const stock = product ? product.quantity : 0;
+            const insufficient = !product || neededQty > stock;
+            if (insufficient) anyInsufficient = true;
+            const subtotal = product ? round2(neededQty * product.costPrice) : 0;
+            ingredientsCost += subtotal;
+            return `<div class="ingredient-preview-row ${insufficient ? 'insufficient' : ''}">
+                <span>${product ? escapeHTML(product.name) : 'Produto removido'}</span>
+                <span>${neededQty} ${escapeHTML(unit)} ${insufficient ? '⚠️ estoque: ' + stock : ''}</span>
+                <span>${formatCurrency(subtotal)}</span>
+            </div>`;
+        }).join('');
+        const yieldQty = round2(recipe.yieldQuantity * multiplier);
+        const totalCost = round2(ingredientsCost + extraCost);
+        const costPerUnit = yieldQty > 0 ? round2(totalCost / yieldQty) : 0;
+        document.getElementById('produce-ingredients-preview').innerHTML = rows;
+        document.getElementById('produce-summary').innerHTML =
+            `Rende: <strong>${yieldQty} ${escapeHTML(recipe.yieldUnit)}</strong><br>Custo total: <strong>${formatCurrency(totalCost)}</strong><br>Custo por ${escapeHTML(recipe.yieldUnit)}: <strong>${formatCurrency(costPerUnit)}</strong>`;
+        document.getElementById('btn-confirm-produce').disabled = anyInsufficient;
+        document.getElementById('produce-stock-warning').style.display = anyInsufficient ? 'block' : 'none';
+    }
+
+    async function confirmProduceModal() {
+        const multiplier = parseFloat(document.getElementById('produce-multiplier').value) || 1;
+        const date = document.getElementById('produce-date').value || todayISO();
+        const extraCost = parseFloat(document.getElementById('produce-extra-cost').value) || 0;
+        const notes = document.getElementById('produce-notes').value.trim();
+        if (multiplier <= 0) return showToast('Informe um multiplicador válido.', 'error');
+        const recipeId = produceModalRecipeId;
+        try {
+            await produceFromRecipe(recipeId, { multiplier, date, extraCost, notes });
+            closeProduceModal();
+            rebuildCaches(); refreshUI();
+            showToast('Produção registrada com sucesso.');
+        } catch (err) {
+            console.error(err);
+            showToast(err.message || 'Erro ao registrar produção.', 'error');
+        }
+    }
+
+    async function deleteProduction(id, skipConfirm) {
+        const production = allProductions.find(p => p.id === id);
+        if (!production) return;
+        if (!skipConfirm && !confirm('Deseja excluir esta produção? O estoque dos ingredientes será devolvido e o estoque do produto final será reduzido.')) return;
+
+        const relatedSales = allSales.filter(s => s.productionId === id);
+        const relatedPurchases = allPurchases.filter(p => p.productionId === id);
+        const affectedProductIds = [...new Set([...relatedSales.map(s => s.productId), ...relatedPurchases.map(p => p.productId)])];
+
+        await runTx(['productions', 'productSales', 'productPurchases'], 'readwrite', (tx) => {
+            tx.objectStore('productions').delete(id);
+            relatedSales.forEach(s => tx.objectStore('productSales').delete(s.id));
+            relatedPurchases.forEach(p => tx.objectStore('productPurchases').delete(p.id));
+        });
+
+        await loadAllData();
+        for (const pid of affectedProductIds) await recalcAndPersistProductStock(pid);
+        await loadAllData(); rebuildCaches();
+        if (!skipConfirm) { refreshUI(); showToast('Produção excluída e estoque revertido.'); }
+    }
+
+    async function editProduction(id) {
+        const production = allProductions.find(p => p.id === id);
+        if (!production) return;
+        const recipeExists = production.recipeId && allRecipes.find(r => r.id === production.recipeId);
+        if (!recipeExists) {
+            return showToast('Não é possível editar: a ficha técnica original foi excluída. Exclua esta produção e crie uma nova.', 'error');
+        }
+        if (!confirm('Editar uma produção exclui o registro atual e reabre o formulário para produzir novamente com os novos valores. O estoque será recalculado automaticamente. Deseja continuar?')) return;
+
+        const recipe = allRecipes.find(r => r.id === production.recipeId);
+        const oldMultiplier = recipe.yieldQuantity > 0 ? round2(production.yieldQuantity / recipe.yieldQuantity) : 1;
+        const oldDate = production.date, oldExtraCost = production.extraCost, oldNotes = production.notes;
+
+        await deleteProduction(id, true);
+        refreshUI();
+        openProduceModal(production.recipeId);
+        document.getElementById('produce-multiplier').value = oldMultiplier;
+        document.getElementById('produce-date').value = oldDate;
+        document.getElementById('produce-extra-cost').value = oldExtraCost;
+        document.getElementById('produce-notes').value = oldNotes || '';
+        renderProduceIngredientsPreview();
     }
 
     // ==========================================
@@ -1452,14 +1783,17 @@ function renderResumo() {
         const notes = document.getElementById('service-notes').value.trim();
         if (!name) return showToast('Informe o tipo de serviço.', 'error');
         if (isNaN(price) || price < 0) return showToast('Informe o valor cobrado.', 'error');
+
         const data = { name, price, date, client, notes };
         try {
             await runTx(['services'], 'readwrite', (tx) => {
                 const store = tx.objectStore('services');
                 if (editingServiceId) { data.id = editingServiceId; store.put(data); } else { store.add(data); }
             });
-            cancelServiceEdit(); await loadAllData(); refreshUI(); showToast('Serviço registrado.');
-        } catch (err) { showToast('Erro ao salvar serviço.', 'error'); }
+            cancelServiceEdit();
+            await loadAllData(); rebuildCaches(); refreshUI();
+            showToast('Serviço registrado.');
+        } catch (err) { console.error(err); showToast('Erro ao salvar serviço.', 'error'); }
     }
 
     function editService(id) {
@@ -1480,10 +1814,14 @@ function renderResumo() {
 
     function cancelServiceEdit() {
         editingServiceId = null;
-        document.getElementById('service-name').value = ''; document.getElementById('service-price').value = '';
-        document.getElementById('service-date').value = todayISO(); document.getElementById('service-client').value = '';
-        document.getElementById('service-notes').value = ''; document.getElementById('service-form-title').textContent = '➕ Registrar Serviço';
-        document.getElementById('btn-save-service').textContent = 'Salvar Serviço'; document.getElementById('btn-cancel-service').style.display = 'none';
+        document.getElementById('service-name').value = '';
+        document.getElementById('service-price').value = '';
+        document.getElementById('service-date').value = todayISO();
+        document.getElementById('service-client').value = '';
+        document.getElementById('service-notes').value = '';
+        document.getElementById('service-form-title').textContent = '➕ Registrar Serviço';
+        document.getElementById('btn-save-service').textContent = 'Salvar Serviço';
+        document.getElementById('btn-cancel-service').style.display = 'none';
         document.getElementById('service-form-accordion').open = false;
     }
 
@@ -1491,41 +1829,42 @@ function renderResumo() {
         if (!confirm('Deseja excluir este serviço?')) return;
         await runTx(['services'], 'readwrite', (tx) => tx.objectStore('services').delete(id));
         if (editingServiceId === id) cancelServiceEdit();
-        await loadAllData(); refreshUI(); showToast('Serviço excluído.');
+        await loadAllData(); rebuildCaches(); refreshUI();
+        showToast('Serviço excluído.');
     }
 
-    let servicesSearchQuery = '';
     function onSearchServicesInput() {
         servicesSearchQuery = document.getElementById('search-services').value.toLowerCase();
         document.getElementById('clear-services-search').style.display = servicesSearchQuery ? 'flex' : 'none';
-        renderServicesList();
+        renderServicesList(true);
     }
     function clearSearchServices() {
         document.getElementById('search-services').value = ''; servicesSearchQuery = '';
         document.getElementById('clear-services-search').style.display = 'none';
-        renderServicesList();
+        renderServicesList(true);
     }
 
-    function renderServicesList() {
-        let items = [...allServices].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id);
-        if (servicesSearchQuery) items = items.filter(s => s.name.toLowerCase().includes(servicesSearchQuery) || (s.client || '').toLowerCase().includes(servicesSearchQuery));
-        
-        renderLazyList('services-list', items, 'services-empty-state', s => `
-            <div class="list-row">
-                <div class="row-main">
-                    <span class="row-date">📅 ${formatDateBR(s.date)}</span>
-                    <span class="row-title">${escapeHTML(s.name)}${s.client ? ' — ' + escapeHTML(s.client) : ''}</span>
-                    ${s.notes ? `<span class="row-subtitle">${escapeHTML(s.notes)}</span>` : ''}
-                </div>
-                <div class="row-side">
-                    <span class="row-amount positive">+${formatCurrency(s.price)}</span>
-                    <div class="row-actions">
-                        <button class="icon-btn" onclick="editService(${s.id})" title="Editar">✏️</button>
-                        <button class="icon-btn" onclick="deleteService(${s.id})" title="Excluir">🗑️</button>
-                    </div>
+    function renderServiceRowHTML(s) {
+        return `<div class="list-row">
+            <div class="row-main">
+                <span class="row-date">📅 ${formatDateBR(s.date)}</span>
+                <span class="row-title">${escapeHTML(s.name)}${s.client ? ' — ' + escapeHTML(s.client) : ''}</span>
+                ${s.notes ? `<span class="row-subtitle">${escapeHTML(s.notes)}</span>` : ''}
+            </div>
+            <div class="row-side">
+                <span class="row-amount positive">+${formatCurrency(s.price)}</span>
+                <div class="row-actions">
+                    <button class="icon-btn" onclick="editService(${s.id})" title="Editar">✏️</button>
+                    <button class="icon-btn" onclick="deleteService(${s.id})" title="Excluir">🗑️</button>
                 </div>
             </div>
-        `, 78);
+        </div>`;
+    }
+
+    function renderServicesList(resetScroll) {
+        let items = sortedServices;
+        if (servicesSearchQuery) items = items.filter(s => s.name.toLowerCase().includes(servicesSearchQuery) || (s.client || '').toLowerCase().includes(servicesSearchQuery));
+        servicesVirtualList.setItems(items, { resetScroll });
     }
 
     // ==========================================
@@ -1544,43 +1883,81 @@ function renderResumo() {
                 const store = tx.objectStore('adjustments');
                 if (editingAdjustmentId) { data.id = editingAdjustmentId; store.put(data); } else { store.add(data); }
             });
-            cancelAdjustmentEdit(); await loadAllData(); refreshUI(); showToast('Ajuste salvo.');
-        } catch (err) { showToast('Erro ao salvar ajuste.', 'error'); }
+            cancelAdjustmentEdit();
+            await loadAllData(); rebuildCaches(); refreshUI();
+            showToast('Ajuste salvo.');
+        } catch (err) { console.error(err); showToast('Erro ao salvar ajuste.', 'error'); }
     }
 
     function editAdjustment(id) {
         const a = allAdjustments.find(x => x.id === id);
         if (!a) return;
-        switchTab('historico'); document.getElementById('adjustment-form-accordion').open = true;
-        document.getElementById('adjustment-desc').value = a.description; document.getElementById('adjustment-amount').value = a.amount;
-        document.getElementById('adjustment-date').value = a.date; editingAdjustmentId = id;
-        document.getElementById('btn-save-adjustment').textContent = 'Atualizar'; document.getElementById('btn-cancel-adjustment').style.display = 'flex';
+        switchTab('historico');
+        document.getElementById('adjustment-form-accordion').open = true;
+        document.getElementById('adjustment-desc').value = a.description;
+        document.getElementById('adjustment-amount').value = a.amount;
+        document.getElementById('adjustment-date').value = a.date;
+        editingAdjustmentId = id;
+        document.getElementById('btn-save-adjustment').textContent = 'Atualizar';
+        document.getElementById('btn-cancel-adjustment').style.display = 'flex';
     }
 
     function cancelAdjustmentEdit() {
         editingAdjustmentId = null;
-        document.getElementById('adjustment-desc').value = ''; document.getElementById('adjustment-amount').value = '';
-        document.getElementById('adjustment-date').value = todayISO(); document.getElementById('btn-save-adjustment').textContent = 'Salvar Ajuste';
-        document.getElementById('btn-cancel-adjustment').style.display = 'none'; document.getElementById('adjustment-form-accordion').open = false;
+        document.getElementById('adjustment-desc').value = '';
+        document.getElementById('adjustment-amount').value = '';
+        document.getElementById('adjustment-date').value = todayISO();
+        document.getElementById('btn-save-adjustment').textContent = 'Salvar Ajuste';
+        document.getElementById('btn-cancel-adjustment').style.display = 'none';
+        document.getElementById('adjustment-form-accordion').open = false;
     }
 
     async function deleteAdjustment(id) {
         if (!confirm('Deseja excluir este ajuste?')) return;
         await runTx(['adjustments'], 'readwrite', (tx) => tx.objectStore('adjustments').delete(id));
         if (editingAdjustmentId === id) cancelAdjustmentEdit();
-        await loadAllData(); refreshUI(); showToast('Ajuste excluído.');
+        await loadAllData(); rebuildCaches(); refreshUI();
+        showToast('Ajuste excluído.');
     }
 
     // ==========================================
     // HISTÓRICO UNIFICADO
     // ==========================================
     function buildHistoryEntries() {
-        let seq = 0; const entries = [];
-        allWorkHours.forEach(h => entries.push({ type: 'hora', id: h.id, date: h.date, seq: seq++, title: 'Horas trabalhadas', subtitle: `${h.hours}h × ${formatCurrency(h.hourlyRate)}/h${h.notes ? ' — ' + h.notes : ''}`, amount: h.total }));
-        allPurchases.forEach(p => entries.push({ type: p.isProduction ? 'producao' : 'compra', id: p.id, date: p.date, seq: seq++, productId: p.productId, title: (p.isProduction ? 'Produção: ' : 'Compra de estoque: ') + p.productName, subtitle: `${p.quantity} un × ${formatCurrency(p.unitCost)}${p.notes ? ' — ' + p.notes : ''}`, amount: p.isProduction ? 0 : -p.total }));
-        allSales.forEach(s => entries.push({ type: s.isConsumption ? 'consumo' : 'venda', id: s.id, date: s.date, seq: seq++, productId: s.productId, title: (s.isConsumption ? 'Consumo de estoque: ' : 'Venda: ') + s.productName, subtitle: `${s.quantity} un${s.isConsumption ? '' : ` × ${formatCurrency(s.unitPrice)} · lucro ${formatCurrency(s.profit)}`}${s.notes ? ' — ' + s.notes : ''}`, amount: s.isConsumption ? 0 : s.total }));
-        allServices.forEach(sv => entries.push({ type: 'servico', id: sv.id, date: sv.date, seq: seq++, title: sv.name + (sv.client ? ' — ' + sv.client : ''), subtitle: 'Serviço prestado' + (sv.notes ? ' — ' + sv.notes : ''), amount: sv.price }));
-        allAdjustments.forEach(a => entries.push({ type: 'ajuste', id: a.id, date: a.date, seq: seq++, title: a.description, subtitle: 'Ajuste manual', amount: a.amount }));
+        let seq = 0;
+        const entries = [];
+        allWorkHours.forEach(h => entries.push({
+            type: 'hora', id: h.id, date: h.date, seq: seq++,
+            title: 'Horas trabalhadas', subtitle: `${h.hours}h × ${formatCurrency(h.hourlyRate)}/h${h.notes ? ' — ' + h.notes : ''}`,
+            amount: h.total
+        }));
+        // registros de produção (compra/venda internas com total=0) ficam ocultos aqui — aparecem como 1 entrada 'producao' abaixo
+        allPurchases.filter(p => !p.isProduction).forEach(p => entries.push({
+            type: 'compra', id: p.id, date: p.date, seq: seq++, productId: p.productId,
+            title: 'Compra de estoque: ' + p.productName, subtitle: `${p.quantity} un × ${formatCurrency(p.unitCost)}${p.notes ? ' — ' + p.notes : ''}`,
+            amount: -p.total
+        }));
+        allSales.filter(s => !s.isProduction).forEach(s => entries.push({
+            type: 'venda', id: s.id, date: s.date, seq: seq++, productId: s.productId,
+            title: 'Venda: ' + s.productName, subtitle: `${s.quantity} un × ${formatCurrency(s.unitPrice)} · lucro ${formatCurrency(s.profit)}${s.notes ? ' — ' + s.notes : ''}`,
+            amount: s.total
+        }));
+        allServices.forEach(sv => entries.push({
+            type: 'servico', id: sv.id, date: sv.date, seq: seq++,
+            title: sv.name + (sv.client ? ' — ' + sv.client : ''), subtitle: 'Serviço prestado' + (sv.notes ? ' — ' + sv.notes : ''),
+            amount: sv.price
+        }));
+        allAdjustments.forEach(a => entries.push({
+            type: 'ajuste', id: a.id, date: a.date, seq: seq++,
+            title: a.description, subtitle: 'Ajuste manual',
+            amount: a.amount
+        }));
+        allProductions.forEach(pr => entries.push({
+            type: 'producao', id: pr.id, date: pr.date, seq: seq++,
+            title: 'Produção: ' + pr.recipeName,
+            subtitle: `${pr.yieldQuantity} ${pr.yieldUnit} · custo total ${formatCurrency(pr.totalCost)} · ${formatCurrency(pr.costPerUnit)}/${pr.yieldUnit}${pr.notes ? ' — ' + pr.notes : ''}`,
+            amount: 0
+        }));
 
         entries.sort((a, b) => (a.date || '').localeCompare(b.date || '') || a.seq - b.seq);
         let running = 0;
@@ -1591,39 +1968,45 @@ function renderResumo() {
     function setHistoryFilter(filter) {
         historyFilter = filter;
         document.querySelectorAll('#history-filter-pills .pill').forEach(p => p.classList.toggle('active', p.dataset.filter === filter));
-        triggerHistorySearch();
+        renderHistoryList(true);
     }
 
-    let historySearchQuery = '';
     function onSearchHistoryInput() {
         historySearchQuery = document.getElementById('search-history').value.toLowerCase();
         document.getElementById('clear-history-search').style.display = historySearchQuery ? 'flex' : 'none';
-        triggerHistorySearch();
+        renderHistoryList(true);
     }
     function clearSearchHistory() {
         document.getElementById('search-history').value = ''; historySearchQuery = '';
         document.getElementById('clear-history-search').style.display = 'none';
-        triggerHistorySearch();
+        renderHistoryList(true);
+    }
+
+    function renderHistoryList(resetScroll) {
+        let items = historyFilter === 'todos' ? cachedHistoryEntries : cachedHistoryEntries.filter(e => e.type === historyFilter);
+        if (historySearchQuery) items = items.filter(e => e.title.toLowerCase().includes(historySearchQuery) || e.subtitle.toLowerCase().includes(historySearchQuery));
+        historyVirtualList.setItems(items, { resetScroll });
     }
 
     function historyActionsHTML(e) {
         switch (e.type) {
             case 'hora': return `<button class="icon-btn" onclick="editWorkHour(${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteWorkHour(${e.id})" title="Excluir">🗑️</button>`;
             case 'compra': return `<button class="icon-btn" onclick="openBuyModal(${e.productId}, ${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deletePurchase(${e.id})" title="Excluir">🗑️</button>`;
-            case 'producao': return `<button class="icon-btn" onclick="deletePurchase(${e.id})" title="Excluir Produção">🗑️</button>`;
             case 'venda': return `<button class="icon-btn" onclick="openSellModal(${e.productId}, ${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteSale(${e.id})" title="Excluir">🗑️</button>`;
-            case 'consumo': return `<button class="icon-btn" onclick="deleteSale(${e.id})" title="Excluir Consumo">🗑️</button>`;
             case 'servico': return `<button class="icon-btn" onclick="editService(${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteService(${e.id})" title="Excluir">🗑️</button>`;
             case 'ajuste': return `<button class="icon-btn" onclick="editAdjustment(${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteAdjustment(${e.id})" title="Excluir">🗑️</button>`;
+            case 'producao': return `<button class="icon-btn" onclick="editProduction(${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteProduction(${e.id})" title="Excluir">🗑️</button>`;
             default: return '';
         }
     }
 
-    const typeLabels = { hora: 'Horas', compra: 'Compra', venda: 'Venda', servico: 'Serviço', ajuste: 'Ajuste', producao: 'Produção', consumo: 'Consumo' };
+    const typeLabels = { hora: 'Horas', compra: 'Compra', venda: 'Venda', servico: 'Serviço', ajuste: 'Ajuste', producao: 'Produção' };
 
     function renderHistoryRowHTML(e, compact) {
-        let amtClass = e.amount > 0 ? 'positive' : (e.amount < 0 ? 'negative' : 'neutral');
-        let prefix = e.amount > 0 ? '+' : '';
+        const isNeutral = e.type === 'producao';
+        const isPositive = e.amount >= 0;
+        const amountClass = isNeutral ? 'neutral' : (isPositive ? 'positive' : 'negative');
+        const amountText = isNeutral ? '—' : `${isPositive ? '+' : ''}${formatCurrency(e.amount)}`;
         return `<div class="list-row">
             <div class="row-main">
                 <span class="row-date">📅 ${formatDateBR(e.date)} <span class="type-badge ${e.type}">${typeLabels[e.type]}</span></span>
@@ -1632,7 +2015,7 @@ function renderResumo() {
             </div>
             <div class="row-side">
                 <div style="display:flex; flex-direction:column; align-items:flex-end; gap:2px;">
-                    <span class="row-amount ${amtClass}">${prefix}${formatCurrency(e.amount)}</span>
+                    <span class="row-amount ${amountClass}">${amountText}</span>
                     ${!compact ? `<span class="row-balance">saldo: ${formatCurrency(e.runningBalance)}</span>` : ''}
                 </div>
                 ${!compact ? `<div class="row-actions">${historyActionsHTML(e)}</div>` : ''}
@@ -1640,26 +2023,17 @@ function renderResumo() {
         </div>`;
     }
 
-    function triggerHistorySearch() {
-        const allEntries = buildHistoryEntries();
-        let filtered = historyFilter === 'todos' ? allEntries : allEntries.filter(e => e.type === historyFilter);
-        if (historySearchQuery) {
-            filtered = filtered.filter(e => e.title.toLowerCase().includes(historySearchQuery) || e.subtitle.toLowerCase().includes(historySearchQuery));
-        }
-        
-        renderLazyList('history-list', filtered, 'history-empty-state', e => renderHistoryRowHTML(e, false), 82);
-    }
-
     // ==========================================
-    // EXPORTAR E IMPORTAR
+    // EXPORTAR / IMPORTAR BACKUP
     // ==========================================
     function exportBackup() {
-        const total = allWorkHours.length + allProducts.length + allPurchases.length + allSales.length + allServices.length + allAdjustments.length;
+        const total = allWorkHours.length + allProducts.length + allPurchases.length + allSales.length + allServices.length + allAdjustments.length + allRecipes.length + allProductions.length;
         if (total === 0) return showToast('Não há dados para exportar ainda.', 'error');
         const payload = {
-            app: 'GestaoNegocio', version: 1, exportedAt: new Date().toISOString(),
+            app: 'GestaoNegocio', version: 2, exportedAt: new Date().toISOString(),
             workHours: allWorkHours, products: allProducts, productPurchases: allPurchases,
-            productSales: allSales, services: allServices, adjustments: allAdjustments
+            productSales: allSales, services: allServices, adjustments: allAdjustments,
+            recipes: allRecipes, productions: allProductions
         };
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -1678,16 +2052,19 @@ function renderResumo() {
         reader.onload = () => {
             try {
                 const data = JSON.parse(reader.result);
-                const hasAnyArray = ['workHours', 'products', 'productPurchases', 'productSales', 'services', 'adjustments'].some(k => Array.isArray(data[k]));
+                const keys = ['workHours', 'products', 'productPurchases', 'productSales', 'services', 'adjustments', 'recipes', 'productions'];
+                const hasAnyArray = keys.some(k => Array.isArray(data[k]));
                 if (!data || !hasAnyArray) { showToast('Arquivo de backup inválido.', 'error'); return; }
                 pendingImportPayload = data;
                 const counts = [
-                    `${(data.workHours || []).length} horas`,
-                    `${(data.products || []).length} produtos`,
-                    `${(data.productPurchases || []).length} compras/produções`,
-                    `${(data.productSales || []).length} vendas/consumos`,
-                    `${(data.services || []).length} serviços`,
-                    `${(data.adjustments || []).length} ajustes`
+                    `${(data.workHours || []).length} registro(s) de horas`,
+                    `${(data.products || []).length} produto(s)`,
+                    `${(data.productPurchases || []).length} compra(s)`,
+                    `${(data.productSales || []).length} venda(s)`,
+                    `${(data.services || []).length} serviço(s)`,
+                    `${(data.adjustments || []).length} ajuste(s)`,
+                    `${(data.recipes || []).length} ficha(s) técnica(s)`,
+                    `${(data.productions || []).length} produção(ões)`
                 ].join(', ');
                 document.getElementById('import-summary-text').textContent = `Este arquivo contém: ${counts}. Como deseja importar?`;
                 document.getElementById('import-modal').style.display = 'flex';
@@ -1699,7 +2076,9 @@ function renderResumo() {
 
     function closeImportModal() { document.getElementById('import-modal').style.display = 'none'; pendingImportPayload = null; }
 
-    function clearStore(name) { return runTx([name], 'readwrite', (tx) => tx.objectStore(name).clear()); }
+    function clearStore(name) {
+        return runTx([name], 'readwrite', (tx) => tx.objectStore(name).clear());
+    }
 
     async function confirmImport(mode) {
         const data = pendingImportPayload;
@@ -1709,8 +2088,11 @@ function renderResumo() {
             if (mode === 'replace') {
                 await clearStore('workHours'); await clearStore('products'); await clearStore('productPurchases');
                 await clearStore('productSales'); await clearStore('services'); await clearStore('adjustments');
+                await clearStore('recipes'); await clearStore('productions');
             }
 
+            // Produtos primeiro: no modo mesclar, capturamos o mapa de IDs antigos -> novos
+            // para remapear as referências (productId) das compras, vendas e receitas importadas.
             const productIdMap = {};
             const productsRaw = Array.isArray(data.products) ? data.products : [];
             await runTx(['products'], 'readwrite', (tx) => {
@@ -1724,14 +2106,14 @@ function renderResumo() {
                     }
                 }
             });
+            const mapProductId = (pid) => (mode === 'replace' ? pid : (productIdMap[pid] != null ? productIdMap[pid] : pid));
 
             const purchasesRaw = Array.isArray(data.productPurchases) ? data.productPurchases : [];
             await runTx(['productPurchases'], 'readwrite', (tx) => {
                 const store = tx.objectStore('productPurchases');
                 for (const raw of purchasesRaw) {
                     const { id: originalId, productId, ...rest } = raw;
-                    const newProductId = mode === 'replace' ? productId : (productIdMap[productId] != null ? productIdMap[productId] : productId);
-                    const toSave = { productId: newProductId, ...rest };
+                    const toSave = { productId: mapProductId(productId), ...rest };
                     if (mode === 'replace' && originalId != null) store.put({ id: originalId, ...toSave });
                     else store.add(toSave);
                 }
@@ -1742,8 +2124,37 @@ function renderResumo() {
                 const store = tx.objectStore('productSales');
                 for (const raw of salesRaw) {
                     const { id: originalId, productId, ...rest } = raw;
-                    const newProductId = mode === 'replace' ? productId : (productIdMap[productId] != null ? productIdMap[productId] : productId);
-                    const toSave = { productId: newProductId, ...rest };
+                    const toSave = { productId: mapProductId(productId), ...rest };
+                    if (mode === 'replace' && originalId != null) store.put({ id: originalId, ...toSave });
+                    else store.add(toSave);
+                }
+            });
+
+            // Receitas: capturamos o mapa de IDs também, para remapear productions.recipeId depois
+            const recipeIdMap = {};
+            const recipesRaw = Array.isArray(data.recipes) ? data.recipes : [];
+            await runTx(['recipes'], 'readwrite', (tx) => {
+                const store = tx.objectStore('recipes');
+                for (const raw of recipesRaw) {
+                    const { id: originalId, ingredients, ...rest } = raw;
+                    const remappedIngredients = (ingredients || []).map(i => ({ ...i, productId: mapProductId(i.productId) }));
+                    const toSave = { ingredients: remappedIngredients, ...rest };
+                    if (mode === 'replace' && originalId != null) store.put({ id: originalId, ...toSave });
+                    else {
+                        const req = store.add(toSave);
+                        if (originalId != null) req.onsuccess = () => { recipeIdMap[originalId] = req.result; };
+                    }
+                }
+            });
+            const mapRecipeId = (rid) => (mode === 'replace' ? rid : (recipeIdMap[rid] != null ? recipeIdMap[rid] : rid));
+
+            const productionsRaw = Array.isArray(data.productions) ? data.productions : [];
+            await runTx(['productions'], 'readwrite', (tx) => {
+                const store = tx.objectStore('productions');
+                for (const raw of productionsRaw) {
+                    const { id: originalId, recipeId, resultProductId, ingredientsUsed, ...rest } = raw;
+                    const remappedIngredientsUsed = (ingredientsUsed || []).map(i => ({ ...i, productId: mapProductId(i.productId) }));
+                    const toSave = { recipeId: mapRecipeId(recipeId), resultProductId: mapProductId(resultProductId), ingredientsUsed: remappedIngredientsUsed, ...rest };
                     if (mode === 'replace' && originalId != null) store.put({ id: originalId, ...toSave });
                     else store.add(toSave);
                 }
@@ -1762,8 +2173,12 @@ function renderResumo() {
             }
 
             pendingImportPayload = null;
-            await loadAllData(); refreshUI(); showToast('Importação concluída com sucesso.');
-        } catch (err) { console.error(err); showToast('Erro ao importar backup.', 'error'); }
+            await loadAllData(); rebuildCaches(); refreshUI();
+            showToast('Importação concluída com sucesso.');
+        } catch (err) {
+            console.error(err);
+            showToast('Erro ao importar backup.', 'error');
+        }
     }
 </script>
 </body>
