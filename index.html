@@ -45,7 +45,7 @@
     .backup-actions { display: flex; gap: 8px; }
     .backup-actions button { width: auto; }
 
-    /* ================= NAVEGAÇÃO POR ABAS ================= */
+    /* ================= NAVEGAÇÃO ================= */
     .tab-nav {
         max-width: 1100px; margin: 16px auto 0 auto; padding: 0 16px;
         display: flex; gap: 8px; flex-wrap: wrap;
@@ -63,14 +63,13 @@
     .tab-panel { display: none; flex-direction: column; gap: 18px; }
     .tab-panel.active { display: flex; }
 
-    /* ================= CARTÕES / PAINÉIS ================= */
     .panel {
         background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
         padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     h2 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 
-    /* ================= VISOR ESTILO CAIXA REGISTRADORA ================= */
+    /* ================= REGISTRADORA E STATS ================= */
     .register-display {
         background: #0f1e17; border-radius: 16px; padding: 26px 22px; text-align: center;
         box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
@@ -82,7 +81,6 @@
     }
     .register-value.negative { color: #ff6b52; text-shadow: 0 0 12px rgba(255,107,82,0.45); }
 
-    /* ================= GRADE DE ESTATÍSTICAS ================= */
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .stat-card { background: #f8faf8; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
     .stat-card .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
@@ -90,17 +88,14 @@
     .stat-card .stat-value.positive { color: var(--credit); }
     .stat-card .stat-value.negative { color: var(--debit); }
 
-    /* ================= FORMULÁRIOS ================= */
+    /* ================= FORMS ================= */
     label { font-weight: 600; font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; display: block; margin-bottom: 4px; }
     .field { display: flex; flex-direction: column; gap: 4px; }
     input, select, textarea {
         width: 100%; padding: 11px 12px; border: 1px solid var(--border); border-radius: 8px;
         font-size: 0.95rem; background: #f8faf8; color: var(--ink); font-family: var(--font-ui);
     }
-    input:focus, select:focus, textarea:focus {
-        outline: none; border-color: var(--brand); background: #fff;
-        box-shadow: 0 0 0 3px rgba(47,111,79,0.12);
-    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand); background: #fff; box-shadow: 0 0 0 3px rgba(47,111,79,0.12); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
     .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
@@ -118,33 +113,31 @@
     button:active { transform: scale(0.99); }
     .btn-secondary { background: #94a3b8; }
     .btn-danger { background: var(--danger); }
+    .btn-sell { background: var(--credit); }
     .btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
+    .btn-outline.dark { border-color: var(--brand); color: var(--brand); }
     .btn-outline:hover { background: rgba(255,255,255,0.1); filter: none; }
+    .btn-outline.dark:hover { background: rgba(47,111,79,0.05); }
     .btn-row { display: flex; gap: 10px; }
+    @media (max-width: 520px) { .btn-row.wrap-mobile { flex-direction: column; } }
 
     details.form-accordion { background: #f8faf8; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    details.form-accordion > summary {
-        background: var(--brand); color: #fff; padding: 13px 16px; font-weight: 700; cursor: pointer;
-        list-style: none; display: flex; align-items: center; gap: 8px; min-height: 44px;
-    }
+    details.form-accordion > summary { background: var(--brand); color: #fff; padding: 13px 16px; font-weight: 700; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; min-height: 44px; }
     details.form-accordion > summary::-webkit-details-marker { display: none; }
     .form-content { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
     .panel.horas details.form-accordion > summary { background: var(--gold); }
     .panel.servicos details.form-accordion > summary { background: var(--teal); }
 
-    /* ================= BUSCA ================= */
     .search-wrapper { position: relative; }
     .search-wrapper input { padding-right: 38px; }
-    .clear-search-btn {
-        position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; min-height: unset;
-        padding: 0; border-radius: 50%; background: #e2e8f0; color: var(--ink); font-size: 0.7rem; display: none;
-    }
+    .clear-search-btn { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; min-height: unset; padding: 0; border-radius: 50%; background: #e2e8f0; color: var(--ink); font-size: 0.7rem; display: none; }
     .clear-search-btn:hover { background: #cbd5e1; filter: none; }
 
-    /* ================= LISTAS / LINHAS ================= */
+    /* ================= LISTAS E LAZY LOADING ================= */
     .list { display: flex; flex-direction: column; gap: 10px; }
+    .lazy-wrapper { width: 100%; display: flex; flex-direction: column; }
+
     .list-row {
-        content-visibility: auto; contain-intrinsic-size: auto 78px;
         background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px;
         display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
     }
@@ -156,23 +149,27 @@
     .row-amount { font-family: var(--font-mono); font-weight: 700; font-size: 1rem; white-space: nowrap; }
     .row-amount.positive { color: var(--credit); }
     .row-amount.negative { color: var(--debit); }
+    .row-amount.neutral { color: var(--muted); }
     .row-balance { font-size: 0.68rem; color: var(--muted); font-family: var(--font-mono); white-space: nowrap; }
     .row-actions { display: flex; gap: 6px; }
     .icon-btn { background: #f1f5f0; color: var(--ink); border: none; padding: 7px 9px; border-radius: 7px; cursor: pointer; width: auto; min-height: unset; font-size: 0.85rem; }
     .icon-btn:hover { background: #e2e8de; filter: none; }
+    
     .type-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 999px; font-family: var(--font-mono); }
     .type-badge.hora { background: #fbf0da; color: var(--gold); }
     .type-badge.compra { background: #f7e3dd; color: var(--debit); }
     .type-badge.venda { background: #dfeee4; color: var(--credit); }
     .type-badge.servico { background: #dcecee; color: var(--teal); }
     .type-badge.ajuste { background: #e7e7ea; color: #4b4b57; }
+    .type-badge.producao { background: #e2e8f0; color: #334155; }
+    .type-badge.consumo { background: #fef3c7; color: #b45309; }
 
     .empty-state { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 40px 16px; color: var(--muted); text-align: center; font-size: 0.9rem; }
     .empty-state.show { display: flex; }
     .empty-icon { font-size: 1.9rem; }
 
     /* ================= PRODUTOS ================= */
-    .product-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; content-visibility: auto; contain-intrinsic-size: auto 190px; }
+    .product-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
     .product-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
     .product-name { font-weight: 700; font-size: 1rem; }
     .chip { background: #eef1ed; color: var(--muted); padding: 2px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; }
@@ -184,8 +181,6 @@
     .product-actions { display: flex; gap: 8px; flex-wrap: wrap; }
     .product-actions button { width: auto; flex: 1 1 auto; min-width: 110px; }
     .btn-buy { background: var(--debit); }
-    .btn-sell { background: var(--credit); }
-
     .field-note { font-size: 0.75rem; color: var(--muted); margin-top: -2px; }
     input:disabled { background: #eef1ed; color: var(--muted); cursor: not-allowed; }
 
@@ -195,15 +190,13 @@
     .pill:hover { filter: none; background: #e5ebe3; }
     .pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
-    /* ================= MODAIS ================= */
+    /* ================= MODAIS & UTIL ================= */
     .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); display: none; justify-content: center; align-items: center; z-index: 100; padding: 16px; backdrop-filter: blur(2px); }
     .modal-content { background: #fff; padding: 22px; border-radius: 16px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 12px; }
     .modal-header { font-size: 1.1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
     .close-btn { cursor: pointer; background: #f1f5f0; border: none; border-radius: 50%; width: 30px; height: 30px; min-height: unset; display: flex; justify-content: center; align-items: center; font-weight: 700; }
     .modal-hint { font-size: 0.8rem; color: var(--muted); background: #f8faf8; border-radius: 8px; padding: 8px 10px; }
-    .modal-hint.warn { color: var(--debit); background: #fbeee9; }
 
-    /* ================= TOASTS ================= */
     #toast-container { position: fixed; bottom: 16px; right: 16px; left: 16px; z-index: 300; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; pointer-events: none; }
     .toast { background: var(--ink); color: #fff; padding: 11px 15px; border-radius: 10px; font-size: 0.85rem; opacity: 0; transform: translateY(10px); transition: all 0.25s; box-shadow: 0 4px 12px rgba(0,0,0,0.18); max-width: 320px; }
     .toast.show { opacity: 1; transform: translateY(0); }
@@ -212,8 +205,6 @@
     .loading-overlay { position: fixed; inset: 0; background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 500; color: var(--muted); font-size: 0.9rem; }
     .spinner { width: 34px; height: 34px; border: 3px solid var(--border); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .recent-list { display: flex; flex-direction: column; gap: 8px; }
 </style>
 </head>
 <body>
@@ -228,7 +219,7 @@
         <span class="brand-icon">💼</span>
         <div>
             <h1>Gestão do Negócio</h1>
-            <p class="brand-sub">Horas, produtos e serviços — tudo em um só lugar</p>
+            <p class="brand-sub">Horas, produtos, receitas e serviços</p>
         </div>
     </div>
     <div class="header-balance-pill">
@@ -244,8 +235,9 @@
 
 <div class="tab-nav">
     <button class="nav-btn active" data-tab="resumo" onclick="switchTab('resumo')">📊 Resumo</button>
-    <button class="nav-btn" data-tab="horas" onclick="switchTab('horas')">⏱️ Horas</button>
+    <button class="nav-btn" data-tab="producao" onclick="switchTab('producao')">🍳 Produção</button>
     <button class="nav-btn" data-tab="produtos" onclick="switchTab('produtos')">📦 Produtos</button>
+    <button class="nav-btn" data-tab="horas" onclick="switchTab('horas')">⏱️ Horas</button>
     <button class="nav-btn" data-tab="servicos" onclick="switchTab('servicos')">🧰 Serviços</button>
     <button class="nav-btn" data-tab="historico" onclick="switchTab('historico')">📜 Histórico</button>
 </div>
@@ -260,12 +252,10 @@
                 <div class="register-value" id="lcd-balance-value">R$ 0,00</div>
             </div>
         </div>
-
         <div class="panel">
             <h2>📈 Visão geral</h2>
             <div class="stats-grid" id="stats-grid"></div>
         </div>
-
         <div class="panel">
             <h2>🕓 Últimas movimentações</h2>
             <div class="recent-list" id="recent-list"></div>
@@ -276,11 +266,102 @@
         </div>
     </div>
 
+    <!-- ===================== PRODUÇÃO / RECEITAS ===================== -->
+    <div class="tab-panel" id="tab-producao">
+        <div class="panel">
+            <h2>🍳 Produção e Receitas</h2>
+            <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 16px;">
+                Crie receitas e calcule custos. Linhas de ingredientes não preenchidas serão ignoradas automaticamente.
+            </p>
+            <div class="form-row">
+                <div class="field">
+                    <label>Produto Final</label>
+                    <input type="text" id="recipe-product-name" list="recipe-product-list" placeholder="Ex: Salgado de Carne" autocomplete="off">
+                    <datalist id="recipe-product-list"></datalist>
+                </div>
+                <div class="field">
+                    <label>Rendimento (Unidades)</label>
+                    <input type="number" id="recipe-yield" min="1" step="1" value="1" oninput="calcRecipe()">
+                </div>
+            </div>
+            <div class="form-row" style="margin-top: 10px;">
+                <div class="field">
+                    <label>Margem de Lucro Desejada (%)</label>
+                    <input type="number" id="recipe-margin" min="0" step="1" value="80" oninput="calcRecipe()">
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 24px; font-size: 0.95rem; margin-bottom: 12px; color: var(--brand);">Ingredientes Utilizados</h3>
+            <div id="recipe-ingredients-list" style="display:flex; flex-direction: column; gap: 10px; margin-bottom: 14px;"></div>
+            <button class="btn-outline dark" style="margin-bottom: 24px;" onclick="addIngredientRow()">➕ Adicionar Ingrediente</button>
+
+            <div class="register-display" style="text-align: left; padding: 18px 22px; margin-bottom: 20px;">
+                <div class="form-row-3">
+                    <div>
+                        <div class="register-label">Custo Total</div>
+                        <div class="register-value" style="font-size: 1.4rem;" id="recipe-total-cost">R$ 0,00</div>
+                    </div>
+                    <div>
+                        <div class="register-label">Custo Unitário</div>
+                        <div class="register-value" style="font-size: 1.4rem; color: #7ee2a8;" id="recipe-unit-cost">R$ 0,00</div>
+                    </div>
+                    <div>
+                        <div class="register-label">Venda Sugerida</div>
+                        <div class="register-value" style="font-size: 1.4rem; color: #fff;" id="recipe-suggested-price">R$ 0,00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btn-row wrap-mobile">
+                <button onclick="executeProduction(false)" style="flex: 1; font-size: 0.9rem;">🏭 Produzir (Só Guardar)</button>
+                <button onclick="executeProduction(true)" class="btn-sell" style="flex: 1; font-size: 0.9rem;">🏭 + 📤 Produzir e Vender</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PRODUTOS ===================== -->
+    <div class="tab-panel" id="tab-produtos">
+        <div class="panel produtos">
+            <h2>📦 Produtos e Estoque</h2>
+            <details id="product-form-accordion" class="form-accordion">
+                <summary id="product-form-title">➕ Novo Produto</summary>
+                <div class="form-content">
+                    <div class="form-row">
+                        <div class="field"><label>Nome do produto</label><input type="text" id="product-name" placeholder="Ex: Farinha de Trigo"></div>
+                        <div class="field"><label>Categoria</label><input type="text" id="product-category" list="product-category-list" placeholder="Ex: Ingredientes"><datalist id="product-category-list"></datalist></div>
+                    </div>
+                    <div class="form-row-3">
+                        <div class="field"><label>Quantidade inicial</label><input type="number" id="product-qty" min="0" step="0.001" placeholder="0"></div>
+                        <div class="field"><label>Custo unitário (R$)</label><input type="number" id="product-cost" min="0" step="0.01" placeholder="0.00" oninput="onProductCostOrMarginChange()"></div>
+                        <div class="field"><label>Margem de lucro (%)</label><input type="number" id="product-margin" min="0" step="1" placeholder="40" oninput="onProductCostOrMarginChange()"></div>
+                    </div>
+                    <p class="field-note" id="product-qty-note" style="display:none;">Este produto já tem movimentações — a quantidade e o custo são controlados pelas compras e vendas registradas.</p>
+                    <div class="field"><label>Preço de venda sugerido (R$)</label><input type="number" id="product-price" min="0" step="0.01" placeholder="0.00" oninput="onProductPriceChange()"></div>
+                    <div class="btn-row">
+                        <button onclick="saveProduct()" id="btn-save-product">Salvar Produto</button>
+                        <button onclick="cancelProductEdit()" id="btn-cancel-product" class="btn-secondary" style="display:none;">Cancelar</button>
+                    </div>
+                </div>
+            </details>
+
+            <div class="search-wrapper" style="margin-top:14px;">
+                <input type="text" id="search-products" placeholder="🔍 Buscar produto..." oninput="onSearchProductsInput()">
+                <button class="clear-search-btn" id="clear-products-search" onclick="clearSearchProducts()">✕</button>
+            </div>
+
+            <div class="list" id="products-list" style="margin-top:12px;"></div>
+            
+            <div class="empty-state" id="products-empty-state">
+                <span class="empty-icon">📦</span>
+                <p>Nenhum produto cadastrado ainda.<br>Cadastre o primeiro produto acima.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- ===================== HORAS ===================== -->
     <div class="tab-panel" id="tab-horas">
         <div class="panel horas">
             <h2>⏱️ Horas Trabalhadas</h2>
-
             <details id="hour-form-accordion" class="form-accordion">
                 <summary id="hour-form-title">➕ Registrar Horas</summary>
                 <div class="form-content">
@@ -304,48 +385,10 @@
             </div>
 
             <div class="list" id="hours-list" style="margin-top:12px;"></div>
+            
             <div class="empty-state" id="hours-empty-state">
                 <span class="empty-icon">⏱️</span>
                 <p>Nenhuma hora registrada ainda.<br>Registre seu primeiro turno acima.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===================== PRODUTOS ===================== -->
-    <div class="tab-panel" id="tab-produtos">
-        <div class="panel produtos">
-            <h2>📦 Produtos e Estoque</h2>
-
-            <details id="product-form-accordion" class="form-accordion">
-                <summary id="product-form-title">➕ Novo Produto</summary>
-                <div class="form-content">
-                    <div class="form-row">
-                        <div class="field"><label>Nome do produto</label><input type="text" id="product-name" placeholder="Ex: Cera automotiva"></div>
-                        <div class="field"><label>Categoria</label><input type="text" id="product-category" list="product-category-list" placeholder="Ex: Limpeza"><datalist id="product-category-list"></datalist></div>
-                    </div>
-                    <div class="form-row-3">
-                        <div class="field"><label>Quantidade inicial</label><input type="number" id="product-qty" min="0" step="1" placeholder="0" oninput="updateProductLivePrice()"></div>
-                        <div class="field"><label>Custo unitário (R$)</label><input type="number" id="product-cost" min="0" step="0.01" placeholder="0.00" oninput="onProductCostOrMarginChange()"></div>
-                        <div class="field"><label>Margem de lucro (%)</label><input type="number" id="product-margin" min="0" step="1" placeholder="40" oninput="onProductCostOrMarginChange()"></div>
-                    </div>
-                    <p class="field-note" id="product-qty-note" style="display:none;">Este produto já tem movimentações — a quantidade e o custo são controlados pelas compras e vendas registradas.</p>
-                    <div class="field"><label>Preço de venda sugerido (R$)</label><input type="number" id="product-price" min="0" step="0.01" placeholder="0.00" oninput="onProductPriceChange()"></div>
-                    <div class="btn-row">
-                        <button onclick="saveProduct()" id="btn-save-product">Salvar Produto</button>
-                        <button onclick="cancelProductEdit()" id="btn-cancel-product" class="btn-secondary" style="display:none;">Cancelar</button>
-                    </div>
-                </div>
-            </details>
-
-            <div class="search-wrapper" style="margin-top:14px;">
-                <input type="text" id="search-products" placeholder="🔍 Buscar produto..." oninput="onSearchProductsInput()">
-                <button class="clear-search-btn" id="clear-products-search" onclick="clearSearchProducts()">✕</button>
-            </div>
-
-            <div class="list" id="products-list" style="margin-top:12px;"></div>
-            <div class="empty-state" id="products-empty-state">
-                <span class="empty-icon">📦</span>
-                <p>Nenhum produto cadastrado ainda.<br>Cadastre o primeiro produto acima.</p>
             </div>
         </div>
     </div>
@@ -354,12 +397,11 @@
     <div class="tab-panel" id="tab-servicos">
         <div class="panel servicos">
             <h2>🧰 Serviços Prestados</h2>
-
             <details id="service-form-accordion" class="form-accordion">
                 <summary id="service-form-title">➕ Registrar Serviço</summary>
                 <div class="form-content">
                     <div class="form-row">
-                        <div class="field"><label>Tipo de serviço</label><input type="text" id="service-name" list="service-name-list" placeholder="Ex: Polimento, Lavagem..."><datalist id="service-name-list"></datalist></div>
+                        <div class="field"><label>Tipo de serviço</label><input type="text" id="service-name" list="service-name-list" placeholder="Ex: Encomenda Festa..."><datalist id="service-name-list"></datalist></div>
                         <div class="field"><label>Valor cobrado (R$)</label><input type="number" id="service-price" min="0" step="0.01" placeholder="0.00"></div>
                     </div>
                     <div class="form-row">
@@ -380,6 +422,7 @@
             </div>
 
             <div class="list" id="services-list" style="margin-top:12px;"></div>
+            
             <div class="empty-state" id="services-empty-state">
                 <span class="empty-icon">🧰</span>
                 <p>Nenhum serviço registrado ainda.<br>Registre o primeiro serviço acima.</p>
@@ -391,7 +434,6 @@
     <div class="tab-panel" id="tab-historico">
         <div class="panel">
             <h2>📜 Histórico de Movimentações</h2>
-
             <details id="adjustment-form-accordion" class="form-accordion">
                 <summary>➕ Ajuste Manual (aporte / retirada)</summary>
                 <div class="form-content">
@@ -417,11 +459,14 @@
                 <button class="pill" data-filter="hora" onclick="setHistoryFilter('hora')">Horas</button>
                 <button class="pill" data-filter="compra" onclick="setHistoryFilter('compra')">Compras</button>
                 <button class="pill" data-filter="venda" onclick="setHistoryFilter('venda')">Vendas</button>
+                <button class="pill" data-filter="producao" onclick="setHistoryFilter('producao')">Produções</button>
+                <button class="pill" data-filter="consumo" onclick="setHistoryFilter('consumo')">Consumos</button>
                 <button class="pill" data-filter="servico" onclick="setHistoryFilter('servico')">Serviços</button>
                 <button class="pill" data-filter="ajuste" onclick="setHistoryFilter('ajuste')">Ajustes</button>
             </div>
 
             <div class="list" id="history-list" style="margin-top:12px;"></div>
+            
             <div class="empty-state" id="history-empty-state">
                 <span class="empty-icon">📜</span>
                 <p>Nenhuma movimentação encontrada.</p>
@@ -431,12 +476,12 @@
 
 </div>
 
-<!-- ===================== MODAL: COMPRAR ESTOQUE ===================== -->
+<!-- MODAIS -->
 <div class="modal-overlay" id="buy-modal" onclick="if(event.target===this) closeBuyModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header"><span id="buy-modal-title">Comprar Estoque</span><button class="close-btn" onclick="closeBuyModal()">✕</button></div>
         <div class="form-row">
-            <div class="field"><label>Quantidade</label><input type="number" id="buy-qty" min="0" step="1" oninput="updateBuyLiveTotal()"></div>
+            <div class="field"><label>Quantidade</label><input type="number" id="buy-qty" min="0" step="0.001" oninput="updateBuyLiveTotal()"></div>
             <div class="field"><label>Custo unitário (R$)</label><input type="number" id="buy-cost" min="0" step="0.01" oninput="updateBuyLiveTotal()"></div>
         </div>
         <div class="field"><label>Data</label><input type="date" id="buy-date"></div>
@@ -449,13 +494,12 @@
     </div>
 </div>
 
-<!-- ===================== MODAL: VENDER ===================== -->
 <div class="modal-overlay" id="sell-modal" onclick="if(event.target===this) closeSellModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header"><span id="sell-modal-title">Vender</span><button class="close-btn" onclick="closeSellModal()">✕</button></div>
         <div class="modal-hint" id="sell-stock-hint">Estoque disponível: 0</div>
         <div class="form-row">
-            <div class="field"><label>Quantidade</label><input type="number" id="sell-qty" min="0" step="1" oninput="updateSellLiveTotal()"></div>
+            <div class="field"><label>Quantidade</label><input type="number" id="sell-qty" min="0" step="0.001" oninput="updateSellLiveTotal()"></div>
             <div class="field"><label>Preço unitário (R$)</label><input type="number" id="sell-price" min="0" step="0.01" oninput="updateSellLiveTotal()"></div>
         </div>
         <div class="field"><label>Data</label><input type="date" id="sell-date"></div>
@@ -468,7 +512,6 @@
     </div>
 </div>
 
-<!-- ===================== MODAL: IMPORTAR ===================== -->
 <div class="modal-overlay" id="import-modal" onclick="if(event.target===this) closeImportModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header"><span>Importar backup</span><button class="close-btn" onclick="closeImportModal()">✕</button></div>
@@ -484,19 +527,69 @@
 <div id="toast-container"></div>
 
 <script>
+    // ==========================================
+    // SISTEMA DE LAZY LOADING COM OBSERVER
+    // ==========================================
+    const listObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const el = entry.target;
+            if (entry.isIntersecting) {
+                if (!el.dataset.rendered) {
+                    el.innerHTML = el._lazyHtml;
+                    el.dataset.rendered = "true";
+                    el.style.height = ''; 
+                }
+            } else {
+                if (el.dataset.rendered) {
+                    el.style.height = el.offsetHeight + 'px';
+                    el.innerHTML = '';
+                    el.dataset.rendered = "";
+                }
+            }
+        });
+    }, { rootMargin: '400px 0px' });
+
+    function renderLazyList(containerId, items, emptyStateId, htmlGenerator, defaultHeight) {
+        const container = document.getElementById(containerId);
+        const empty = document.getElementById(emptyStateId);
+        
+        Array.from(container.children).forEach(child => listObserver.unobserve(child));
+        container.innerHTML = '';
+
+        if (items.length === 0) {
+            empty.classList.add('show');
+            return;
+        }
+        empty.classList.remove('show');
+
+        const fragment = document.createDocumentFragment();
+        items.forEach(item => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'lazy-wrapper';
+            wrapper.style.minHeight = defaultHeight + 'px';
+            wrapper._lazyHtml = htmlGenerator(item);
+            
+            fragment.appendChild(wrapper);
+            listObserver.observe(wrapper);
+        });
+        container.appendChild(fragment);
+    }
+
+    // ==========================================
+    // VARIAVEIS E BD
+    // ==========================================
     let db;
     let allWorkHours = [], allProducts = [], allPurchases = [], allSales = [], allServices = [], allAdjustments = [];
     let editingHourId = null, editingProductId = null, editingServiceId = null, editingAdjustmentId = null;
     let buyModalProductId = null, buyModalEditId = null;
     let sellModalProductId = null, sellModalEditId = null;
     let historyFilter = 'todos';
-    let productMarginLinked = true; // evita loop infinito ao sincronizar margem <-> preço
+    let productMarginLinked = true; 
     let pendingImportPayload = null;
 
-    // ==========================================
-    // BANCO DE DADOS
-    // ==========================================
-    const dbRequest = indexedDB.open("GestaoNegocioDB", 1);
+    // Ajuste 1: Aumentado de versão 1 para a versão 2, para forçar a criação de tabelas novas!
+    const dbRequest = indexedDB.open("GestaoNegocioDB", 2);
+    
     dbRequest.onupgradeneeded = (e) => {
         const d = e.target.result;
         if (!d.objectStoreNames.contains("workHours")) d.createObjectStore("workHours", { keyPath: "id", autoIncrement: true });
@@ -511,7 +604,11 @@
         setDefaultDates();
         loadAllData().then(refreshUI).catch(err => { console.error(err); showToast('Erro ao carregar dados.', 'error'); });
     };
-    dbRequest.onerror = () => { hideLoadingOverlay(); showToast('Erro ao abrir o banco de dados local.', 'error'); };
+    dbRequest.onerror = (e) => { 
+        console.error(e); 
+        hideLoadingOverlay(); 
+        showToast('Erro ao abrir o banco de dados local.', 'error'); 
+    };
 
     function setDefaultDates() {
         const today = todayISO();
@@ -533,13 +630,20 @@
         });
     }
 
+    // Ajuste 2: O try...finally previne o carregamento infinito de travar a aplicação!
     async function loadAllData() {
         showLoadingOverlay();
-        [allWorkHours, allProducts, allPurchases, allSales, allServices, allAdjustments] = await Promise.all([
-            readAllFromStore('workHours'), readAllFromStore('products'), readAllFromStore('productPurchases'),
-            readAllFromStore('productSales'), readAllFromStore('services'), readAllFromStore('adjustments')
-        ]);
-        hideLoadingOverlay();
+        try {
+            [allWorkHours, allProducts, allPurchases, allSales, allServices, allAdjustments] = await Promise.all([
+                readAllFromStore('workHours'), readAllFromStore('products'), readAllFromStore('productPurchases'),
+                readAllFromStore('productSales'), readAllFromStore('services'), readAllFromStore('adjustments')
+            ]);
+        } catch (err) {
+            console.error("Erro ao ler dados das tabelas:", err);
+            throw err;
+        } finally {
+            hideLoadingOverlay();
+        }
     }
 
     function showLoadingOverlay() { document.getElementById('loading-overlay').style.display = 'flex'; }
@@ -554,9 +658,7 @@
         const [y, m, d] = iso.split('-');
         return `${d}/${m}/${y}`;
     }
-    function formatCurrency(n) {
-        return (Number(n) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
+    function formatCurrency(n) { return (Number(n) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
     function round2(n) { return Math.round((Number(n) || 0) * 100) / 100; }
     function escapeHTML(str) {
         if (str === null || str === undefined) return '';
@@ -584,9 +686,6 @@
         });
     }
 
-    // ==========================================
-    // NAVEGAÇÃO ENTRE ABAS
-    // ==========================================
     function switchTab(tab) {
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         const target = document.getElementById('tab-' + tab);
@@ -612,51 +711,88 @@
         const headerEl = document.getElementById('header-balance-value');
         headerEl.textContent = formatCurrency(bal);
         headerEl.className = 'value ' + (bal >= 0 ? 'positive' : 'negative');
-
         const lcdEl = document.getElementById('lcd-balance-value');
         lcdEl.textContent = formatCurrency(bal);
         lcdEl.className = 'register-value' + (bal < 0 ? ' negative' : '');
     }
 
-    function renderResumo() {
-        updateHeaderBalance();
+function renderResumo() {
+    updateHeaderBalance();
 
-        const totalHoras = allWorkHours.reduce((s, h) => s + (h.total || 0), 0);
-        const totalVendasProdutos = allSales.reduce((s, x) => s + (x.total || 0), 0);
-        const lucroProdutos = allSales.reduce((s, x) => s + (x.profit || 0), 0);
-        const totalServicos = allServices.reduce((s, x) => s + (x.price || 0), 0);
-        const totalCompras = allPurchases.reduce((s, x) => s + (x.total || 0), 0);
-        const valorEstoque = allProducts.reduce((s, p) => s + (p.quantity || 0) * (p.costPrice || 0), 0);
+    const totalHoras = allWorkHours.reduce((s, h) => s + (h.total || 0), 0);
+    const totalVendasProdutos = allSales.filter(s => !s.isConsumption).reduce((s, x) => s + (x.total || 0), 0);
+    const lucroProdutos = allSales.filter(s => !s.isConsumption).reduce((s, x) => s + (x.profit || 0), 0);
+    const totalServicos = allServices.reduce((s, x) => s + (x.price || 0), 0);
+    const totalCompras = allPurchases.filter(p => !p.isProduction).reduce((s, x) => s + (x.total || 0), 0);
+    const valorEstoque = allProducts.reduce((s, p) => s + (p.quantity || 0) * (p.costPrice || 0), 0);
 
-        const stats = [
-            { label: 'Total em Horas', value: totalHoras, sign: 'positive' },
-            { label: 'Vendas de Produtos', value: totalVendasProdutos, sign: 'positive' },
-            { label: 'Lucro em Produtos', value: lucroProdutos, sign: 'positive' },
-            { label: 'Total em Serviços', value: totalServicos, sign: 'positive' },
-            { label: 'Gasto com Estoque', value: totalCompras, sign: 'negative' },
-            { label: 'Capital em Estoque', value: valorEstoque, sign: null },
-        ];
-        document.getElementById('stats-grid').innerHTML = stats.map(s => `
-            <div class="stat-card">
-                <div class="stat-label">${s.label}</div>
-                <div class="stat-value ${s.sign || ''}">${formatCurrency(s.value)}</div>
-            </div>
-        `).join('');
+    const stats = [
+        { label: 'Total em Horas', value: totalHoras, sign: 'positive' },
+        { label: 'Vendas de Produtos', value: totalVendasProdutos, sign: 'positive' },
+        { label: 'Lucro em Produtos', value: lucroProdutos, sign: 'positive' },
+        { label: 'Total em Serviços', value: totalServicos, sign: 'positive' },
+        { label: 'Gasto com Estoque', value: totalCompras, sign: 'negative' },
+        { label: 'Capital em Estoque', value: valorEstoque, sign: null },
+    ];
+    document.getElementById('stats-grid').innerHTML = stats.map(s => `
+        <div class="stat-card">
+            <div class="stat-label">${s.label}</div>
+            <div class="stat-value ${s.sign || ''}">${formatCurrency(s.value)}</div>
+        </div>
+    `).join('');
 
-        const entries = buildHistoryEntries().slice(0, 6);
-        const recentList = document.getElementById('recent-list');
-        const recentEmpty = document.getElementById('recent-empty-state');
-        if (entries.length === 0) {
-            recentEmpty.classList.add('show'); recentList.innerHTML = '';
-        } else {
-            recentEmpty.classList.remove('show');
-            recentList.innerHTML = entries.map(e => renderHistoryRowHTML(e, true)).join('');
-        }
+    // --- 1. FILTRANDO APENAS ADIÇÕES E DÉBITOS ---
+    const entriesFiltradas = buildHistoryEntries().filter(e => {
+        const ehConsumo = e.isConsumption || e.type === 'consumo';
+        const ehProducao = e.isProduction || e.type === 'producao';
+        return !ehConsumo && !ehProducao;
+    });
+
+    // --- 2. LAZY LOADING (SCROLL INFINITO DE 4 EM 4) ---
+    const container = document.getElementById('recent-list');
+    const emptyState = document.getElementById('recent-empty-state');
+    
+    container.innerHTML = ''; 
+    
+    if (entriesFiltradas.length === 0) {
+        emptyState.style.display = 'flex'; 
+    } else {
+        emptyState.style.display = 'none'; 
+        
+        let currentIndex = 0;
+        const itensPorVez = 4; 
+        
+        const sentinela = document.createElement('div');
+        sentinela.id = 'sentinela-scroll';
+        sentinela.style.height = '10px';
+        
+        const carregarMaisItens = () => {
+            const proximosItens = entriesFiltradas.slice(currentIndex, currentIndex + itensPorVez);
+            
+            proximosItens.forEach(e => {
+                const htmlDaLinha = renderHistoryRowHTML(e, true);
+                sentinela.insertAdjacentHTML('beforebegin', htmlDaLinha);
+            });
+            
+            currentIndex += itensPorVez;
+            
+            if (currentIndex >= entriesFiltradas.length) {
+                observer.disconnect();
+                sentinela.remove();
+            }
+        };
+
+        const observer = new IntersectionObserver((entradas) => {
+            if (entradas[0].isIntersecting) {
+                carregarMaisItens();
+            }
+        }, { rootMargin: '50px' });
+
+        container.appendChild(sentinela);
+        observer.observe(sentinela);
     }
+}
 
-    // ==========================================
-    // ORQUESTRAÇÃO GERAL
-    // ==========================================
     function refreshUI() {
         renderResumo();
         renderHoursList();
@@ -664,11 +800,21 @@
         renderServicesList();
         triggerHistorySearch();
         refreshDatalists();
+        
+        document.querySelectorAll('.ing-select').forEach(select => {
+            const currentVal = select.value;
+            select.innerHTML = getIngredientOptionsHTML();
+            select.value = currentVal;
+        });
     }
 
     function refreshDatalists() {
         const categories = [...new Set(allProducts.map(p => p.category).filter(Boolean))].sort();
         document.getElementById('product-category-list').innerHTML = categories.map(c => `<option value="${escapeAttr(c)}">`).join('');
+        
+        const productNames = [...new Set(allProducts.map(p => p.name).filter(Boolean))].sort();
+        document.getElementById('recipe-product-list').innerHTML = productNames.map(n => `<option value="${escapeAttr(n)}">`).join('');
+
         const serviceNames = [...new Set(allServices.map(s => s.name).filter(Boolean))].sort();
         document.getElementById('service-name-list').innerHTML = serviceNames.map(n => `<option value="${escapeAttr(n)}">`).join('');
     }
@@ -754,11 +900,8 @@
     function renderHoursList() {
         let items = [...allWorkHours].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id);
         if (hoursSearchQuery) items = items.filter(h => (h.notes || '').toLowerCase().includes(hoursSearchQuery));
-        const container = document.getElementById('hours-list');
-        const empty = document.getElementById('hours-empty-state');
-        if (items.length === 0) { empty.classList.add('show'); container.innerHTML = ''; return; }
-        empty.classList.remove('show');
-        container.innerHTML = items.map(h => `
+        
+        renderLazyList('hours-list', items, 'hours-empty-state', h => `
             <div class="list-row">
                 <div class="row-main">
                     <span class="row-date">📅 ${formatDateBR(h.date)}</span>
@@ -773,19 +916,205 @@
                     </div>
                 </div>
             </div>
-        `).join('');
+        `, 78);
     }
 
     // ==========================================
-    // PRODUTOS — CADASTRO E MÉTRICAS
+    // PRODUÇÃO E RECEITAS
+    // ==========================================
+    function getIngredientOptionsHTML() {
+        let html = '<option value="">Selecione...</option>';
+        const sortedProducts = [...allProducts].sort((a,b) => a.name.localeCompare(b.name));
+        sortedProducts.forEach(p => {
+            html += `<option value="${p.id}" data-cost="${p.costPrice}" data-stock="${p.quantity}">${escapeHTML(p.name)} (Estoque: ${p.quantity})</option>`;
+        });
+        return html;
+    }
+
+    function addIngredientRow() {
+        const container = document.getElementById('recipe-ingredients-list');
+        const row = document.createElement('div');
+        row.className = 'form-row ingredient-row';
+        row.style.alignItems = 'flex-end';
+        row.innerHTML = `
+            <div class="field" style="flex: 2;">
+                <label>Ingrediente</label>
+                <select class="ing-select" onchange="calcRecipe()">${getIngredientOptionsHTML()}</select>
+            </div>
+            <div class="field" style="flex: 1;">
+                <label>Qtd</label>
+                <input type="number" class="ing-qty" min="0" step="0.001" placeholder="Ex: 0.3" oninput="calcRecipe()">
+            </div>
+            <button class="icon-btn btn-danger" style="margin-bottom: 2px; color: white;" onclick="this.parentElement.remove(); calcRecipe();" title="Remover">🗑️</button>
+        `;
+        container.appendChild(row);
+    }
+
+    function calcRecipe() {
+        const rows = document.querySelectorAll('.ingredient-row');
+        let totalCost = 0;
+
+        rows.forEach(row => {
+            const select = row.querySelector('.ing-select');
+            const qtyInput = row.querySelector('.ing-qty');
+            if (select.value && qtyInput.value) {
+                const option = select.options[select.selectedIndex];
+                const cost = parseFloat(option.getAttribute('data-cost')) || 0;
+                const qty = parseFloat(qtyInput.value) || 0;
+                totalCost += (cost * qty);
+            }
+        });
+
+        const yieldQty = parseFloat(document.getElementById('recipe-yield').value) || 1;
+        const margin = parseFloat(document.getElementById('recipe-margin').value) || 0;
+
+        const unitCost = totalCost / yieldQty;
+        const suggestedPrice = unitCost * (1 + (margin / 100));
+
+        document.getElementById('recipe-total-cost').textContent = formatCurrency(totalCost);
+        document.getElementById('recipe-unit-cost').textContent = formatCurrency(unitCost);
+        document.getElementById('recipe-suggested-price').textContent = formatCurrency(suggestedPrice);
+
+        return { totalCost, unitCost, suggestedPrice, yieldQty, margin };
+    }
+
+    async function executeProduction(sellImmediately) {
+        const finalName = document.getElementById('recipe-product-name').value.trim();
+        const yieldQty = parseFloat(document.getElementById('recipe-yield').value) || 0;
+        
+        if (!finalName) return showToast('Informe o nome do Produto Final.', 'error');
+        if (yieldQty <= 0) return showToast('O rendimento deve ser maior que zero.', 'error');
+
+        const rows = document.querySelectorAll('.ingredient-row');
+        const ingredients = [];
+        let hasError = false;
+
+        rows.forEach(row => {
+            const select = row.querySelector('.ing-select');
+            const qtyInput = row.querySelector('.ing-qty');
+            
+            if (!select.value || !qtyInput.value) {
+                return; 
+            }
+
+            const qty = parseFloat(qtyInput.value) || 0;
+            if (qty <= 0) return;
+
+            const product = allProducts.find(p => p.id === parseInt(select.value));
+            if (product) {
+                if (product.quantity < qty) {
+                    showToast(`Estoque insuficiente de ${product.name}. Disponível: ${product.quantity}`, 'error');
+                    hasError = true;
+                }
+                ingredients.push({ product, qty });
+            }
+        });
+
+        if (hasError) return;
+        if (ingredients.length === 0) return showToast('Preencha pelo menos um ingrediente válido.', 'error');
+
+        const calc = calcRecipe();
+
+        try {
+            let finalProductId;
+            let existingProduct = allProducts.find(p => p.name.toLowerCase() === finalName.toLowerCase());
+            
+            await runTx(['products', 'productSales', 'productPurchases'], 'readwrite', (tx) => {
+                const productStore = tx.objectStore('products');
+                const salesStore = tx.objectStore('productSales');
+                const purchasesStore = tx.objectStore('productPurchases');
+                const today = todayISO();
+
+                if (!existingProduct) {
+                    const req = productStore.add({ 
+                        name: finalName, category: 'Produzidos', quantity: 0,
+                        costPrice: calc.unitCost, salePrice: calc.suggestedPrice, marginPercent: calc.margin, createdAt: today 
+                    });
+                    req.onsuccess = () => {
+                        finalProductId = req.result;
+                        
+                        purchasesStore.add({
+                            productId: finalProductId, productName: finalName, quantity: yieldQty, 
+                            unitCost: calc.unitCost, total: 0, date: today, notes: 'Produção de receita', isProduction: true
+                        });
+
+                        if (sellImmediately) {
+                            salesStore.add({
+                                productId: finalProductId, productName: finalName, quantity: yieldQty,
+                                unitPrice: calc.suggestedPrice, unitCostAtSale: calc.unitCost,
+                                total: round2(yieldQty * calc.suggestedPrice),
+                                profit: round2((calc.suggestedPrice - calc.unitCost) * yieldQty),
+                                date: today, notes: 'Venda direta da produção', isConsumption: false
+                            });
+                        }
+                    };
+                } else {
+                    finalProductId = existingProduct.id;
+                    
+                    purchasesStore.add({
+                        productId: finalProductId, productName: existingProduct.name, quantity: yieldQty, 
+                        unitCost: calc.unitCost, total: 0, date: today, notes: 'Produção de receita', isProduction: true
+                    });
+
+                    if (sellImmediately) {
+                        salesStore.add({
+                            productId: finalProductId, productName: existingProduct.name, quantity: yieldQty,
+                            unitPrice: calc.suggestedPrice, unitCostAtSale: calc.unitCost,
+                            total: round2(yieldQty * calc.suggestedPrice),
+                            profit: round2((calc.suggestedPrice - calc.unitCost) * yieldQty),
+                            date: today, notes: 'Venda direta da produção', isConsumption: false
+                        });
+                    }
+                }
+
+                ingredients.forEach(ing => {
+                    salesStore.add({
+                        productId: ing.product.id, productName: ing.product.name, quantity: ing.qty, 
+                        unitPrice: ing.product.costPrice, unitCostAtSale: ing.product.costPrice, 
+                        total: 0, profit: 0, date: today, notes: `Consumo para: ${finalName}`, isConsumption: true
+                    });
+                });
+            });
+
+            await loadAllData();
+            
+            if (!existingProduct) {
+                const newP = allProducts.find(p => p.name.toLowerCase() === finalName.toLowerCase());
+                if(newP) await recalcAndPersistProductStock(newP.id);
+            } else {
+                await recalcAndPersistProductStock(existingProduct.id);
+            }
+
+            for (let ing of ingredients) { await recalcAndPersistProductStock(ing.product.id); }
+
+            document.getElementById('recipe-product-name').value = '';
+            document.getElementById('recipe-yield').value = '1';
+            document.getElementById('recipe-ingredients-list').innerHTML = '';
+            calcRecipe();
+
+            await loadAllData(); refreshUI();
+            
+            if (sellImmediately) {
+                showToast('🚀 Produção e venda registradas com sucesso!');
+            } else {
+                showToast('🏭 Produção registrada no estoque!');
+            }
+
+        } catch (err) {
+            console.error(err);
+            showToast('Erro ao processar produção.', 'error');
+        }
+    }
+
+
+    // ==========================================
+    // PRODUTOS
     // ==========================================
     function onProductCostOrMarginChange() {
         if (!productMarginLinked) return;
         const cost = parseFloat(document.getElementById('product-cost').value) || 0;
         const margin = parseFloat(document.getElementById('product-margin').value);
-        if (!isNaN(margin)) {
-            document.getElementById('product-price').value = round2(cost * (1 + margin / 100)) || '';
-        }
+        if (!isNaN(margin)) document.getElementById('product-price').value = round2(cost * (1 + margin / 100)) || '';
     }
     function onProductPriceChange() {
         const cost = parseFloat(document.getElementById('product-cost').value) || 0;
@@ -796,7 +1125,6 @@
             productMarginLinked = true;
         }
     }
-    function updateProductLivePrice() { /* apenas reservado para futura pré-visualização de custo total */ }
 
     function productHasMovements(productId) {
         return allPurchases.some(p => p.productId === productId) || allSales.some(s => s.productId === productId);
@@ -892,7 +1220,7 @@
         const relatedPurchases = allPurchases.filter(x => x.productId === id);
         const relatedSales = allSales.filter(x => x.productId === id);
         const extra = (relatedPurchases.length + relatedSales.length) > 0
-            ? ` Isso também apagará ${relatedPurchases.length} compra(s) e ${relatedSales.length} venda(s) associadas.`
+            ? ` Isso também apagará ${relatedPurchases.length} compra(s)/produção(ões) e ${relatedSales.length} venda(s)/consumo(s) associadas.`
             : '';
         if (!confirm(`Deseja excluir "${p.name}"?${extra}`)) return;
 
@@ -906,8 +1234,6 @@
         showToast('Produto excluído.');
     }
 
-    // Recalcula quantidade/custo médio de um produto a partir das compras e vendas (fonte da verdade).
-    // Só sobrescreve quando existir pelo menos uma compra ou venda — produtos "virgens" mantêm os valores manuais.
     async function recalcAndPersistProductStock(productId) {
         const purchases = allPurchases.filter(p => p.productId === productId);
         const sales = allSales.filter(s => s.productId === productId);
@@ -921,7 +1247,7 @@
             qty += p.quantity;
             avgCost = qty > 0 ? (totalCostBefore + totalCostNew) / qty : 0;
         }
-        const totalSold = sales.reduce((s, x) => s + x.quantity, 0);
+        const totalSold = sales.reduce((s, x) => s + x.quantity, 0); 
         qty -= totalSold;
 
         const product = allProducts.find(p => p.id === productId);
@@ -945,11 +1271,8 @@
     function renderProductsList() {
         let items = [...allProducts].sort((a, b) => a.name.localeCompare(b.name));
         if (productsSearchQuery) items = items.filter(p => p.name.toLowerCase().includes(productsSearchQuery) || (p.category || '').toLowerCase().includes(productsSearchQuery));
-        const container = document.getElementById('products-list');
-        const empty = document.getElementById('products-empty-state');
-        if (items.length === 0) { empty.classList.add('show'); container.innerHTML = ''; return; }
-        empty.classList.remove('show');
-        container.innerHTML = items.map(p => `
+        
+        renderLazyList('products-list', items, 'products-empty-state', p => `
             <div class="product-card">
                 <div class="product-head">
                     <div>
@@ -968,29 +1291,27 @@
                     <div class="metric"><div class="m-label">Margem</div><div class="m-value">${(p.marginPercent || 0).toFixed(0)}%</div></div>
                 </div>
                 <div class="product-actions">
-                    <button class="btn-buy" onclick="openBuyModal(${p.id})">📥 Comprar Estoque</button>
+                    <button class="btn-buy" onclick="openBuyModal(${p.id})">📥 Comprar</button>
                     <button class="btn-sell" onclick="openSellModal(${p.id})" ${p.quantity <= 0 ? 'disabled title="Sem estoque"' : ''}>📤 Vender</button>
                 </div>
             </div>
-        `).join('');
+        `, 190);
     }
 
     // ==========================================
-    // MODAL: COMPRAR ESTOQUE
+    // MODAIS (COMPRAS, VENDAS, EXCLUSÕES)
     // ==========================================
     function updateBuyLiveTotal() {
         const qty = parseFloat(document.getElementById('buy-qty').value) || 0;
         const cost = parseFloat(document.getElementById('buy-cost').value) || 0;
         document.getElementById('buy-live-total').textContent = 'Total: ' + formatCurrency(qty * cost);
     }
-
     function openBuyModal(productId, editId = null) {
         const product = allProducts.find(p => p.id === productId);
         if (!product) return;
         buyModalProductId = productId; buyModalEditId = editId;
         if (editId) {
             const purchase = allPurchases.find(p => p.id === editId);
-            if (!purchase) return;
             document.getElementById('buy-modal-title').textContent = 'Editar Compra: ' + product.name;
             document.getElementById('buy-qty').value = purchase.quantity;
             document.getElementById('buy-cost').value = purchase.unitCost;
@@ -1017,7 +1338,7 @@
         if (isNaN(cost) || cost < 0) return showToast('Informe o custo unitário.', 'error');
 
         const product = allProducts.find(p => p.id === buyModalProductId);
-        const record = { productId: buyModalProductId, productName: product.name, quantity: qty, unitCost: cost, total: round2(qty * cost), date, notes };
+        const record = { productId: buyModalProductId, productName: product.name, quantity: qty, unitCost: cost, total: round2(qty * cost), date, notes, isProduction: false };
         try {
             await runTx(['productPurchases'], 'readwrite', (tx) => {
                 const store = tx.objectStore('productPurchases');
@@ -1025,31 +1346,22 @@
             });
             const productId = buyModalProductId;
             closeBuyModal();
-            await loadAllData();
-            await recalcAndPersistProductStock(productId);
-            await loadAllData(); refreshUI();
+            await loadAllData(); await recalcAndPersistProductStock(productId); await loadAllData(); refreshUI();
             showToast('Compra registrada.');
         } catch (err) { console.error(err); showToast('Erro ao registrar compra.', 'error'); }
     }
 
-    // ==========================================
-    // MODAL: VENDER
-    // ==========================================
     function updateSellLiveTotal() {
         const qty = parseFloat(document.getElementById('sell-qty').value) || 0;
         const price = parseFloat(document.getElementById('sell-price').value) || 0;
         const product = allProducts.find(p => p.id === sellModalProductId);
         const cost = product ? product.costPrice : 0;
-        const total = qty * price;
-        const profit = (price - cost) * qty;
-        document.getElementById('sell-live-total').textContent = `Total: ${formatCurrency(total)} · Lucro: ${formatCurrency(profit)}`;
+        document.getElementById('sell-live-total').textContent = `Total: ${formatCurrency(qty * price)} · Lucro: ${formatCurrency((price - cost) * qty)}`;
     }
-
     function openSellModal(productId, editId = null) {
         const product = allProducts.find(p => p.id === productId);
         if (!product) return;
         sellModalProductId = productId; sellModalEditId = editId;
-
         let availableStock = product.quantity;
         if (editId) {
             const sale = allSales.find(s => s.id === editId);
@@ -1092,7 +1404,7 @@
         const record = {
             productId: sellModalProductId, productName: product.name, quantity: qty, unitPrice: price,
             unitCostAtSale: product.costPrice, total: round2(qty * price), profit: round2((price - product.costPrice) * qty),
-            date, notes
+            date, notes, isConsumption: false
         };
         try {
             await runTx(['productSales'], 'readwrite', (tx) => {
@@ -1101,9 +1413,7 @@
             });
             const productId = sellModalProductId;
             closeSellModal();
-            await loadAllData();
-            await recalcAndPersistProductStock(productId);
-            await loadAllData(); refreshUI();
+            await loadAllData(); await recalcAndPersistProductStock(productId); await loadAllData(); refreshUI();
             showToast('Venda registrada.');
         } catch (err) { console.error(err); showToast('Erro ao registrar venda.', 'error'); }
     }
@@ -1115,26 +1425,20 @@
         const sales = allSales.filter(s => s.productId === purchase.productId);
         const totalPurchasedAfter = remainingPurchases.reduce((s, p) => s + p.quantity, 0);
         const totalSold = sales.reduce((s, x) => s + x.quantity, 0);
-        if (totalPurchasedAfter - totalSold < 0) {
-            return showToast('Não é possível excluir: geraria estoque negativo. Exclua vendas relacionadas primeiro.', 'error');
-        }
-        if (!confirm('Deseja excluir esta compra?')) return;
+        if (totalPurchasedAfter - totalSold < 0) return showToast('Não é possível excluir: geraria estoque negativo. Exclua vendas relacionadas primeiro.', 'error');
+        if (!confirm(purchase.isProduction ? 'Deseja excluir esta produção? Isso vai diminuir seu estoque.' : 'Deseja excluir esta compra?')) return;
         await runTx(['productPurchases'], 'readwrite', (tx) => tx.objectStore('productPurchases').delete(id));
-        await loadAllData();
-        await recalcAndPersistProductStock(purchase.productId);
-        await loadAllData(); refreshUI();
-        showToast('Compra excluída.');
+        await loadAllData(); await recalcAndPersistProductStock(purchase.productId); await loadAllData(); refreshUI();
+        showToast(purchase.isProduction ? 'Produção excluída.' : 'Compra excluída.');
     }
 
     async function deleteSale(id) {
         const sale = allSales.find(s => s.id === id);
         if (!sale) return;
-        if (!confirm('Deseja excluir esta venda?')) return;
+        if (!confirm(sale.isConsumption ? 'Deseja excluir este consumo de ingredientes? Isso vai devolver os itens ao estoque.' : 'Deseja excluir esta venda?')) return;
         await runTx(['productSales'], 'readwrite', (tx) => tx.objectStore('productSales').delete(id));
-        await loadAllData();
-        await recalcAndPersistProductStock(sale.productId);
-        await loadAllData(); refreshUI();
-        showToast('Venda excluída.');
+        await loadAllData(); await recalcAndPersistProductStock(sale.productId); await loadAllData(); refreshUI();
+        showToast(sale.isConsumption ? 'Consumo excluído.' : 'Venda excluída.');
     }
 
     // ==========================================
@@ -1148,17 +1452,14 @@
         const notes = document.getElementById('service-notes').value.trim();
         if (!name) return showToast('Informe o tipo de serviço.', 'error');
         if (isNaN(price) || price < 0) return showToast('Informe o valor cobrado.', 'error');
-
         const data = { name, price, date, client, notes };
         try {
             await runTx(['services'], 'readwrite', (tx) => {
                 const store = tx.objectStore('services');
                 if (editingServiceId) { data.id = editingServiceId; store.put(data); } else { store.add(data); }
             });
-            cancelServiceEdit();
-            await loadAllData(); refreshUI();
-            showToast('Serviço registrado.');
-        } catch (err) { console.error(err); showToast('Erro ao salvar serviço.', 'error'); }
+            cancelServiceEdit(); await loadAllData(); refreshUI(); showToast('Serviço registrado.');
+        } catch (err) { showToast('Erro ao salvar serviço.', 'error'); }
     }
 
     function editService(id) {
@@ -1179,14 +1480,10 @@
 
     function cancelServiceEdit() {
         editingServiceId = null;
-        document.getElementById('service-name').value = '';
-        document.getElementById('service-price').value = '';
-        document.getElementById('service-date').value = todayISO();
-        document.getElementById('service-client').value = '';
-        document.getElementById('service-notes').value = '';
-        document.getElementById('service-form-title').textContent = '➕ Registrar Serviço';
-        document.getElementById('btn-save-service').textContent = 'Salvar Serviço';
-        document.getElementById('btn-cancel-service').style.display = 'none';
+        document.getElementById('service-name').value = ''; document.getElementById('service-price').value = '';
+        document.getElementById('service-date').value = todayISO(); document.getElementById('service-client').value = '';
+        document.getElementById('service-notes').value = ''; document.getElementById('service-form-title').textContent = '➕ Registrar Serviço';
+        document.getElementById('btn-save-service').textContent = 'Salvar Serviço'; document.getElementById('btn-cancel-service').style.display = 'none';
         document.getElementById('service-form-accordion').open = false;
     }
 
@@ -1194,8 +1491,7 @@
         if (!confirm('Deseja excluir este serviço?')) return;
         await runTx(['services'], 'readwrite', (tx) => tx.objectStore('services').delete(id));
         if (editingServiceId === id) cancelServiceEdit();
-        await loadAllData(); refreshUI();
-        showToast('Serviço excluído.');
+        await loadAllData(); refreshUI(); showToast('Serviço excluído.');
     }
 
     let servicesSearchQuery = '';
@@ -1213,11 +1509,8 @@
     function renderServicesList() {
         let items = [...allServices].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.id - a.id);
         if (servicesSearchQuery) items = items.filter(s => s.name.toLowerCase().includes(servicesSearchQuery) || (s.client || '').toLowerCase().includes(servicesSearchQuery));
-        const container = document.getElementById('services-list');
-        const empty = document.getElementById('services-empty-state');
-        if (items.length === 0) { empty.classList.add('show'); container.innerHTML = ''; return; }
-        empty.classList.remove('show');
-        container.innerHTML = items.map(s => `
+        
+        renderLazyList('services-list', items, 'services-empty-state', s => `
             <div class="list-row">
                 <div class="row-main">
                     <span class="row-date">📅 ${formatDateBR(s.date)}</span>
@@ -1232,7 +1525,7 @@
                     </div>
                 </div>
             </div>
-        `).join('');
+        `, 78);
     }
 
     // ==========================================
@@ -1251,80 +1544,48 @@
                 const store = tx.objectStore('adjustments');
                 if (editingAdjustmentId) { data.id = editingAdjustmentId; store.put(data); } else { store.add(data); }
             });
-            cancelAdjustmentEdit();
-            await loadAllData(); refreshUI();
-            showToast('Ajuste salvo.');
-        } catch (err) { console.error(err); showToast('Erro ao salvar ajuste.', 'error'); }
+            cancelAdjustmentEdit(); await loadAllData(); refreshUI(); showToast('Ajuste salvo.');
+        } catch (err) { showToast('Erro ao salvar ajuste.', 'error'); }
     }
 
     function editAdjustment(id) {
         const a = allAdjustments.find(x => x.id === id);
         if (!a) return;
-        switchTab('historico');
-        document.getElementById('adjustment-form-accordion').open = true;
-        document.getElementById('adjustment-desc').value = a.description;
-        document.getElementById('adjustment-amount').value = a.amount;
-        document.getElementById('adjustment-date').value = a.date;
-        editingAdjustmentId = id;
-        document.getElementById('btn-save-adjustment').textContent = 'Atualizar';
-        document.getElementById('btn-cancel-adjustment').style.display = 'flex';
+        switchTab('historico'); document.getElementById('adjustment-form-accordion').open = true;
+        document.getElementById('adjustment-desc').value = a.description; document.getElementById('adjustment-amount').value = a.amount;
+        document.getElementById('adjustment-date').value = a.date; editingAdjustmentId = id;
+        document.getElementById('btn-save-adjustment').textContent = 'Atualizar'; document.getElementById('btn-cancel-adjustment').style.display = 'flex';
     }
 
     function cancelAdjustmentEdit() {
         editingAdjustmentId = null;
-        document.getElementById('adjustment-desc').value = '';
-        document.getElementById('adjustment-amount').value = '';
-        document.getElementById('adjustment-date').value = todayISO();
-        document.getElementById('btn-save-adjustment').textContent = 'Salvar Ajuste';
-        document.getElementById('btn-cancel-adjustment').style.display = 'none';
-        document.getElementById('adjustment-form-accordion').open = false;
+        document.getElementById('adjustment-desc').value = ''; document.getElementById('adjustment-amount').value = '';
+        document.getElementById('adjustment-date').value = todayISO(); document.getElementById('btn-save-adjustment').textContent = 'Salvar Ajuste';
+        document.getElementById('btn-cancel-adjustment').style.display = 'none'; document.getElementById('adjustment-form-accordion').open = false;
     }
 
     async function deleteAdjustment(id) {
         if (!confirm('Deseja excluir este ajuste?')) return;
         await runTx(['adjustments'], 'readwrite', (tx) => tx.objectStore('adjustments').delete(id));
         if (editingAdjustmentId === id) cancelAdjustmentEdit();
-        await loadAllData(); refreshUI();
-        showToast('Ajuste excluído.');
+        await loadAllData(); refreshUI(); showToast('Ajuste excluído.');
     }
 
     // ==========================================
     // HISTÓRICO UNIFICADO
     // ==========================================
     function buildHistoryEntries() {
-        let seq = 0;
-        const entries = [];
-        allWorkHours.forEach(h => entries.push({
-            type: 'hora', id: h.id, date: h.date, seq: seq++,
-            title: 'Horas trabalhadas', subtitle: `${h.hours}h × ${formatCurrency(h.hourlyRate)}/h${h.notes ? ' — ' + h.notes : ''}`,
-            amount: h.total
-        }));
-        allPurchases.forEach(p => entries.push({
-            type: 'compra', id: p.id, date: p.date, seq: seq++, productId: p.productId,
-            title: 'Compra de estoque: ' + p.productName, subtitle: `${p.quantity} un × ${formatCurrency(p.unitCost)}${p.notes ? ' — ' + p.notes : ''}`,
-            amount: -p.total
-        }));
-        allSales.forEach(s => entries.push({
-            type: 'venda', id: s.id, date: s.date, seq: seq++, productId: s.productId,
-            title: 'Venda: ' + s.productName, subtitle: `${s.quantity} un × ${formatCurrency(s.unitPrice)} · lucro ${formatCurrency(s.profit)}${s.notes ? ' — ' + s.notes : ''}`,
-            amount: s.total
-        }));
-        allServices.forEach(sv => entries.push({
-            type: 'servico', id: sv.id, date: sv.date, seq: seq++,
-            title: sv.name + (sv.client ? ' — ' + sv.client : ''), subtitle: 'Serviço prestado' + (sv.notes ? ' — ' + sv.notes : ''),
-            amount: sv.price
-        }));
-        allAdjustments.forEach(a => entries.push({
-            type: 'ajuste', id: a.id, date: a.date, seq: seq++,
-            title: a.description, subtitle: 'Ajuste manual',
-            amount: a.amount
-        }));
+        let seq = 0; const entries = [];
+        allWorkHours.forEach(h => entries.push({ type: 'hora', id: h.id, date: h.date, seq: seq++, title: 'Horas trabalhadas', subtitle: `${h.hours}h × ${formatCurrency(h.hourlyRate)}/h${h.notes ? ' — ' + h.notes : ''}`, amount: h.total }));
+        allPurchases.forEach(p => entries.push({ type: p.isProduction ? 'producao' : 'compra', id: p.id, date: p.date, seq: seq++, productId: p.productId, title: (p.isProduction ? 'Produção: ' : 'Compra de estoque: ') + p.productName, subtitle: `${p.quantity} un × ${formatCurrency(p.unitCost)}${p.notes ? ' — ' + p.notes : ''}`, amount: p.isProduction ? 0 : -p.total }));
+        allSales.forEach(s => entries.push({ type: s.isConsumption ? 'consumo' : 'venda', id: s.id, date: s.date, seq: seq++, productId: s.productId, title: (s.isConsumption ? 'Consumo de estoque: ' : 'Venda: ') + s.productName, subtitle: `${s.quantity} un${s.isConsumption ? '' : ` × ${formatCurrency(s.unitPrice)} · lucro ${formatCurrency(s.profit)}`}${s.notes ? ' — ' + s.notes : ''}`, amount: s.isConsumption ? 0 : s.total }));
+        allServices.forEach(sv => entries.push({ type: 'servico', id: sv.id, date: sv.date, seq: seq++, title: sv.name + (sv.client ? ' — ' + sv.client : ''), subtitle: 'Serviço prestado' + (sv.notes ? ' — ' + sv.notes : ''), amount: sv.price }));
+        allAdjustments.forEach(a => entries.push({ type: 'ajuste', id: a.id, date: a.date, seq: seq++, title: a.description, subtitle: 'Ajuste manual', amount: a.amount }));
 
-        // ordena do mais antigo para o mais novo para calcular o saldo corrente corretamente
         entries.sort((a, b) => (a.date || '').localeCompare(b.date || '') || a.seq - b.seq);
         let running = 0;
         entries.forEach(e => { running = round2(running + e.amount); e.runningBalance = running; });
-        return entries.reverse(); // mais recente primeiro, para exibição
+        return entries.reverse();
     }
 
     function setHistoryFilter(filter) {
@@ -1345,34 +1606,24 @@
         triggerHistorySearch();
     }
 
-    function triggerHistorySearch() {
-        const allEntries = buildHistoryEntries();
-        let filtered = historyFilter === 'todos' ? allEntries : allEntries.filter(e => e.type === historyFilter);
-        if (historySearchQuery) {
-            filtered = filtered.filter(e => e.title.toLowerCase().includes(historySearchQuery) || e.subtitle.toLowerCase().includes(historySearchQuery));
-        }
-        const container = document.getElementById('history-list');
-        const empty = document.getElementById('history-empty-state');
-        if (filtered.length === 0) { empty.classList.add('show'); container.innerHTML = ''; return; }
-        empty.classList.remove('show');
-        container.innerHTML = filtered.map(e => renderHistoryRowHTML(e, false)).join('');
-    }
-
     function historyActionsHTML(e) {
         switch (e.type) {
             case 'hora': return `<button class="icon-btn" onclick="editWorkHour(${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteWorkHour(${e.id})" title="Excluir">🗑️</button>`;
             case 'compra': return `<button class="icon-btn" onclick="openBuyModal(${e.productId}, ${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deletePurchase(${e.id})" title="Excluir">🗑️</button>`;
+            case 'producao': return `<button class="icon-btn" onclick="deletePurchase(${e.id})" title="Excluir Produção">🗑️</button>`;
             case 'venda': return `<button class="icon-btn" onclick="openSellModal(${e.productId}, ${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteSale(${e.id})" title="Excluir">🗑️</button>`;
+            case 'consumo': return `<button class="icon-btn" onclick="deleteSale(${e.id})" title="Excluir Consumo">🗑️</button>`;
             case 'servico': return `<button class="icon-btn" onclick="editService(${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteService(${e.id})" title="Excluir">🗑️</button>`;
             case 'ajuste': return `<button class="icon-btn" onclick="editAdjustment(${e.id})" title="Editar">✏️</button><button class="icon-btn" onclick="deleteAdjustment(${e.id})" title="Excluir">🗑️</button>`;
             default: return '';
         }
     }
 
-    const typeLabels = { hora: 'Horas', compra: 'Compra', venda: 'Venda', servico: 'Serviço', ajuste: 'Ajuste' };
+    const typeLabels = { hora: 'Horas', compra: 'Compra', venda: 'Venda', servico: 'Serviço', ajuste: 'Ajuste', producao: 'Produção', consumo: 'Consumo' };
 
     function renderHistoryRowHTML(e, compact) {
-        const isPositive = e.amount >= 0;
+        let amtClass = e.amount > 0 ? 'positive' : (e.amount < 0 ? 'negative' : 'neutral');
+        let prefix = e.amount > 0 ? '+' : '';
         return `<div class="list-row">
             <div class="row-main">
                 <span class="row-date">📅 ${formatDateBR(e.date)} <span class="type-badge ${e.type}">${typeLabels[e.type]}</span></span>
@@ -1381,7 +1632,7 @@
             </div>
             <div class="row-side">
                 <div style="display:flex; flex-direction:column; align-items:flex-end; gap:2px;">
-                    <span class="row-amount ${isPositive ? 'positive' : 'negative'}">${isPositive ? '+' : ''}${formatCurrency(e.amount)}</span>
+                    <span class="row-amount ${amtClass}">${prefix}${formatCurrency(e.amount)}</span>
                     ${!compact ? `<span class="row-balance">saldo: ${formatCurrency(e.runningBalance)}</span>` : ''}
                 </div>
                 ${!compact ? `<div class="row-actions">${historyActionsHTML(e)}</div>` : ''}
@@ -1389,8 +1640,18 @@
         </div>`;
     }
 
+    function triggerHistorySearch() {
+        const allEntries = buildHistoryEntries();
+        let filtered = historyFilter === 'todos' ? allEntries : allEntries.filter(e => e.type === historyFilter);
+        if (historySearchQuery) {
+            filtered = filtered.filter(e => e.title.toLowerCase().includes(historySearchQuery) || e.subtitle.toLowerCase().includes(historySearchQuery));
+        }
+        
+        renderLazyList('history-list', filtered, 'history-empty-state', e => renderHistoryRowHTML(e, false), 82);
+    }
+
     // ==========================================
-    // EXPORTAR / IMPORTAR BACKUP
+    // EXPORTAR E IMPORTAR
     // ==========================================
     function exportBackup() {
         const total = allWorkHours.length + allProducts.length + allPurchases.length + allSales.length + allServices.length + allAdjustments.length;
@@ -1421,12 +1682,12 @@
                 if (!data || !hasAnyArray) { showToast('Arquivo de backup inválido.', 'error'); return; }
                 pendingImportPayload = data;
                 const counts = [
-                    `${(data.workHours || []).length} registro(s) de horas`,
-                    `${(data.products || []).length} produto(s)`,
-                    `${(data.productPurchases || []).length} compra(s)`,
-                    `${(data.productSales || []).length} venda(s)`,
-                    `${(data.services || []).length} serviço(s)`,
-                    `${(data.adjustments || []).length} ajuste(s)`
+                    `${(data.workHours || []).length} horas`,
+                    `${(data.products || []).length} produtos`,
+                    `${(data.productPurchases || []).length} compras/produções`,
+                    `${(data.productSales || []).length} vendas/consumos`,
+                    `${(data.services || []).length} serviços`,
+                    `${(data.adjustments || []).length} ajustes`
                 ].join(', ');
                 document.getElementById('import-summary-text').textContent = `Este arquivo contém: ${counts}. Como deseja importar?`;
                 document.getElementById('import-modal').style.display = 'flex';
@@ -1438,9 +1699,7 @@
 
     function closeImportModal() { document.getElementById('import-modal').style.display = 'none'; pendingImportPayload = null; }
 
-    function clearStore(name) {
-        return runTx([name], 'readwrite', (tx) => tx.objectStore(name).clear());
-    }
+    function clearStore(name) { return runTx([name], 'readwrite', (tx) => tx.objectStore(name).clear()); }
 
     async function confirmImport(mode) {
         const data = pendingImportPayload;
@@ -1452,17 +1711,14 @@
                 await clearStore('productSales'); await clearStore('services'); await clearStore('adjustments');
             }
 
-            // Produtos primeiro: no modo mesclar, capturamos o mapa de IDs antigos -> novos
-            // para poder remapear as referências (productId) das compras e vendas importadas.
             const productIdMap = {};
             const productsRaw = Array.isArray(data.products) ? data.products : [];
             await runTx(['products'], 'readwrite', (tx) => {
                 const store = tx.objectStore('products');
                 for (const raw of productsRaw) {
                     const { id: originalId, ...rest } = raw;
-                    if (mode === 'replace' && originalId != null) {
-                        store.put({ id: originalId, ...rest });
-                    } else {
+                    if (mode === 'replace' && originalId != null) store.put({ id: originalId, ...rest });
+                    else {
                         const req = store.add(rest);
                         if (originalId != null) req.onsuccess = () => { productIdMap[originalId] = req.result; };
                     }
@@ -1506,12 +1762,8 @@
             }
 
             pendingImportPayload = null;
-            await loadAllData(); refreshUI();
-            showToast('Importação concluída com sucesso.');
-        } catch (err) {
-            console.error(err);
-            showToast('Erro ao importar backup.', 'error');
-        }
+            await loadAllData(); refreshUI(); showToast('Importação concluída com sucesso.');
+        } catch (err) { console.error(err); showToast('Erro ao importar backup.', 'error'); }
     }
 </script>
 </body>
