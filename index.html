@@ -30,7 +30,7 @@
     .topbar {
     background: var(--ink);
     color: #fff;
-    padding: 10px 3px;
+    padding: 10px 6px;
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
@@ -42,13 +42,13 @@
     .brand-sub { font-size: 0.72rem; color: #b8c4bd; margin-top: 1px; }
     .header-balance-pill {
         background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px;
-        padding: 8px 16px; display: flex; align-items: center; gap: 8px; font-family: var(--font-mono);
+        padding: 8px 12px; display: flex; align-items: center; gap: 8px; font-family: var(--font-mono);
     }
     .header-balance-pill .label { font-size: 0.65rem; color: #b8c4bd; text-transform: uppercase; letter-spacing: 0.6px; }
-    .header-balance-pill .value { font-size: 1rem; font-weight: 700; }
+    .header-balance-pill .value { font-size: 0.9rem; font-weight: 700; }
     .header-balance-pill .value.positive { color: #7ee2a8; }
     .header-balance-pill .value.negative { color: #ff9c85; }
-    .backup-actions { display: flex; gap: 8px; }
+    .backup-actions { display: flex; gap: 4px; }
     .backup-actions button { width: auto; }
 
     /* ================= NAVEGAÇÃO POR ABAS ================= */
@@ -76,13 +76,13 @@
     /* ================= CARTÕES / PAINÉIS ================= */
     .panel {
         background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-        padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     h2 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 
     /* ================= VISOR ESTILO CAIXA REGISTRADORA ================= */
     .register-display {
-        background: #0f1e17; border-radius: 16px; padding: 26px 22px; text-align: center;
+        background: #0f1e17; border-radius: 16px; padding: 10px 22px; text-align: center;
         box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
     }
     .register-label { color: #6b9e83; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; font-family: var(--font-mono); }
@@ -104,7 +104,7 @@
     label { font-weight: 600; font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; display: block; margin-bottom: 4px; }
     .field { display: flex; flex-direction: column; gap: 4px; }
     input, select, textarea {
-        width: 100%; padding: 11px 12px; border: 1px solid var(--border); border-radius: 8px;
+        width: 100%; padding: 5px 12px; border: 1px solid var(--border); border-radius: 8px;
         font-size: 0.95rem; background: #f8faf8; color: var(--ink); font-family: var(--font-ui);
     }
     input:focus, select:focus, textarea:focus {
@@ -116,7 +116,7 @@
     .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     @media (max-width: 640px) { .form-row-3 { grid-template-columns: 1fr; } }
 
-    .live-total { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--brand); background: #f0f6f2; border: 1px dashed var(--brand); border-radius: 8px; padding: 10px 12px; line-height: 1.6; }
+    .live-total { font-family: var(--font-mono);margin-top: 1.5px; font-size: 0.95rem; font-weight: 700; color: var(--brand); background: #f0f6f2; border: 1px dashed var(--brand); border-radius: 8px; padding: 10px 12px; line-height: 1.6; }
 
     button {
         background: var(--brand); color: #fff; border: none; padding: 12px; border-radius: 9px;
@@ -135,8 +135,8 @@
 
     details.form-accordion { background: #f8faf8; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     details.form-accordion > summary {
-        background: var(--brand); color: #fff; padding: 13px 16px; font-weight: 700; cursor: pointer;
-        list-style: none; display: flex; align-items: center; gap: 8px; min-height: 44px;
+        background: var(--brand); color: #fff; padding: 5px 16px; font-weight: 700; cursor: pointer;
+        list-style: none; display: flex; align-items: center; gap: 8px; min-height: 37px;
     }
     details.form-accordion > summary::-webkit-details-marker { display: none; }
     .form-content { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
@@ -158,7 +158,7 @@
        e abaixo) representam a altura acumulada dos itens ocultos, então o scroll
        fica correto mesmo com dezenas de milhares de itens sem eles existirem no DOM. */
     .virtual-scroll {
-        max-height: 560px; overflow-y: auto; overflow-anchor: none; overscroll-behavior: contain;
+        max-height: 295px; overflow-y: auto; overflow-anchor: none; overscroll-behavior: contain;
         border: 1px solid var(--border); border-radius: 12px; background: #fafbf9; position: relative;
         padding: 10px;
     }
@@ -307,10 +307,16 @@
 
         <div class="panel">
             <h2>🕓 Últimas movimentações</h2>
-            <div class="recent-list" id="recent-list"></div>
-            <div class="empty-state" id="recent-empty-state">
-                <span class="empty-icon">🗒️</span>
-                <p>Nenhuma movimentação registrada ainda.</p>
+            
+            <!-- Usando a classe virtual-scroll com um limite de max-height menor (ex: 320px) para a home -->
+            <div class="virtual-scroll" id="recent-scroll" style="max-height: 320px; margin-top: 12px;">
+                <div class="empty-state" id="recent-empty-state">
+                    <span class="empty-icon">🗒️</span>
+                    <p>Nenhuma movimentação registrada ainda.</p>
+                </div>
+                <div class="virtual-spacer" id="recent-top-spacer"></div>
+                <div class="virtual-viewport" id="recent-viewport"></div>
+                <div class="virtual-spacer" id="recent-bottom-spacer"></div>
             </div>
         </div>
     </div>
@@ -847,6 +853,12 @@
         viewport: document.getElementById('history-viewport'), bottomSpacer: document.getElementById('history-bottom-spacer'),
         emptyStateEl: document.getElementById('history-empty-state'), estimatedHeight: 86, renderItemHTML: (e) => renderHistoryRowHTML(e, false)
     });
+    // NOVA: Lista virtual para a aba de Resumo
+    const recentVirtualList = makeVirtualList({
+        scrollEl: document.getElementById('recent-scroll'), topSpacer: document.getElementById('recent-top-spacer'),
+        viewport: document.getElementById('recent-viewport'), bottomSpacer: document.getElementById('recent-bottom-spacer'),
+        emptyStateEl: document.getElementById('recent-empty-state'), estimatedHeight: 86, renderItemHTML: (e) => renderHistoryRowHTML(e, true)
+    });
 
     // ==========================================
     // SALDO E RESUMO
@@ -898,15 +910,14 @@
             </div>
         `).join('');
 
-        const entries = cachedHistoryEntries.slice(0, 6);
-        const recentList = document.getElementById('recent-list');
-        const recentEmpty = document.getElementById('recent-empty-state');
-        if (entries.length === 0) {
-            recentEmpty.classList.add('show'); recentList.innerHTML = '';
-        } else {
-            recentEmpty.classList.remove('show');
-            recentList.innerHTML = entries.map(e => renderHistoryRowHTML(e, true)).join('');
-        }
+        // --- MUDANÇA AQUI: Alimentando a lista virtual do resumo ---
+        // Você pode mostrar as últimas 50 movimentações, por exemplo. 
+        // Como é virtualizada, não há impacto de performance na tela.
+        const financialEntries = cachedHistoryEntries.filter(entry => entry.type !== 'producao');
+        
+        // Pega as últimas 50 movimentações que realmente envolveram valores
+        const entries = financialEntries.slice(0, 50);
+        recentVirtualList.setItems(entries, { resetScroll: false });
     }
 
     // ==========================================
