@@ -324,16 +324,37 @@
     <!-- ===================== HORAS ===================== -->
     <div class="tab-panel" id="tab-horas">
         <div class="panel horas">
-            <h2>⏱️ Horas Trabalhadas</h2>
+            <h2 id="horas-panel-title">⏱️ Horas Trabalhadas</h2>
+
+            <!-- BOTÕES (PILLS) DOS FUNCIONÁRIOS -->
+            <div class="filter-pills" id="employee-pills" style="margin-bottom: 14px;">
+                <!-- Preenchido automaticamente via JS -->
+            </div>
 
             <details id="hour-form-accordion" class="form-accordion">
                 <summary id="hour-form-title">➕ Registrar Horas</summary>
                 <div class="form-content">
+                    
+                    <!-- NOVO CAMPO: TIPO DE REGISTRO (RECEITA / DESPESA) -->
+                    <div class="field">
+                        <label>Tipo de Registro</label>
+                        <select id="hour-flow">
+                            <option value="income">🟢 Receita (Meu serviço prestado - Soma no saldo)</option>
+                            <option value="expense">🔴 Despesa (Pagamento de funcionário - Desconta do saldo)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Nome (Funcionário ou Cliente)</label>
+                        <input type="text" id="hour-employee" placeholder="Ex: João, Maria..." list="employee-datalist" autocomplete="off">
+                        <datalist id="employee-datalist"></datalist>
+                    </div>
+
                     <div class="form-row">
                         <div class="field"><label>Data</label><input type="date" id="hour-date"></div>
                         <div class="field"><label>Quantidade de horas</label><input type="number" id="hour-qty" placeholder="Ex: 8" min="0" step="0.25" oninput="updateHourLiveTotal()"></div>
                     </div>
-                    <div class="field"><label>Valor cobrado por hora (R$)</label><input type="number" id="hour-rate" placeholder="Ex: 25.00" min="0" step="0.01" oninput="updateHourLiveTotal()"></div>
+                    <div class="field"><label>Valor cobrado/pago por hora (R$)</label><input type="number" id="hour-rate" placeholder="Ex: 25.00" min="0" step="0.01" oninput="updateHourLiveTotal()"></div>
                     <div class="live-total" id="hour-live-total">Total: R$ 0,00</div>
                     <div class="field"><label>Observações (opcional)</label><textarea id="hour-notes" rows="2" placeholder="Ex: Turno extra, projeto X..."></textarea></div>
                     <div class="btn-row">
@@ -343,15 +364,31 @@
                 </div>
             </details>
 
-            <div class="search-wrapper" style="margin-top:14px;">
-                <input type="text" id="search-hours" placeholder="🔍 Buscar por observação..." oninput="onSearchHoursInput()">
-                <button class="clear-search-btn" id="clear-hours-search" onclick="clearSearchHours()">✕</button>
+            <!-- ÁREA DE BUSCA E EXPORTAÇÃO -->
+            <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px;">
+                
+                <!-- Barra de Pesquisa Original (Ocupa 100% da largura) -->
+                <div class="search-wrapper" style="margin: 0;">
+                    <input type="text" id="search-hours" placeholder="🔍 Buscar por observação..." oninput="onSearchHoursInput()">
+                    <button class="clear-search-btn" id="clear-hours-search" onclick="clearSearchHours()">✕</button>
+                </div>
+                
+                <!-- Botões de Exportar/Importar (Lado a lado embaixo da busca) -->
+                <div style="display: flex; gap: 8px;">
+                    <button onclick="exportFilteredHours()" title="Exportar horas selecionadas" style="flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-weight: bold; color: inherit;">📤 Exportar</button>
+                    
+                    <button onclick="document.getElementById('import-hours-file').click()" title="Importar arquivo de horas" style="flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-weight: bold; color: inherit;">📥 Importar</button>
+                    
+                    <!-- Input invisível para selecionar o arquivo -->
+                    <input type="file" id="import-hours-file" accept=".json" style="display:none" onchange="importFilteredHours(event)">
+                </div>
+                
             </div>
 
             <div class="virtual-scroll" id="hours-scroll" style="margin-top:12px;">
                 <div class="empty-state" id="hours-empty-state">
                     <span class="empty-icon">⏱️</span>
-                    <p>Nenhuma hora registrada ainda.<br>Registre seu primeiro turno acima.</p>
+                    <p>Nenhuma hora registrada.<br>Registre seu primeiro turno acima.</p>
                 </div>
                 <div class="virtual-spacer" id="hours-top-spacer"></div>
                 <div class="virtual-viewport" id="hours-viewport"></div>
@@ -865,11 +902,19 @@
     // ==========================================
     function computeBalance() {
         let bal = 0;
-        bal += allWorkHours.reduce((s, h) => s + (h.total || 0), 0);
+        
+        // --- MUDANÇA AQUI: Verifica o tipo de registro da hora ---
+        bal += allWorkHours.reduce((s, h) => {
+            const val = h.total || 0;
+            // Se for despesa (expense), joga o valor negativo, senão joga positivo
+            return s + (h.flow === 'expense' ? -val : val);
+        }, 0);
+        
         bal += allSales.reduce((s, x) => s + (x.total || 0), 0);
         bal += allServices.reduce((s, x) => s + (x.price || 0), 0);
         bal += allAdjustments.reduce((s, x) => s + (x.amount || 0), 0);
         bal -= allPurchases.reduce((s, x) => s + (x.total || 0), 0);
+        
         return round2(bal);
     }
 
@@ -887,7 +932,10 @@
     function renderResumo() {
         updateHeaderBalance();
 
-        const totalHoras = allWorkHours.reduce((s, h) => s + (h.total || 0), 0);
+        const totalHoras = allWorkHours.reduce((s, h) => {
+            const val = h.total || 0;
+            return s + (h.flow === 'expense' ? -val : val);
+        }, 0);
         const totalVendasProdutos = allSales.reduce((s, x) => s + (x.total || 0), 0);
         const lucroProdutos = allSales.reduce((s, x) => s + (x.profit || 0), 0);
         const totalServicos = allServices.reduce((s, x) => s + (x.price || 0), 0);
@@ -895,7 +943,7 @@
         const valorEstoque = allProducts.reduce((s, p) => s + (p.quantity || 0) * (p.costPrice || 0), 0);
 
         const stats = [
-            { label: 'Total em Horas', value: totalHoras, sign: 'positive' },
+            { label: 'Total em Horas', value: totalHoras, sign: totalHoras < 0 ? 'negative' : 'positive' },
             { label: 'Vendas de Produtos', value: totalVendasProdutos, sign: 'positive' },
             { label: 'Lucro em Produtos', value: lucroProdutos, sign: 'positive' },
             { label: 'Total em Serviços', value: totalServicos, sign: 'positive' },
@@ -961,15 +1009,21 @@
         document.getElementById('hour-live-total').textContent = 'Total: ' + formatCurrency(hours * rate);
     }
 
-    async function saveWorkHour() {
+async function saveWorkHour() {
+        const flow = document.getElementById('hour-flow').value; // Pega se é entrada ou saída
+        const employee = document.getElementById('hour-employee').value.trim();
         const date = document.getElementById('hour-date').value || todayISO();
         const hours = parseFloat(document.getElementById('hour-qty').value);
         const rate = parseFloat(document.getElementById('hour-rate').value);
         const notes = document.getElementById('hour-notes').value.trim();
+        
+        if (!employee) return showToast('Informe o nome do funcionário ou cliente.', 'error');
         if (!hours || hours <= 0) return showToast('Informe uma quantidade de horas válida.', 'error');
         if (isNaN(rate) || rate < 0) return showToast('Informe o valor da hora.', 'error');
 
-        const data = { date, hours, hourlyRate: rate, total: round2(hours * rate), notes };
+        // Salvando o campo "flow" (income = receita, expense = despesa)
+        const data = { flow, employee, date, hours, hourlyRate: rate, total: round2(hours * rate), notes };
+        
         try {
             await runTx(['workHours'], 'readwrite', (tx) => {
                 const store = tx.objectStore('workHours');
@@ -986,6 +1040,9 @@
         if (!h) return;
         switchTab('horas');
         document.getElementById('hour-form-accordion').open = true;
+        // Se for um registro antigo sem 'flow', assumimos que é receita ('income')
+        document.getElementById('hour-flow').value = h.flow || 'income'; 
+        document.getElementById('hour-employee').value = h.employee || 'Geral';
         document.getElementById('hour-date').value = h.date;
         document.getElementById('hour-qty').value = h.hours;
         document.getElementById('hour-rate').value = h.hourlyRate;
@@ -999,6 +1056,8 @@
 
     function cancelHourEdit() {
         editingHourId = null;
+        document.getElementById('hour-flow').value = 'income';
+        document.getElementById('hour-employee').value = currentEmployeeFilter !== 'todos' ? currentEmployeeFilter : '';
         document.getElementById('hour-date').value = todayISO();
         document.getElementById('hour-qty').value = '';
         document.getElementById('hour-rate').value = '';
@@ -1008,6 +1067,29 @@
         document.getElementById('btn-save-hour').textContent = 'Salvar Horas';
         document.getElementById('btn-cancel-hour').style.display = 'none';
         document.getElementById('hour-form-accordion').open = false;
+    }
+
+    function renderHourRowHTML(h) {
+        // Verifica se é despesa para mudar a cor e o sinal (- vermelho, + verde)
+        const isExpense = h.flow === 'expense';
+        const amountClass = isExpense ? 'negative' : 'positive';
+        const sign = isExpense ? '-' : '+';
+        const icon = isExpense ? '🔴' : '🟢';
+
+        return `<div class="list-row">
+            <div class="row-main">
+                <span class="row-date">${icon} ${escapeHTML(h.employee || 'Geral')} | 📅 ${formatDateBR(h.date)}</span>
+                <span class="row-title">${h.hours}h × ${formatCurrency(h.hourlyRate)}/h</span>
+                ${h.notes ? `<span class="row-subtitle">${escapeHTML(h.notes)}</span>` : ''}
+            </div>
+            <div class="row-side">
+                <span class="row-amount ${amountClass}">${sign}${formatCurrency(h.total)}</span>
+                <div class="row-actions">
+                    <button class="icon-btn" onclick="editWorkHour(${h.id})" title="Editar">✏️</button>
+                    <button class="icon-btn" onclick="deleteWorkHour(${h.id})" title="Excluir">🗑️</button>
+                </div>
+            </div>
+        </div>`;
     }
 
     async function deleteWorkHour(id) {
@@ -1029,26 +1111,20 @@
         renderHoursList(true);
     }
 
-    function renderHourRowHTML(h) {
-        return `<div class="list-row">
-            <div class="row-main">
-                <span class="row-date">📅 ${formatDateBR(h.date)}</span>
-                <span class="row-title">${h.hours}h × ${formatCurrency(h.hourlyRate)}/h</span>
-                ${h.notes ? `<span class="row-subtitle">${escapeHTML(h.notes)}</span>` : ''}
-            </div>
-            <div class="row-side">
-                <span class="row-amount positive">+${formatCurrency(h.total)}</span>
-                <div class="row-actions">
-                    <button class="icon-btn" onclick="editWorkHour(${h.id})" title="Editar">✏️</button>
-                    <button class="icon-btn" onclick="deleteWorkHour(${h.id})" title="Excluir">🗑️</button>
-                </div>
-            </div>
-        </div>`;
-    }
 
-    function renderHoursList(resetScroll) {
+function renderHoursList(resetScroll) {
+        // Atualiza os botões sempre que a lista for renderizada
+        renderEmployeePills();
+
         let items = sortedHours;
+        
+        // FILTRO DE FUNCIONÁRIO
+        if (currentEmployeeFilter !== 'todos') {
+            items = items.filter(h => (h.employee || 'Geral') === currentEmployeeFilter);
+        }
+        
         if (hoursSearchQuery) items = items.filter(h => (h.notes || '').toLowerCase().includes(hoursSearchQuery));
+        
         hoursVirtualList.setItems(items, { resetScroll });
     }
 
@@ -1949,14 +2025,21 @@
     // ==========================================
     // HISTÓRICO UNIFICADO
     // ==========================================
-    function buildHistoryEntries() {
+function buildHistoryEntries() {
         let seq = 0;
         const entries = [];
-        allWorkHours.forEach(h => entries.push({
-            type: 'hora', id: h.id, date: h.date, seq: seq++,
-            title: 'Horas trabalhadas', subtitle: `${h.hours}h × ${formatCurrency(h.hourlyRate)}/h${h.notes ? ' — ' + h.notes : ''}`,
-            amount: h.total
-        }));
+        allWorkHours.forEach(h => {
+            // MUDANÇA MATEMÁTICA: O valor passa a ser negativo para o Histórico se for despesa
+            const realAmount = h.flow === 'expense' ? -h.total : h.total;
+            const flowText = h.flow === 'expense' ? 'Despesa' : 'Receita';
+            
+            entries.push({
+                type: 'hora', id: h.id, date: h.date, seq: seq++,
+                title: `Horas (${h.employee || 'Geral'}) - ${flowText}`,
+                subtitle: `${h.hours}h × ${formatCurrency(h.hourlyRate)}/h${h.notes ? ' — ' + h.notes : ''}`,
+                amount: realAmount
+            });
+        });
         // registros de produção (compra/venda internas com total=0) ficam ocultos aqui — aparecem como 1 entrada 'producao' abaixo
         allPurchases.filter(p => !p.isProduction).forEach(p => entries.push({
             type: 'compra', id: p.id, date: p.date, seq: seq++, productId: p.productId,
@@ -2205,6 +2288,130 @@
             console.error(err);
             showToast('Erro ao importar backup.', 'error');
         }
+    }
+    // Variável para controlar qual funcionário está selecionado
+    let currentEmployeeFilter = 'todos';
+
+    function renderEmployeePills() {
+        const pillsContainer = document.getElementById('employee-pills');
+        const datalist = document.getElementById('employee-datalist');
+        
+        const employeeNames = [...new Set(allWorkHours.map(h => h.employee || 'Geral'))].sort();
+        datalist.innerHTML = employeeNames.map(name => `<option value="${name}">`).join('');
+        
+        let html = `<button class="pill ${currentEmployeeFilter === 'todos' ? 'active' : ''}" onclick="setEmployeeFilter('todos')">Todos</button>`;
+        employeeNames.forEach(name => {
+            html += `<button class="pill ${currentEmployeeFilter === name ? 'active' : ''}" onclick="setEmployeeFilter('${name}')">${name}</button>`;
+        });
+        pillsContainer.innerHTML = html;
+
+        let filteredHours = allWorkHours;
+        if (currentEmployeeFilter !== 'todos') {
+            filteredHours = allWorkHours.filter(h => (h.employee || 'Geral') === currentEmployeeFilter);
+        }
+        
+        // MUDANÇA MATEMÁTICA: Se for 'expense', subtrai o valor. Se for 'income', soma.
+        const totalDinheiro = filteredHours.reduce((s, h) => {
+            const val = h.total || 0;
+            return s + (h.flow === 'expense' ? -val : val);
+        }, 0);
+        
+        const totalTempo = filteredHours.reduce((s, h) => s + (h.hours || 0), 0);
+
+        const titleText = currentEmployeeFilter === 'todos' ? '⏱️ Horas Trabalhadas' : `⏱️ ${currentEmployeeFilter}`;
+        // Adiciona classe de cor dependendo se o saldo é positivo ou negativo
+        const colorClass = totalDinheiro < 0 ? 'var(--danger)' : 'var(--success)';
+        
+        document.getElementById('horas-panel-title').innerHTML = `${titleText} <span style="float:right; font-size:14px; color:${colorClass};">${totalTempo}h = ${formatCurrency(totalDinheiro)}</span>`;
+    }
+
+    function setEmployeeFilter(name) {
+        currentEmployeeFilter = name;
+        
+        // Se escolheu um funcionário específico, já preenche o formulário para facilitar o cadastro
+        if (name !== 'todos' && name !== 'Geral') {
+            document.getElementById('hour-employee').value = name;
+        } else {
+            document.getElementById('hour-employee').value = '';
+        }
+        
+        renderHoursList(true);
+    }
+    // ==========================================
+    // EXPORTAR E IMPORTAR HORAS ESPECÍFICAS
+    // ==========================================
+
+    function exportFilteredHours() {
+        let items = allWorkHours;
+        let fileName = "todas_as_horas";
+        
+        // Se houver um funcionário selecionado nos botões, filtra só ele
+        if (currentEmployeeFilter !== 'todos') {
+            items = items.filter(h => (h.employee || 'Geral') === currentEmployeeFilter);
+            fileName = `horas_${currentEmployeeFilter.replace(/\s+/g, '_').toLowerCase()}`;
+        }
+        
+        if (items.length === 0) {
+            return showToast('Nenhum registro para exportar.', 'error');
+        }
+        
+        // Monta o arquivo garantindo que salve se é receita ou despesa
+        const exportData = { 
+            workHours: items.map(h => ({
+                ...h,
+                flow: h.flow || 'income' // Garante que registros antigos tenham essa info
+            }))
+        };
+        
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+        const dlAnchorElem = document.createElement('a');
+        dlAnchorElem.setAttribute("href", dataStr);
+        dlAnchorElem.setAttribute("download", `${fileName}_${todayISO()}.json`);
+        dlAnchorElem.click();
+        
+        showToast(`Exportado: ${items.length} registros!`);
+    }
+
+    function importFilteredHours(event) {
+        const file = event.target.files[0];
+        event.target.value = ''; // Reseta o input
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = async () => {
+            try {
+                const data = JSON.parse(reader.result);
+                
+                if (!data.workHours || !Array.isArray(data.workHours) || data.workHours.length === 0) {
+                    return showToast('Nenhuma hora encontrada neste arquivo.', 'error');
+                }
+                
+                if (!confirm(`O arquivo contém ${data.workHours.length} registros. Deseja importar?`)) return;
+
+                let count = 0;
+                await runTx(['workHours'], 'readwrite', (tx) => {
+                    const store = tx.objectStore('workHours');
+                    data.workHours.forEach(h => {
+                        // Removemos o ID antigo para o banco gerar IDs novos e não sobreescrever dados atuais
+                        const { id, ...newRecord } = h; 
+                        store.add(newRecord);
+                        count++;
+                    });
+                });
+                
+                // Recarrega tudo e atualiza a tela
+                await loadAllData(); 
+                rebuildCaches(); 
+                refreshUI();
+                showToast(`Sucesso! ${count} registros importados.`);
+                
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao ler o arquivo. Tem certeza que é um arquivo JSON válido?', 'error');
+            }
+        };
+        reader.onerror = () => showToast('Erro na leitura do arquivo.', 'error');
+        reader.readAsText(file);
     }
 </script>
 </body>
