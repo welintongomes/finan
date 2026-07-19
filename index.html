@@ -78,8 +78,18 @@
         background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
         padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    h2 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  h2{
+    font-family: var(--font-display);
+    font-size: clamp(.9rem, 2vw, 1.2rem);
+    margin-bottom: 14px;
 
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    white-space:nowrap;
+    overflow:hidden;
+}
     /* ================= VISOR ESTILO CAIXA REGISTRADORA ================= */
     .register-display {
         background: #0f1e17; border-radius: 16px; padding: 10px 22px; text-align: center;
@@ -327,7 +337,7 @@
             <h2 id="horas-panel-title">⏱️ Horas Trabalhadas</h2>
 
             <!-- BOTÕES (PILLS) DOS FUNCIONÁRIOS -->
-            <div class="filter-pills" id="employee-pills" style="margin-bottom: 14px;">
+            <div class="filter-pills" id="employee-pills" style="margin-bottom: 4px;">
                 <!-- Preenchido automaticamente via JS -->
             </div>
 
